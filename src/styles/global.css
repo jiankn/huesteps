@@ -466,7 +466,6 @@ small { color: var(--text-muted); }
   .site-header > .header-inner > .brand .brand-lockup { --brand-wordmark-size: 2rem; gap: 0.625rem; }
   .site-header > .header-inner > .brand .brand-icon { width: 40px; height: 40px; }
   .editorial-hero, .category-hero { margin-top: calc(-1 * (var(--header-height) + 8px)); padding-top: calc(var(--header-height) + 8px); }
-  .editorial-hero-media > picture img { transform: scale(1.08); transform-origin: 52% 43%; }
 }
 
 .editorial-section { padding-block: clamp(54px, 7vw, 96px); }

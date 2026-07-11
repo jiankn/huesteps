@@ -22,7 +22,7 @@ No celebrity likeness, cloned reference identity, off-center subject, cropped ch
 
 ## Approved anchors
 
-- Home/Occasion: `src/assets/golden/home-occasion-golden-v1.webp`
+- Home/Occasion: `src/assets/golden/home-occasion-golden-v3-2k.webp`
 - Eye Shape: `src/assets/golden/eye-shape-golden-v1.webp`
 - Skin Tone: `src/assets/golden/skin-tone-golden-v1.webp`
 
