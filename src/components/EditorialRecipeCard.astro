@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import RecipeImage from './RecipeImage.astro';
+import { getRecipeImage } from '@/lib/recipe-images';
+import { getRecipeFocal } from '@/lib/recipe-focus';
+import { recipeUrl } from '@/lib/site';
+
+interface Props {
+  recipe: CollectionEntry<'recipes'>;
+  index?: number;
+  crop?: 'face' | 'eye';
+}
+
+const { recipe, index, crop = 'face' } = Astro.props;
+---
+
+<article class:list={['editorial-recipe-card', `crop-${crop}`]}>
+  <a href={recipeUrl(recipe.data.hub, recipe.data.slug)} aria-label={`Open ${recipe.data.title}`}>
+    <div class="editorial-card-media">
+      <RecipeImage src={getRecipeImage(recipe.data.heroImage)} alt={recipe.data.heroAlt} focal={getRecipeFocal(recipe.data.heroImage, crop === 'eye' ? 'eye' : 'card')} sizes="(max-width: 640px) 72vw, 18vw" />
+      <span class="time-stamp">{recipe.data.timeMinutes}<small>min</small></span>
+    </div>
+    <div class="editorial-card-copy">
+      {index && <span class="card-index">{String(index).padStart(2, '0')}</span>}
+      <h3>{recipe.data.title}</h3>
+      <p>{recipe.data.description}</p>
+      <span class="circle-arrow" aria-hidden="true">→</span>
+    </div>
+  </a>
+</article>

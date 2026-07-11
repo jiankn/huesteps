@@ -1,0 +1,35 @@
+{
+  "name": "huesteps",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "content:build": "node scripts/build-content.mjs",
+    "steps:build": "node scripts/generate-step-visuals.mjs --force",
+    "pins:build": "node scripts/generate-pins.mjs",
+    "audit:content": "node scripts/audit-content-quality.mjs",
+    "check": "astro check",
+    "build": "node scripts/build-content.mjs && node scripts/generate-step-visuals.mjs --force && node scripts/audit-content-quality.mjs && node scripts/generate-pins.mjs && astro check && astro build && node scripts/audit-build.mjs",
+    "preview": "astro preview",
+    "preview:dist": "node scripts/preview-dist.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs",
+    "audit:indexing": "node scripts/audit-build.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "latest",
+    "@fontsource-variable/geist": "latest",
+    "@fontsource-variable/newsreader": "^5.2.10",
+    "@fontsource/allura": "^5.2.8",
+    "astro": "latest",
+    "sharp": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

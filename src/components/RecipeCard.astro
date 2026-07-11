@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import RecipeImage from './RecipeImage.astro';
+import { getRecipeImage } from '@/lib/recipe-images';
+import { getRecipeFocal } from '@/lib/recipe-focus';
+import { HUBS, recipeUrl } from '@/lib/site';
+
+interface Props {
+  recipe: CollectionEntry<'recipes'>;
+  featured?: boolean;
+}
+const { recipe, featured = false } = Astro.props;
+const image = getRecipeImage(recipe.data.heroImage);
+---
+
+<article class:list={['recipe-card', { featured }]}> 
+  <a href={recipeUrl(recipe.data.hub, recipe.data.slug)} aria-label={`View ${recipe.data.title}`}>
+    <div class="card-image">
+      <RecipeImage src={image} alt={recipe.data.heroAlt} focal={getRecipeFocal(recipe.data.heroImage, 'card')} sizes={featured ? '(max-width: 767px) 100vw, 60vw' : '(max-width: 767px) 100vw, 33vw'} />
+    </div>
+    <div class="card-copy">
+      <p class="card-kicker">{HUBS[recipe.data.hub].nav}</p>
+      <h3>{recipe.data.title}</h3>
+      <div class="card-meta" aria-label="Recipe details">
+        <span>{recipe.data.timeMinutes} min</span>
+        <span>{recipe.data.difficulty}</span>
+        <span>{recipe.data.finish}</span>
+      </div>
+    </div>
+  </a>
+</article>

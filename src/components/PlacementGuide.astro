@@ -1,0 +1,24 @@
+---
+interface Palette { name: string; hex: string; role: string; placement: string }
+interface Props { palette: Palette[]; notes: string[]; title: string }
+const { palette, notes, title } = Astro.props;
+---
+
+<figure class="placement-guide" aria-labelledby="placement-caption">
+  <div class="placement-visual" aria-hidden="true">
+    <div class="eye-map">
+      <div class="eye-line"></div>
+      {palette.slice(0, 3).map((color, index) => (
+        <span class={`zone zone-${index + 1}`} style={`--zone-color:${color.hex}`}>{index + 1}</span>
+      ))}
+    </div>
+    <ol class="zone-key">
+      {palette.slice(0, 3).map((color, index) => <li><span style={`--swatch:${color.hex}`}>{index + 1}</span><strong>{color.name}</strong><small>{color.placement}</small></li>)}
+    </ol>
+  </div>
+  <figcaption id="placement-caption">
+    <h3>{title} placement guide</h3>
+    <ul>{notes.map((note) => <li>{note}</li>)}</ul>
+    <p class="fine-print">The numbered zones and written directions carry the same information. Color is never the only cue.</p>
+  </figcaption>
+</figure>

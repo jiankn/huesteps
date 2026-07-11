@@ -1,0 +1,31 @@
+{
+  "progressiveStandard": "progressive-high-detail-v2",
+  "legacyStandard": "legacy-focus-guide-v1",
+  "minimumProgressiveWidth": 1280,
+  "minimumProgressiveHeight": 960,
+  "legacyFocusGuideRecipeIds": [
+    "soft-glam-wedding-guest-makeup",
+    "easy-date-night-makeup",
+    "polished-office-makeup-10-minutes",
+    "fresh-brunch-makeup",
+    "holiday-party-shimmer-makeup",
+    "easy-vacation-makeup",
+    "elegant-dinner-party-makeup",
+    "natural-job-interview-makeup",
+    "everyday-makeup-deep-set-eyes",
+    "elongated-eye-makeup-round-eyes",
+    "soft-shimmer-makeup-monolids",
+    "lifted-makeup-downturned-eyes",
+    "balanced-eye-makeup-close-set-eyes",
+    "cool-rosy-makeup-fair-skin",
+    "warm-peach-makeup-fair-skin",
+    "neutral-soft-glam-olive-skin",
+    "warm-bronze-makeup-medium-skin",
+    "rich-berry-gold-makeup-deep-skin",
+    "5-minute-everyday-makeup",
+    "natural-no-makeup-makeup",
+    "easy-everyday-soft-glam",
+    "wearable-clean-makeup-look",
+    "natural-makeup-mature-skin"
+  ]
+}

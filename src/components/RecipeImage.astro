@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { ImageFocalPoint } from '@/lib/recipe-focus';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  priority?: boolean;
+  class?: string;
+  sizes?: string;
+  focal?: ImageFocalPoint;
+  widths?: number[];
+}
+const {
+  src,
+  alt,
+  priority = false,
+  class: className,
+  sizes = '(max-width: 767px) 100vw, 50vw',
+  focal = { x: 50, y: 40, mobileX: 50, mobileY: 40 },
+  widths = [480, 720, 960, 1280]
+} = Astro.props;
+---
+
+<Picture
+  src={src}
+  alt={alt}
+  formats={['avif', 'webp']}
+  fallbackFormat="webp"
+  widths={widths}
+  sizes={sizes}
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : 'auto'}
+  decoding="async"
+  class:list={['recipe-picture', className]}
+  style={`--focal-x:${focal.x}%;--focal-y:${focal.y}%;--mobile-focal-x:${focal.mobileX}%;--mobile-focal-y:${focal.mobileY}%`}
+/>

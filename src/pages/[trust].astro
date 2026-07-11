@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/components/BaseLayout.astro';
+import { SITE, TRUST_PAGES } from '@/lib/site';
+
+export function getStaticPaths() {
+  return TRUST_PAGES.map(([slug]) => ({ params: { trust: slug } }));
+}
+
+type Section = { title: string; paragraphs?: string[]; bullets?: string[]; email?: boolean; note?: string };
+type Page = { title: string; description: string; intro: string; sections: Section[] };
+
+const pages: Record<string, Page> = {
+  about: {
+    title: 'About HueSteps',
+    description: 'What HueSteps publishes, who it is for, and the limits of our makeup education.',
+    intro: 'HueSteps turns makeup inspiration into wearable recipes with exact placement, clear completion cues, and practical adaptations.',
+    sections: [
+      { title: 'What we make', paragraphs: ['We publish English-language makeup education for adults in the United States. Each recipe is designed to help a reader complete a look without purchasing a named product.'], bullets: ['Real-life occasion recipes', 'Eye-shape placement guides', 'Skin-tone and undertone adjustments', 'Mistake diagnosis and recovery steps'] },
+      { title: 'Who publishes HueSteps', paragraphs: ['Content is published by the HueSteps Editorial Team. The public team name describes a brand editorial process, not a claim that every page was tested by a licensed makeup artist.'], note: 'HueSteps does not invent professional credentials, first-hand wear tests, or product-use claims.' },
+      { title: 'What we do not do', bullets: ['Medical or dermatology advice', 'Virtual try-on or photo analysis', 'User accounts or personal photo collection', 'Product rankings presented as independent laboratory testing'] }
+    ]
+  },
+  'editorial-policy': {
+    title: 'Editorial Policy',
+    description: 'How HueSteps plans, drafts, reviews, updates, and corrects makeup recipes.',
+    intro: 'A HueSteps recipe must solve one makeup task, remain useful without a purchase, and state the limits of its evidence.',
+    sections: [
+      { title: 'Publication gate', bullets: ['One clear user job and a direct answer near the top', 'Complete product roles, preparation, six to ten steps, placement, adaptations, and fixes', 'Image, color, and step consistency checked together', 'Unique metadata, canonical URL, internal links, and valid structured data', 'Mobile, keyboard, reduced-motion, and no-JavaScript review'] },
+      { title: 'Claims and sources', paragraphs: ['We describe observable placement and technique. We do not call content tested, long-wearing, dermatologist-approved, or professionally reviewed unless documentation supports that exact claim. Product descriptions are written from the role a formula must perform, not copied from a merchant.'] },
+      { title: 'Updates and corrections', paragraphs: ['Recipe content is reviewed on a six-month cycle. Any future product link is checked at least monthly. Material changes update the visible modified date; routine builds do not create fake freshness.'], note: `Send a correction with the page URL and the specific concern to ${SITE.email}.` }
+    ]
+  },
+  'ai-image-content-policy': {
+    title: 'AI Image & Content Policy',
+    description: 'How HueSteps labels generated images and reviews AI-assisted editorial work.',
+    intro: 'Generated visuals are concept demonstrations. They are never presented as proof that a person used a product or achieved a measured wear result.',
+    sections: [
+      { title: 'Image rules', bullets: ['Every generated hero is labeled near the image', 'Prompts exclude celebrities, copied artwork, logos, and misleading before-and-after claims', 'Skin texture and facial proportions remain natural', 'The makeup must match the written color and placement recipe', 'Generated images are not product reviews or evidence of wear time'] },
+      { title: 'Writing rules', paragraphs: ['AI may assist with structure or a first draft. Publication still requires human review for feasibility, internal consistency, unsupported claims, repetition, tone, links, and disclosures.'] },
+      { title: 'Reporting a mismatch', paragraphs: [`If a visualization appears inconsistent with its steps or anatomically implausible, email ${SITE.email}. Include the recipe URL and the area that needs review.`] }
+    ]
+  },
+  'affiliate-disclosure': {
+    title: 'Affiliate Disclosure',
+    description: 'How HueSteps will disclose and separate future commercial links from editorial makeup guidance.',
+    intro: 'HueSteps does not currently activate affiliate shopping links in its launch recipes. The tutorial remains complete without them.',
+    sections: [
+      { title: 'If affiliate links are enabled', bullets: ['A plain-language disclosure appears before the first paid relationship link', 'Eligible links use sponsored and nofollow relationship attributes', 'Product choices are grouped by role and suitability, not commission rate', 'No manual price, stock, discount, or rating claim is shown without a maintainable source', 'Merchants, link checks, and editorial review dates are recorded'] },
+      { title: 'Amazon Associates', paragraphs: ['HueSteps will display the Amazon Associates statement required by the program only after the site is accepted and Special Links are active. Until then, the site does not imply participation.'] },
+      { title: 'Editorial independence', paragraphs: ['Compensation does not convert a recommendation into first-hand testing. Commercial availability can change, while the non-commercial product role and tutorial remain useful.'] }
+    ]
+  },
+  'privacy-policy': {
+    title: 'Privacy Policy',
+    description: 'What data HueSteps does and does not collect when you use the static website.',
+    intro: 'HueSteps is designed as a low-data static website. It has no accounts, photo upload, comments, checkout, or personalized advertising at launch.',
+    sections: [
+      { title: 'Data processed to deliver the site', paragraphs: ['Cloudflare provides DNS, security, content delivery, and hosting. As with ordinary web delivery, Cloudflare may process request information such as IP address, device or browser details, requested URL, timing, and security signals under its own terms and privacy commitments.'] },
+      { title: 'Analytics', paragraphs: ['Cloudflare Web Analytics can be enabled for an independent HueSteps property. It is disabled unless the production environment includes the analytics token. HueSteps does not include GA4, AdSense, a consent platform, or marketing pixels in the MVP.'] },
+      { title: 'External links and email', paragraphs: ['Opening an external merchant or social link sends you to that service and its privacy practices. Emailing HueSteps shares the information you include with the mailbox provider used by the brand. Do not send sensitive health, payment, or identification information.'] },
+      { title: 'Your choices', paragraphs: [`You can browse without an account. For a privacy question or deletion request concerning an email you sent us, contact ${SITE.email}.`], note: 'This policy must be reviewed before adding advertising, personalized analytics, forms, accounts, or photo features.' }
+    ]
+  },
+  'terms-of-use': {
+    title: 'Terms of Use',
+    description: 'The conditions and limitations for using HueSteps makeup education.',
+    intro: 'By using HueSteps, you agree to use the site for general educational purposes and to apply your own judgment about products and techniques.',
+    sections: [
+      { title: 'Educational content', paragraphs: ['HueSteps provides general makeup technique information. It is not medical, dermatology, allergy, safety-testing, or professional services advice. Stop using a product that causes discomfort and follow the product maker instructions.'] },
+      { title: 'No guarantee', paragraphs: ['Results vary with tools, formulas, skin, eye shape, application, light, and environment. Generated visualizations illustrate a direction and do not guarantee an identical result. The site is provided without a guarantee of uninterrupted availability or fitness for a particular purpose.'] },
+      { title: 'Content use', paragraphs: ['You may use recipes for personal, non-commercial makeup practice. HueSteps text, branding, generated images, Pin designs, and site presentation may not be republished, sold, or used to train a competing content collection without permission.'] },
+      { title: 'External services', paragraphs: ['HueSteps is not responsible for the availability, price, stock, claims, or privacy practices of an external service. Any future affiliate relationship will be disclosed before its link.'], note: `Questions about these terms can be sent to ${SITE.email}.` }
+    ]
+  },
+  'contact-corrections': {
+    title: 'Contact & Corrections',
+    description: 'Contact the HueSteps Editorial Team or report a recipe, image, link, or disclosure issue.',
+    intro: 'Specific correction reports help us fix a page quickly. Include the URL and the exact sentence, image area, or link involved.',
+    sections: [
+      { title: 'Email the editorial team', paragraphs: ['Use a subject such as "Recipe correction," "Image mismatch," "Privacy request," or "Link issue."'], email: true, note: 'The repository cannot verify mailbox routing. Confirm the Cloudflare Email Routing or mailbox setup before production launch.' },
+      { title: 'What to include', bullets: ['The page URL', 'What appears inaccurate, unclear, broken, or inaccessible', 'A source or screenshot when relevant', 'Whether the concern involves a disclosure, image, product link, or safety-sensitive claim'] },
+      { title: 'How corrections are handled', paragraphs: ['The team reviews the reported passage and its surrounding recipe, records a material change in the page update date, and avoids silent changes that would alter the page meaning.'] }
+    ]
+  }
+};
+
+const slug = Astro.params.trust ?? '';
+const page = pages[slug]!;
+---
+
+<BaseLayout title={page.title} description={page.description}>
+  <article class="shell">
+    <header class="policy-hero">
+      <h1>{page.title}</h1>
+      <p class="lede">{page.intro}</p>
+      <p class="fine-print">Effective July 10, 2026</p>
+    </header>
+    <div class="policy-body">
+      {page.sections.map((section) => (
+        <section>
+          <h2>{section.title}</h2>
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.email && <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>}
+          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          {section.note && <p class="policy-note">{section.note}</p>}
+        </section>
+      ))}
+    </div>
+  </article>
+</BaseLayout>

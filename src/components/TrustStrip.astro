@@ -1,0 +1,19 @@
+---
+const items = [
+  ['Editorially guided', 'Recipes are structured for clear, repeatable technique.'],
+  ['Inclusive by design', 'Guidance adapts across eye shapes, skin tones, and undertones.'],
+  ['Personal, not prescriptive', 'Makeup rules are tools to learn, bend, and personalize.'],
+  ['Always evolving', 'New looks, techniques, and corrections are added deliberately.']
+];
+---
+
+<aside class="trust-strip" aria-label="HueSteps editorial commitments">
+  <div class="shell trust-strip-inner">
+    {items.map(([title, copy], index) => (
+      <div class="trust-item">
+        <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <div><strong>{title}</strong><p>{copy}</p></div>
+      </div>
+    ))}
+  </div>
+</aside>

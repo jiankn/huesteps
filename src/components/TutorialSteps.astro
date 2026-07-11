@@ -1,0 +1,80 @@
+---
+import TutorialStep from './TutorialStep.astro';
+
+interface TutorialStepData {
+  title: string;
+  image: string;
+  imageAlt: string;
+  imageCaption: string;
+  visualFocus:
+    | 'full-face'
+    | 'complexion'
+    | 'brows'
+    | 'both-eyes'
+    | 'lid'
+    | 'upper-lash'
+    | 'lower-lash'
+    | 'cheeks'
+    | 'lips'
+    | 'final';
+  outcome: string;
+  tool: string;
+  productRole: string;
+  action: string;
+  placement: string;
+  motion: string;
+  amount: string;
+  durationSeconds: number;
+  whyItWorks: string;
+  completeWhen: string;
+  ifWrong: string;
+  proTip: string;
+  avoid: string;
+}
+
+interface Props {
+  steps: TutorialStepData[];
+  title?: string;
+}
+
+const { steps, title = 'Follow the steps' } = Astro.props;
+---
+
+<section id="steps" class="workbench-section tutorial-section" tabindex="-1" aria-labelledby="tutorial-steps-title">
+  <header class="workbench-section-heading tutorial-heading">
+    <span aria-hidden="true">03</span>
+    <div>
+      <p class="section-label">Step-by-step tutorial</p>
+      <h2 id="tutorial-steps-title">{title}</h2>
+      <p>Use each image as a checkpoint, then follow the placement, motion, amount, and completion cues before moving on.</p>
+    </div>
+  </header>
+
+  <ol class="tutorial-list" aria-label={`${title}: ${steps.length} steps`}>
+    {steps.map((step, index) => <TutorialStep step={step} index={index} total={steps.length} />)}
+  </ol>
+</section>
+
+<style>
+  .tutorial-section {
+    min-width: 0;
+  }
+
+  .tutorial-heading h2 {
+    text-wrap: balance;
+  }
+
+  .tutorial-heading p:last-child {
+    max-width: 65ch;
+    text-wrap: pretty;
+  }
+
+  .tutorial-list {
+    display: grid;
+    min-width: 0;
+    gap: 0;
+    margin: 0;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+    list-style: none;
+  }
+</style>

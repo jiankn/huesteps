@@ -1,0 +1,11 @@
+---
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+
+<span class:list={['brand-lockup', className]} aria-hidden="true">
+  <img class="brand-icon" src="/logo-mark.png" alt="" width="47" height="47" loading="eager" />
+  <span class="brand-wordmark">
+    <span class="brand-wordmark-bold">H</span><span class="brand-wordmark-part">ue</span><span class="brand-wordmark-bold brand-wordmark-step-initial">S</span><span class="brand-wordmark-part">teps</span>
+  </span>
+</span>

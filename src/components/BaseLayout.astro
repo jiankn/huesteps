@@ -1,0 +1,70 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/newsreader';
+import '@fontsource/allura';
+import '@/styles/global.css';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { SITE } from '@/lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  image = '/social/huesteps-default.png',
+  type = 'website',
+  noindex = false,
+  schema
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+const deployPreview = import.meta.env.PUBLIC_DEPLOY_ENV === 'preview';
+const robots = noindex || deployPreview ? 'noindex,follow' : 'index,follow,max-image-preview:large';
+const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FAF8F3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171418" media="(prefers-color-scheme: dark)" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon-16.png?v=logo-20260711" sizes="16x16" type="image/png" />
+    <link rel="icon" href="/favicon-32.png?v=logo-20260711" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-48.png?v=logo-20260711" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=logo-20260711" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest?v=logo-20260711" />
+    <link rel="alternate" type="application/rss+xml" title="HueSteps recipes" href="/rss.xml" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, SITE.url).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    {analyticsToken && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{&quot;token&quot;:&quot;${analyticsToken}&quot;}`} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header currentPath={Astro.url.pathname} />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,203 @@
+---
+interface Source {
+  label: string;
+  url: string;
+}
+
+interface Props {
+  publishedAt: Date | string;
+  updatedAt: Date | string;
+  authorName: string;
+  reviewerName: string;
+  aiGenerated: boolean;
+  sources: Source[];
+}
+
+const { publishedAt, updatedAt, authorName, reviewerName, aiGenerated, sources } = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat('en', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric'
+});
+
+const publishedDate = publishedAt instanceof Date ? publishedAt : new Date(publishedAt);
+const updatedDate = updatedAt instanceof Date ? updatedAt : new Date(updatedAt);
+const formatDate = (date: Date) => Number.isNaN(date.getTime()) ? 'Date unavailable' : dateFormatter.format(date);
+const toDateTime = (date: Date) => Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
+---
+
+<section class="editorial-review" aria-labelledby="editorial-review-title">
+  <header>
+    <p class="section-label">Editorial transparency</p>
+    <h2 id="editorial-review-title">How this tutorial was prepared</h2>
+    <p>HueSteps structures tutorials around observable placement, motion, amount, and completion cues so readers can check their work at every stage.</p>
+  </header>
+
+  <dl class="review-meta">
+    <div>
+      <dt>Written by</dt>
+      <dd>{authorName}</dd>
+    </div>
+    <div>
+      <dt>Editorial owner</dt>
+      <dd>{reviewerName}</dd>
+    </div>
+    <div>
+      <dt>Published</dt>
+      <dd><time datetime={toDateTime(publishedDate)}>{formatDate(publishedDate)}</time></dd>
+    </div>
+    <div>
+      <dt>Last updated</dt>
+      <dd><time datetime={toDateTime(updatedDate)}>{formatDate(updatedDate)}</time></dd>
+    </div>
+  </dl>
+
+  <div class="review-method">
+    <h3>Editorial method</h3>
+    <p>The instructions describe product roles and visible application cues, not a requirement to buy a named item. Readers can use products they already own when the texture, shade depth, and function match. The current review is a same-team consistency check; HueSteps does not claim independent expert testing or first-hand wear testing.</p>
+  </div>
+
+  {aiGenerated && (
+    <aside class="ai-disclosure" aria-label="AI image disclosure">
+      <h3>About the tutorial images</h3>
+      <p>The makeup images are AI-generated instructional visualizations. They illustrate the intended sequence and placement; they are not evidence of first-hand product wear or performance testing.</p>
+    </aside>
+  )}
+
+  {sources.length > 0 && (
+    <div class="review-sources">
+      <h3>Sources and further reading</h3>
+      <ul>
+        {sources.map((source) => <li><a class="text-link" href={source.url}>{source.label}</a></li>)}
+      </ul>
+    </div>
+  )}
+</section>
+
+<style>
+  .editorial-review {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+    border-block: 1px solid var(--border);
+  }
+
+  .editorial-review > header {
+    max-width: 48rem;
+  }
+
+  .editorial-review h2 {
+    max-width: 16ch;
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    text-wrap: balance;
+  }
+
+  .editorial-review > header > p:last-child,
+  .review-method p,
+  .ai-disclosure p {
+    max-width: 65ch;
+    margin: 0;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .review-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .review-meta > div {
+    min-width: 0;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .review-meta > div:nth-child(odd) {
+    padding-right: 1.5rem;
+  }
+
+  .review-meta > div:nth-child(even) {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .review-meta dt {
+    margin-bottom: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    font-weight: 680;
+  }
+
+  .review-meta dd {
+    margin: 0;
+    color: var(--text);
+    font-weight: 650;
+    line-height: 1.45;
+  }
+
+  .review-method,
+  .ai-disclosure,
+  .review-sources {
+    max-width: 48rem;
+  }
+
+  .review-method h3,
+  .ai-disclosure h3,
+  .review-sources h3 {
+    margin-bottom: 0.625rem;
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    letter-spacing: 0;
+  }
+
+  .ai-disclosure {
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--border);
+  }
+
+  .review-sources ul {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .review-sources a {
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 56rem) {
+    .editorial-review {
+      grid-template-columns: minmax(15rem, 0.75fr) minmax(0, 1.25fr);
+      column-gap: clamp(3rem, 7vw, 6rem);
+    }
+
+    .editorial-review > header {
+      grid-row: 1 / span 4;
+      align-self: start;
+    }
+
+    .review-meta,
+    .review-method,
+    .ai-disclosure,
+    .review-sources {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .review-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .review-meta > div:nth-child(odd),
+    .review-meta > div:nth-child(even) {
+      padding-inline: 0;
+      border-left: 0;
+    }
+  }
+</style>

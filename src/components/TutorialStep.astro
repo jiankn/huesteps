@@ -1,0 +1,321 @@
+---
+import RecipeImage from './RecipeImage.astro';
+import { getTutorialStepImage } from '@/lib/tutorial-step-images';
+
+interface TutorialStepData {
+  title: string;
+  image: string;
+  imageAlt: string;
+  imageCaption: string;
+  visualFocus:
+    | 'full-face'
+    | 'complexion'
+    | 'brows'
+    | 'both-eyes'
+    | 'lid'
+    | 'upper-lash'
+    | 'lower-lash'
+    | 'cheeks'
+    | 'lips'
+    | 'final';
+  outcome: string;
+  tool: string;
+  productRole: string;
+  action: string;
+  placement: string;
+  motion: string;
+  amount: string;
+  durationSeconds: number;
+  whyItWorks: string;
+  completeWhen: string;
+  ifWrong: string;
+  proTip: string;
+  avoid: string;
+}
+
+interface Props {
+  step: TutorialStepData;
+  index: number;
+  total: number;
+}
+
+const { step, index, total } = Astro.props;
+const stepNumber = index + 1;
+const titleId = `tutorial-step-${stepNumber}-title`;
+const image = getTutorialStepImage(step.image);
+
+const formatDuration = (seconds: number) => {
+  if (seconds < 60) return `${seconds} seconds`;
+
+  const minutes = Math.floor(seconds / 60);
+  const remainder = seconds % 60;
+  const minuteLabel = `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+  return remainder === 0 ? minuteLabel : `${minuteLabel} ${remainder} seconds`;
+};
+---
+
+<li class="tutorial-step">
+  <article class="step-article" aria-labelledby={titleId}>
+    <header class="step-header">
+      <p class="step-position">Step {stepNumber} of {total}</p>
+      <h3 id={titleId}>{step.title}</h3>
+      <p class="step-outcome"><strong>Target result:</strong> {step.outcome}</p>
+    </header>
+
+    <figure class="step-media" data-visual-focus={step.visualFocus}>
+      <div class="step-image-frame">
+        <RecipeImage
+          src={image}
+          alt={step.imageAlt}
+          class="tutorial-step-picture"
+          widths={[360, 640, 960, 1280]}
+          sizes="(max-width: 47.99rem) calc(100vw - 3rem), (max-width: 80rem) 42vw, 25rem"
+        />
+      </div>
+      <figcaption>
+        <span>{step.imageCaption}</span>
+        <a href={image.src} target="_blank" rel="noopener" aria-label={`Open the full-size image for step ${stepNumber}`}>
+          View full-size image
+        </a>
+      </figcaption>
+    </figure>
+
+    <div class="step-instructions">
+      <p class="step-action">{step.action}</p>
+
+      <div class="completion-check">
+        <p><strong>Complete when:</strong> {step.completeWhen}</p>
+        <p><strong>If it looks wrong:</strong> {step.ifWrong}</p>
+      </div>
+
+      <dl class="technique-facts">
+        <div>
+          <dt>Tool</dt>
+          <dd>{step.tool}</dd>
+        </div>
+        <div>
+          <dt>Product role</dt>
+          <dd>{step.productRole}</dd>
+        </div>
+        <div>
+          <dt>Placement</dt>
+          <dd>{step.placement}</dd>
+        </div>
+        <div>
+          <dt>Motion</dt>
+          <dd>{step.motion}</dd>
+        </div>
+        <div>
+          <dt>Amount</dt>
+          <dd>{step.amount}</dd>
+        </div>
+        <div>
+          <dt>Working time</dt>
+          <dd><time datetime={`PT${step.durationSeconds}S`}>{formatDuration(step.durationSeconds)}</time></dd>
+        </div>
+      </dl>
+
+      <p class="why-it-works"><strong>Why this works:</strong> {step.whyItWorks}</p>
+
+      <aside class="step-guidance" aria-label={`Guidance for step ${stepNumber}`}>
+        <p><strong>Pro tip:</strong> {step.proTip}</p>
+        <p><strong>Avoid:</strong> {step.avoid}</p>
+      </aside>
+    </div>
+  </article>
+</li>
+
+<style>
+  .tutorial-step {
+    min-width: 0;
+  }
+
+  .step-article {
+    display: grid;
+    grid-template-areas:
+      'header'
+      'media'
+      'body';
+    gap: 1.5rem;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tutorial-step:last-child .step-article {
+    border-bottom: 0;
+  }
+
+  .step-header {
+    grid-area: header;
+    min-width: 0;
+  }
+
+  .step-position {
+    margin-bottom: 0.5rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 720;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step-header h3 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .step-outcome {
+    max-width: 62ch;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .step-media {
+    grid-area: media;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .step-image-frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+  }
+
+  .step-image-frame :global(.tutorial-step-picture) {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+  }
+
+  .step-media figcaption {
+    display: grid;
+    gap: 0.4rem;
+    max-width: 65ch;
+    margin-top: 0.625rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .step-media figcaption a {
+    width: fit-content;
+    color: var(--accent);
+    font-weight: 700;
+    text-underline-offset: 0.18em;
+  }
+
+  .step-instructions {
+    grid-area: body;
+    display: grid;
+    min-width: 0;
+    align-content: start;
+    gap: 1.25rem;
+  }
+
+  .step-action {
+    max-width: 65ch;
+    margin: 0;
+    color: var(--text);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .completion-check {
+    display: grid;
+    gap: 0.625rem;
+    padding-block: 1rem;
+    border-block: 1px solid var(--border);
+  }
+
+  .completion-check p,
+  .why-it-works,
+  .step-guidance p {
+    max-width: 65ch;
+    margin: 0;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .technique-facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+
+  .technique-facts > div {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 0.38fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .technique-facts dt {
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 720;
+  }
+
+  .technique-facts dd {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .why-it-works {
+    color: var(--text-muted);
+  }
+
+  .step-guidance {
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 1.125rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .step-guidance p:last-child strong {
+    color: var(--danger);
+  }
+
+  @media (min-width: 48rem) {
+    .step-article {
+      grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+      grid-template-areas:
+        'media header'
+        'media body';
+      column-gap: clamp(2rem, 4vw, 3.5rem);
+      row-gap: 1.5rem;
+      align-items: start;
+    }
+
+    .step-image-frame {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .technique-facts > div {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step-image-frame :global(.tutorial-step-picture) {
+      transition: none;
+    }
+  }
+</style>

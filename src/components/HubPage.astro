@@ -1,0 +1,213 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import RecipeImage from './RecipeImage.astro';
+import EditorialRecipeCard from './EditorialRecipeCard.astro';
+import TrustStrip from './TrustStrip.astro';
+import { getRecipeImage } from '@/lib/recipe-images';
+import { getRecipeFocal } from '@/lib/recipe-focus';
+import { HUBS, SITE, type HubSlug } from '@/lib/site';
+import eyeShapeGolden from '@/assets/golden/eye-shape-golden-v1.webp';
+
+interface Props { hubSlug: HubSlug }
+const { hubSlug } = Astro.props;
+const hub = HUBS[hubSlug];
+const allRecipes = await getCollection('recipes');
+const recipes = allRecipes.filter((recipe) => recipe.data.hub === hubSlug);
+const otherHubs = Object.entries(HUBS).filter(([slug]) => slug !== hubSlug);
+const bySlug = (slug: string) => allRecipes.find((recipe) => recipe.data.slug === slug) ?? recipes[0] ?? allRecipes[0];
+
+const heroContent: Record<HubSlug, { headline: string; deck: string; copy: string; cta: string; image: CollectionEntry<'recipes'> }> = {
+  'occasion-makeup': {
+    headline: 'Occasion Makeup',
+    deck: 'Find a look that fits the moment.',
+    copy: 'Choose by time, finish, and confidence level to discover the perfect look for any occasion.',
+    cta: 'Find your occasion',
+    image: bySlug('soft-glam-wedding-guest-makeup')
+  },
+  'eye-shape-makeup': {
+    headline: 'Eye Shape Makeup',
+    deck: 'Shape-aware looks, explained visually.',
+    copy: 'Find techniques designed for hooded eyes, monolids, round eyes, downturned eyes, deep-set eyes, and close-set eyes.',
+    cta: 'Find your eye shape',
+    image: bySlug('soft-glam-hooded-eyes')
+  },
+  'skin-tone-undertone': {
+    headline: 'Skin Tone & Undertone',
+    deck: 'Choose shades that harmonize with your complexion.',
+    copy: 'Explore fair, olive, medium, and deep skin tones, then discover your cool, neutral, or warm undertone.',
+    cta: 'Find your matches',
+    image: bySlug('rich-berry-gold-makeup-deep-skin')
+  },
+  'everyday-makeup': {
+    headline: 'Everyday Makeup',
+    deck: 'A polished routine for the minutes you have.',
+    copy: 'Choose a five, fifteen, or twenty-minute route and keep every step wearable, repeatable, and easy to adapt.',
+    cta: 'Build your routine',
+    image: bySlug('5-minute-everyday-makeup')
+  }
+};
+const hero = heroContent[hubSlug];
+const generatedHero = hubSlug === 'eye-shape-makeup'
+  ? { src: eyeShapeGolden, alt: 'Close view of hooded eyes with lifted cobalt liner and natural skin texture' }
+  : null;
+
+const occasionLabels: Record<string, string> = {
+  'soft-glam-wedding-guest-makeup': 'Wedding Guest',
+  'easy-date-night-makeup': 'Date Night',
+  'polished-office-makeup-10-minutes': 'Office',
+  'fresh-brunch-makeup': 'Brunch',
+  'holiday-party-shimmer-makeup': 'Holiday Party',
+  'easy-vacation-makeup': 'Vacation',
+  'elegant-dinner-party-makeup': 'Dinner Party',
+  'natural-job-interview-makeup': 'Job Interview'
+};
+const occasionCards = recipes.map((recipe) => ({
+  recipe,
+  label: occasionLabels[recipe.data.slug] ?? recipe.data.title,
+  period: recipe.data.occasions.some((item) => /dinner|date|party/i.test(item)) ? 'Evening' : 'Day',
+  confidence: recipe.data.difficulty === 'Intermediate' ? 4 : recipe.data.difficulty === 'Easy' ? 3 : 2
+}));
+
+const eyeShapes = [
+  ['soft-glam-hooded-eyes', 'Hooded Eyes', 'A low crease that may cover part of the lid.'],
+  ['soft-shimmer-makeup-monolids', 'Monolids', 'Little to no visible crease; smooth lid from lash line up.'],
+  ['elongated-eye-makeup-round-eyes', 'Round Eyes', 'Balanced height and width with visible white around the iris.'],
+  ['lifted-makeup-downturned-eyes', 'Downturned Eyes', 'Outer corners tilt slightly downward.'],
+  ['everyday-makeup-deep-set-eyes', 'Deep-Set Eyes', 'A prominent brow bone with a deeper-set crease.'],
+  ['balanced-eye-makeup-close-set-eyes', 'Close-Set Eyes', 'The inner corners are closer than one eye width apart.']
+].map(([slug, label, description]) => ({ recipe: bySlug(slug), label, description }));
+
+const techniques = [
+  ['Lift', 'Place color and liner to open and lift.'],
+  ['Depth', 'Add dimension without closing the eye.'],
+  ['Shimmer placement', 'Keep light visible on each eye shape.'],
+  ['Liner angle', 'Align direction with the natural eye.'],
+  ['Crease strategy', 'Define above, within, or without a crease.']
+];
+
+const skinToneFaces = [
+  bySlug('cool-rosy-makeup-fair-skin'),
+  bySlug('warm-peach-makeup-fair-skin'),
+  bySlug('neutral-soft-glam-olive-skin'),
+  bySlug('warm-bronze-makeup-medium-skin'),
+  bySlug('rich-berry-gold-makeup-deep-skin')
+];
+const skinTones = [
+  ['Fair', 'Very light to light', '#f2d8c2'],
+  ['Light Olive', 'Light with olive undertones', '#c79a73'],
+  ['Medium', 'Medium golden to tan', '#a96f49'],
+  ['Deep', 'Deep brown to rich', '#5a2e1d']
+];
+const undertones = [
+  ['Cool', 'Pink, red, or blue hints', '#b87c7f'],
+  ['Neutral', 'A balanced mix of cool and warm', '#b98e75'],
+  ['Warm', 'Yellow, golden, or peach hints', '#dc8b36']
+];
+const shadeShifts = [
+  ['Blush', 'Soft rose → clear berry', '#b95e68'],
+  ['Bronzer', 'Subtle warmth → rich depth', '#8a4c2e'],
+  ['Shimmer', 'Soft sheen → luminous gold', '#d7ad67'],
+  ['Lip colour', 'Balanced nude → bold wine', '#6d2630']
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: hub.title,
+  description: hub.description,
+  url: `${SITE.url}/${hubSlug}/`,
+  isPartOf: { '@id': `${SITE.url}/#website` }
+};
+---
+
+<BaseLayout title={hub.title} description={hub.description} schema={schema}>
+  <section class:list={['category-hero', `category-${hubSlug}`]}>
+    <div class="category-hero-copy">
+      <h1>{hero.headline}</h1>
+      <span class="blue-rule" aria-hidden="true"></span>
+      <p class="category-deck">{hero.deck}</p>
+      <p>{hero.copy}</p>
+      <a class="button editorial-button" href="#guide">{hero.cta} <span aria-hidden="true">→</span></a>
+    </div>
+
+    {hubSlug === 'skin-tone-undertone' ? (
+      <div class="skin-montage" aria-label="A range of skin tones">
+        {skinToneFaces.map((recipe) => <RecipeImage src={getRecipeImage(recipe.data.heroImage)} alt={recipe.data.heroAlt} focal={getRecipeFocal(recipe.data.heroImage, 'montage')} priority sizes="20vw" />)}
+      </div>
+    ) : (
+      <div class="category-hero-image">
+        <RecipeImage src={generatedHero?.src ?? getRecipeImage(hero.image.data.heroImage)} alt={generatedHero?.alt ?? hero.image.data.heroAlt} focal={generatedHero ? { x: 50, y: 48, mobileX: 50, mobileY: 48 } : getRecipeFocal(hero.image.data.heroImage, 'hero')} priority sizes="(max-width: 820px) 100vw, 62vw" />
+        <span class="category-blue-shape" aria-hidden="true"></span>
+      </div>
+    )}
+  </section>
+
+  {hubSlug === 'occasion-makeup' && (
+    <>
+      <section class="editorial-section category-guide" id="guide">
+        <div class="shell">
+          <header class="editorial-section-heading"><div><span class="blue-rule"></span><h2>Choose by occasion</h2></div><p>Use time, finish, and confidence to find the right route.</p></header>
+          <div class="occasion-grid">
+            {occasionCards.map(({ recipe, label, period, confidence }, index) => (
+              <a href={`/${recipe.data.hub}/${recipe.data.slug}/`} class="occasion-choice">
+                <div><span class="occasion-symbol" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{label}</h3></div>
+                <dl><div><dt>Time</dt><dd>{period}</dd></div><div><dt>Finish</dt><dd>{recipe.data.finish}</dd></div></dl>
+                <div class="confidence"><span>Confidence</span><i style={`--dots:${confidence}`}></i></div>
+                <span class="circle-arrow" aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section class="editorial-section featured-section" id="recipes">
+        <div class="shell"><header class="editorial-section-heading compact-heading"><h2>Featured occasion recipes</h2><span>{recipes.length} complete guides</span></header><div class="editorial-recipe-row occasion-recipes">{recipes.map((recipe) => <EditorialRecipeCard recipe={recipe} />)}</div></div>
+      </section>
+    </>
+  )}
+
+  {hubSlug === 'eye-shape-makeup' && (
+    <section class="editorial-section category-guide numbered-guide" id="guide">
+      <div class="shell">
+        <header class="numbered-heading"><span>1.</span><div><h2>What’s your eye shape?</h2><p>Select the one that looks most like you.</p></div></header>
+        <div class="eye-shape-grid">{eyeShapes.map(({ recipe, label, description }) => <a class="eye-shape-card" href={`/${recipe.data.hub}/${recipe.data.slug}/`}><div><RecipeImage src={getRecipeImage(recipe.data.heroImage)} alt={recipe.data.heroAlt} focal={getRecipeFocal(recipe.data.heroImage, 'eye')} sizes="(max-width: 640px) 48vw, 16vw" /></div><h3>{label}</h3><p>{description}</p><span class="circle-arrow" aria-hidden="true">→</span></a>)}</div>
+        <header class="numbered-heading"><span>2.</span><div><h2>How to choose your technique</h2><p>Use this quick guide to understand what flatters your shape.</p></div></header>
+        <div class="technique-row">{techniques.map(([title, copy], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
+        <header class="numbered-heading"><span>3.</span><div><h2>Explore eye shape recipes</h2><p>Choose a look and learn step by step.</p></div></header>
+        <div class="editorial-recipe-row eye-recipes">{recipes.map((recipe) => <EditorialRecipeCard recipe={recipe} crop="eye" />)}</div>
+        <header class="numbered-heading"><span>4.</span><div><h2>Refine your look even further</h2><p>Pair eye-shape technique with tone and occasion.</p></div></header>
+      </div>
+    </section>
+  )}
+
+  {hubSlug === 'skin-tone-undertone' && (
+    <section class="editorial-section category-guide skin-guide" id="guide">
+      <div class="shell">
+        <header class="editorial-section-heading"><div><span class="blue-rule"></span><h2>Your tone & undertone guide</h2></div></header>
+        <div class="guide-step"><div class="guide-step-copy"><span>Step 1</span><h3>Find your skin tone</h3><p>Match your skin depth to see the recommended undertone guidance.</p></div><div class="tone-grid">{skinTones.map(([label, copy, color]) => <article style={`--swatch:${color}`}><span class="paint-swipe"></span><h3>{label}</h3><p>{copy}</p><span class="circle-arrow">→</span></article>)}</div></div>
+        <div class="guide-step"><div class="guide-step-copy"><span>Step 2</span><h3>Identify your undertone</h3><p>Look at how your skin reacts to color, jewelry, and daylight.</p></div><div class="undertone-grid">{undertones.map(([label, copy, color]) => <article style={`--swatch:${color}`}><div><h3>{label}</h3><p>{copy}</p><small>{label === 'Cool' ? 'Silver often harmonizes.' : label === 'Warm' ? 'Gold often harmonizes.' : 'Both may harmonize.'}</small></div><span class="paint-swipe"></span></article>)}</div></div>
+        <header class="editorial-section-heading compact-heading"><h2>Featured makeup recipes</h2><span>{recipes.length} complete guides</span></header>
+        <div class="skin-recipe-row">{recipes.map((recipe, index) => <EditorialRecipeCard recipe={recipe} index={index + 1} />)}</div>
+        <header class="editorial-section-heading compact-heading"><h2>How shades shift across skin tones</h2><span>Depth first, undertone second</span></header>
+        <div class="shade-shift-row">{shadeShifts.map(([label, copy, color]) => <article style={`--swatch:${color}`}><span class="paint-swipe"></span><div><h3>{label}</h3><p>{copy}</p></div></article>)}</div>
+      </div>
+    </section>
+  )}
+
+  {hubSlug === 'everyday-makeup' && (
+    <section class="editorial-section category-guide" id="guide">
+      <div class="shell">
+        <header class="editorial-section-heading"><div><span class="blue-rule"></span><h2>Choose by available time</h2></div><p>Build the highest-impact steps first.</p></header>
+        <div class="decision-board everyday-board">{hub.matrix.map((row, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{row[0]}</h3><p>{row[1]}</p><strong>{row[2]}</strong></article>)}</div>
+        <header class="editorial-section-heading compact-heading"><h2>Everyday recipes</h2><span>{recipes.length} complete guides</span></header>
+        <div class="editorial-recipe-row">{recipes.map((recipe) => <EditorialRecipeCard recipe={recipe} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="cross-editorial">
+    <div class="shell cross-editorial-grid">{otherHubs.slice(0, 3).map(([slug, other], index) => { const image = allRecipes.find((recipe) => recipe.data.hub === slug) ?? allRecipes[0]; return <a href={`/${slug}/`}><div><span>{String(index + 1).padStart(2, '0')}</span><h2>{other.title}</h2><p>{other.description}</p><strong>Explore now →</strong></div><RecipeImage src={getRecipeImage(image.data.heroImage)} alt="" focal={getRecipeFocal(image.data.heroImage, 'cross')} sizes="30vw" /></a>; })}</div>
+  </section>
+
+  <TrustStrip />
+</BaseLayout>

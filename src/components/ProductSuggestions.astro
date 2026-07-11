@@ -1,0 +1,38 @@
+---
+interface ProductOption {
+  tier: 'Budget' | 'Mid-range' | 'Luxury';
+  role: string;
+  suggestion: string;
+  reason: string;
+  merchant?: string;
+  verifiedAt?: Date;
+  url?: string;
+}
+interface Props { products: ProductOption[] }
+const { products } = Astro.props;
+---
+
+<section class="product-section" aria-labelledby="products-title">
+  <header class="product-heading">
+    <div>
+      <p class="section-label">Optional shopping</p>
+      <h2 id="products-title">Suggested products to recreate this look</h2>
+    </div>
+    <p>Match the role, texture, and undertone. Products you already own can complete the recipe.</p>
+  </header>
+  <aside class="disclosure" aria-label="Affiliate disclosure">
+    <strong>Shopping links are not enabled yet.</strong>
+    <p>Future commercial links will appear only after editorial and link review.</p>
+  </aside>
+  <div class="product-list" role="list">
+    {products.map((product) => (
+      <article class="product-row" role="listitem">
+        <p class="tier">{product.tier}</p>
+        <div class="product-copy"><h3>{product.suggestion}</h3><p>{product.reason}</p><small>Role: {product.role}</small></div>
+        {product.url ? (
+          <a class="button button-secondary" href={product.url} rel="sponsored nofollow">Shop at {product.merchant}</a>
+        ) : null}
+      </article>
+    ))}
+  </div>
+</section>

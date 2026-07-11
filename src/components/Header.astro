@@ -1,0 +1,83 @@
+---
+import { HUBS } from '@/lib/site';
+import BrandLogo from './BrandLogo.astro';
+
+interface Props { currentPath: string }
+const { currentPath } = Astro.props;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+const pathSegments = currentPath.split('/').filter(Boolean);
+const isRecipePage = pathSegments.length === 2 && Object.keys(HUBS).includes(pathSegments[0] ?? '');
+---
+
+<header class="site-header">
+  <div class="header-inner shell">
+    <a class="brand" href="/" aria-label="HueSteps home">
+      <BrandLogo />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {Object.entries(HUBS).map(([slug, hub]) => (
+        <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.title}</a>
+      ))}
+      <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
+    </nav>
+
+    {isRecipePage && (
+      <a class="header-utility" href="/#choose-your-look"><span>Find another look</span><i aria-hidden="true"></i></a>
+    )}
+
+    <details class="mobile-nav">
+      <summary>
+        <span>Menu</span>
+        <i aria-hidden="true"></i>
+      </summary>
+      <nav aria-label="Mobile navigation">
+        <a class="mobile-nav-brand" href="/" aria-label="HueSteps home">
+          <BrandLogo />
+        </a>
+        <div class="mobile-nav-links">
+          <a href="/" aria-current={isActive('/') ? 'page' : undefined}>Home</a>
+          {Object.entries(HUBS).map(([slug, hub]) => <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.title}</a>)}
+          <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
+        </div>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<script>
+  const mobileNav = document.querySelector('.mobile-nav');
+
+  if (mobileNav instanceof HTMLDetailsElement) {
+    const summary = mobileNav.querySelector('summary');
+    const focusableElements = () => Array.from(mobileNav.querySelectorAll<HTMLElement>('summary, a[href]'))
+      .filter((element) => element.getClientRects().length > 0);
+
+    document.addEventListener('keydown', (event) => {
+      if (!mobileNav.open) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        mobileNav.open = false;
+        if (summary instanceof HTMLElement) summary.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = focusableElements();
+      const first = focusable[0];
+      const last = focusable.at(-1);
+
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+</script>

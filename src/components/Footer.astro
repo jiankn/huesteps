@@ -1,0 +1,29 @@
+---
+import { HUBS, TRUST_PAGES } from '@/lib/site';
+import BrandLogo from './BrandLogo.astro';
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/" aria-label="HueSteps home"><BrandLogo /></a>
+      <p class="footer-tagline">Makeup, step by step.</p>
+      <p>Wearable makeup recipes for real-life occasions, adapted by eye shape and skin tone.</p>
+    </div>
+    <nav aria-label="Explore">
+      <h2>Explore</h2>
+      {Object.entries(HUBS).map(([slug, hub]) => <a href={`/${slug}/`}>{hub.title}</a>)}
+    </nav>
+    <nav aria-label="Trust and policies">
+      <h2>About</h2>
+      {TRUST_PAGES.slice(0, 4).map(([slug, title]) => <a href={`/${slug}/`}>{title}</a>)}
+    </nav>
+    <nav aria-label="Support">
+      <h2>Support</h2>
+      {TRUST_PAGES.slice(4).map(([slug, title]) => <a href={`/${slug}/`}>{title}</a>)}
+    </nav>
+  </div>
+  <div class="shell footer-bottom">
+    <p>© {new Date().getFullYear()} HueSteps. Educational content, not medical advice.</p>
+  </div>
+</footer>
