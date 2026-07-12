@@ -7,9 +7,8 @@
     {
       "binding": "ANALYTICS_DB",
       "database_name": "huesteps-pinterest-analytics",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "6c88e740-8065-4263-9734-9c8fbf134258",
       "migrations_dir": "migrations"
     }
   ]
 }
-
