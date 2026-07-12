@@ -30,6 +30,7 @@ const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
 const deployPreview = import.meta.env.PUBLIC_DEPLOY_ENV === 'preview';
 const robots = noindex || deployPreview ? 'noindex,follow' : 'index,follow,max-image-preview:large';
 const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+const enablePinterestTracking = !noindex && !deployPreview;
 ---
 
 <!doctype html>
@@ -66,5 +67,95 @@ const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
       <slot />
     </main>
     <Footer />
+    {enablePinterestTracking && <script is:inline>
+      (() => {
+        try {
+          const navigatorWithPrivacySignals = navigator;
+          if (
+            navigatorWithPrivacySignals.globalPrivacyControl === true
+            || navigator.doNotTrack === '1'
+            || window.doNotTrack === '1'
+          ) return;
+
+          const pinterestDomains = ['pinterest.com', 'pin.it'];
+          const isAllowedPinterestHost = (hostname) => {
+            const normalized = hostname.toLowerCase().replace(/\.$/, '');
+            return pinterestDomains.some((domain) => normalized === domain || normalized.endsWith(`.${domain}`));
+          };
+
+          const currentUrl = new URL(window.location.href);
+          const utmSource = currentUrl.searchParams.get('utm_source')?.trim().toLowerCase() ?? '';
+          let referrerUrl;
+          try {
+            referrerUrl = document.referrer ? new URL(document.referrer) : undefined;
+          } catch {
+            referrerUrl = undefined;
+          }
+
+          if (utmSource !== 'pinterest' && !isAllowedPinterestHost(referrerUrl?.hostname ?? '')) return;
+
+          const path = currentUrl.pathname;
+          const clean = (value, maxLength = 200) => value?.trim().slice(0, maxLength) || undefined;
+          const utmCampaign = clean(currentUrl.searchParams.get('utm_campaign'), 160);
+          const utmContent = clean(currentUrl.searchParams.get('utm_content'), 160);
+          const pinId = clean(
+            currentUrl.searchParams.get('pin_id')
+            ?? currentUrl.searchParams.get('pin')
+            ?? currentUrl.searchParams.get('utm_id'),
+            100
+          );
+          const landingKey = [path, utmCampaign ?? '', utmContent ?? '', pinId ?? ''].join('|');
+          let landingHash = 2166136261;
+          for (let index = 0; index < landingKey.length; index += 1) {
+            landingHash = Math.imul(landingHash ^ landingKey.charCodeAt(index), 16777619);
+          }
+          const sessionKey = `huesteps:pinterest:${(landingHash >>> 0).toString(36)}`;
+          let sessionId;
+          try {
+            if (sessionStorage.getItem(sessionKey)) return;
+          } catch {
+            // Browsers may disable sessionStorage; tracking can still proceed once for this load.
+          }
+
+          if (!sessionId || !/^[A-Za-z0-9_-]{16,128}$/.test(sessionId)) {
+            sessionId = crypto.randomUUID
+              ? crypto.randomUUID().replaceAll('-', '')
+              : Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) => byte.toString(16).padStart(2, '0')).join('');
+          }
+
+          try {
+            sessionStorage.setItem(sessionKey, sessionId);
+          } catch {
+            // The server still receives a valid ephemeral session ID when storage is unavailable.
+          }
+
+          const payload = JSON.stringify({
+            path,
+            landingPath: path,
+            sessionId,
+            utmSource: utmSource || undefined,
+            utmCampaign,
+            utmContent,
+            pinId,
+            referrer: referrerUrl ? `${referrerUrl.origin}${referrerUrl.pathname}`.slice(0, 500) : undefined
+          });
+
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/api/pinterest/track', new Blob([payload], { type: 'application/json' }));
+            return;
+          }
+
+          void fetch('/api/pinterest/track', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: payload,
+            keepalive: true,
+            credentials: 'same-origin'
+          }).catch(() => {});
+        } catch {
+          // Analytics must never interfere with the content experience.
+        }
+      })();
+    </script>}
   </body>
 </html>

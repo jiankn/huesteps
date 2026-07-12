@@ -1,0 +1,557 @@
+---
+import '@fontsource-variable/geist';
+
+const title = 'Pinterest traffic - HueSteps';
+const description = 'Private HueSteps dashboard for monitoring Pinterest-attributed traffic and the monthly growth target.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://huesteps.com/admin/" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f4f6f8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#report">Skip to report</a>
+
+    <header class="topbar">
+      <div class="brand-block" aria-label="HueSteps Pinterest analytics">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span><strong>HueSteps</strong><small>Pinterest traffic</small></span>
+      </div>
+      <div class="topbar-actions">
+        <span class="status" id="connection-status"><i></i><span>Not connected</span></span>
+        <button class="quiet-button" id="open-auth" type="button">Connect</button>
+      </div>
+    </header>
+
+    <main id="report" class="report-shell">
+      <section class="report-heading" aria-labelledby="page-title">
+        <div>
+          <p class="context-line">Acquisition overview <span aria-hidden="true">/</span> UTC</p>
+          <h1 id="page-title">Pinterest performance</h1>
+          <p class="heading-note">Estimated deduplicated network IPs attributed to Pinterest.</p>
+        </div>
+        <div class="heading-actions">
+          <span id="last-updated">Waiting for data</span>
+          <button class="icon-button" id="refresh" type="button" aria-label="Refresh report" title="Refresh report">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" /></svg>
+          </button>
+        </div>
+      </section>
+
+      <nav class="range-tabs" aria-label="Report period">
+        <button data-range="realtime" type="button">Realtime</button>
+        <button data-range="day" type="button">Day</button>
+        <button data-range="week" type="button">Week</button>
+        <button data-range="month" type="button" aria-current="true">Month</button>
+        <button data-range="quarter" type="button">Quarter</button>
+        <button data-range="half" type="button">6 months</button>
+        <button data-range="year" type="button">Year</button>
+      </nav>
+
+      <section id="loading-state" class="loading-state" aria-live="polite" aria-label="Loading Pinterest analytics">
+        <div class="skeleton skeleton-wide"></div>
+        <div class="skeleton-row"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+        <span class="sr-only">Loading report</span>
+      </section>
+
+      <section id="error-state" class="message-state" hidden aria-live="assertive">
+        <div class="message-icon" aria-hidden="true">!</div>
+        <div><h2>Report unavailable</h2><p id="error-copy">The analytics service could not be reached.</p></div>
+        <button class="primary-button" id="retry" type="button">Try again</button>
+      </section>
+
+      <section id="empty-state" class="message-state" hidden aria-live="polite">
+        <div class="message-icon empty" aria-hidden="true">·</div>
+        <div><h2>No Pinterest visits in this period</h2><p>Data will appear after a valid Pinterest landing request is recorded.</p></div>
+      </section>
+
+      <div id="dashboard" hidden>
+        <section class="goal-panel" aria-labelledby="goal-title">
+          <div class="goal-copy">
+            <div class="goal-label-row">
+              <h2 id="goal-title">Monthly target</h2>
+              <span id="goal-period">Current month · UTC</span>
+            </div>
+            <div class="goal-value-row">
+              <strong id="goal-current">...</strong><span>of <b id="goal-target">100,000</b> IPs</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="Monthly Pinterest IP target" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span id="goal-progress"></span><i id="pace-marker" title="Expected pace"></i>
+            </div>
+            <div class="goal-foot"><span id="progress-copy">...</span><span id="remaining-copy">Loading remaining count</span></div>
+          </div>
+          <dl class="goal-forecast">
+            <div><dt>Forecast</dt><dd id="forecast">...</dd></div>
+            <div><dt>Needed / day</dt><dd id="required-daily">...</dd></div>
+          </dl>
+        </section>
+
+        <section class="metric-strip" aria-label="Selected period summary">
+          <article>
+            <p>Unique network IPs <button class="info-dot" type="button" aria-label="Unique IP methodology" title="Estimated, deduplicated within the selected period. Do not sum daily unique IP counts.">i</button></p>
+            <strong id="unique-ips">...</strong>
+            <span id="comparison" class="metric-change neutral">Waiting for comparison</span>
+          </article>
+          <article><p>Attributed sessions</p><strong id="sessions">...</strong><span>Valid Pinterest landings</span></article>
+          <article class="realtime-metric"><p>Active IPs · 5 min</p><strong id="active-5">...</strong><span>Rolling window</span></article>
+          <article class="realtime-metric"><p>Active IPs · 15 min</p><strong id="active-15">...</strong><span>Rolling window</span></article>
+          <article class="realtime-metric"><p>Active IPs · 60 min</p><strong id="active-60">...</strong><span>Rolling window</span></article>
+        </section>
+
+        <section class="trend-panel" aria-labelledby="trend-title">
+          <div class="section-heading">
+            <div><h2 id="trend-title">Traffic trend</h2><p id="trend-caption">Deduplicated within each bucket; bucket values must not be summed.</p></div>
+            <div class="legend"><i></i> Unique network IPs</div>
+          </div>
+          <div class="chart-wrap" id="trend-chart" role="img" aria-label="Pinterest unique network IP trend"></div>
+        </section>
+
+        <section class="breakdowns" aria-label="Pinterest traffic breakdowns">
+          <article class="breakdown-panel" data-key="landingPages">
+            <div class="section-heading"><div><h2>Landing pages</h2><p>First page viewed from Pinterest</p></div></div>
+            <div class="breakdown-table"></div>
+          </article>
+          <article class="breakdown-panel" data-key="contents">
+            <div class="section-heading"><div><h2>Pin content</h2><p>UTM content or campaign creative</p></div></div>
+            <div class="breakdown-table"></div>
+          </article>
+          <article class="breakdown-panel" data-key="countries">
+            <div class="section-heading"><div><h2>Countries</h2><p>Cloudflare request location</p></div></div>
+            <div class="breakdown-table"></div>
+          </article>
+          <article class="breakdown-panel" data-key="devices">
+            <div class="section-heading"><div><h2>Devices</h2><p>Inferred from the user agent</p></div></div>
+            <div class="breakdown-table"></div>
+          </article>
+        </section>
+
+        <aside class="method-note">
+          <strong>How to read this report</strong>
+          <p>“Unique IPs” are privacy-preserving network-level estimates, not people. Shared networks, NAT, VPNs and changing addresses affect counts. IPv6 addresses are grouped by /64. Period boundaries and matched-period comparisons use UTC.</p>
+        </aside>
+      </div>
+    </main>
+
+    <dialog id="auth-dialog" aria-labelledby="auth-title">
+      <form id="auth-form" method="dialog">
+        <div class="dialog-heading"><div><h2 id="auth-title">Connect analytics</h2><p>Enter the admin access token. It is kept only for this browser tab.</p></div><button class="icon-button" value="cancel" aria-label="Close" type="submit">×</button></div>
+        <label for="admin-token">Admin token</label>
+        <input id="admin-token" name="token" type="password" autocomplete="off" spellcheck="false" placeholder="Paste token" />
+        <p class="field-help">Stored in sessionStorage; never added to a URL or localStorage.</p>
+        <div class="dialog-actions"><button class="quiet-button danger-button" id="clear-token" type="button">Clear token</button><button class="primary-button" value="default" type="submit">Connect</button></div>
+      </form>
+    </dialog>
+
+    <script is:inline>
+      (() => {
+        const TOKEN_KEY = 'huesteps:pinterest-admin-token';
+        const params = new URLSearchParams(location.search);
+        const demoMode = params.get('demo') === '1';
+        let selectedRange = 'month';
+        let currentData = null;
+        let requestController = null;
+
+        const $ = (selector, root = document) => root.querySelector(selector);
+        const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+        const formatNumber = new Intl.NumberFormat('en-US');
+        const compactNumber = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
+        const formatDate = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        const loading = $('#loading-state');
+        const errorState = $('#error-state');
+        const emptyState = $('#empty-state');
+        const dashboard = $('#dashboard');
+        const refreshButton = $('#refresh');
+        const status = $('#connection-status');
+        const authDialog = $('#auth-dialog');
+        const tokenInput = $('#admin-token');
+
+        function escapeHtml(value) {
+          return String(value ?? 'Unknown').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+        }
+
+        function setStatus(kind, label) {
+          status.className = `status ${kind}`;
+          $('span', status).textContent = label;
+        }
+
+        function showState(state) {
+          loading.hidden = state !== 'loading';
+          errorState.hidden = state !== 'error';
+          emptyState.hidden = state !== 'empty';
+          dashboard.hidden = state !== 'ready';
+          refreshButton.disabled = state === 'loading';
+          refreshButton.classList.toggle('is-loading', state === 'loading');
+        }
+
+        function createDemoData(range) {
+          const configs = {
+            realtime: { count: 12, step: 5, base: 72 }, day: { count: 24, step: 1, base: 310 },
+            week: { count: 7, step: 1, base: 2100 }, month: { count: 30, step: 1, base: 2500 },
+            quarter: { count: 13, step: 7, base: 6900 }, half: { count: 26, step: 7, base: 8200 }, year: { count: 12, step: 30, base: 24500 }
+          };
+          const config = configs[range] || configs.month;
+          const now = new Date();
+          const trend = Array.from({ length: config.count }, (_, i) => {
+            const wave = 0.72 + ((Math.sin(i * 1.4) + 1) * 0.18) + i * 0.012;
+            const value = Math.round(config.base * wave);
+            return { bucket: new Date(now.getTime() - (config.count - i - 1) * config.step * (range === 'realtime' ? 60000 : 86400000)).toISOString(), label: range === 'realtime' ? `${(i + 1) * 5}m` : `Jul ${i + 1}`, uniqueIps: value, sessions: Math.round(value * 1.18) };
+          });
+          const uniqueByRange = { realtime: 718, day: 6235, week: 31842, month: 68420, quarter: 139800, half: 248900, year: 519400 };
+          const uniqueIps = uniqueByRange[range] || 68420;
+          const rows = (values) => values.map(([value, share], i) => ({ value, uniqueIps: Math.round(uniqueIps * share), sessions: Math.round(uniqueIps * share * (1.12 + i * 0.03)) }));
+          return {
+            range, timezone: 'UTC', generatedAt: now.toISOString(),
+            period: { currentStart: new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString(), currentEnd: now.toISOString(), previousStart: new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1)).toISOString(), previousEnd: new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, now.getUTCDate())).toISOString(), comparison: 'matched_elapsed' },
+            metrics: { uniqueIps, previousUniqueIps: Math.round(uniqueIps / 1.184), changePct: 18.4, sessions: Math.round(uniqueIps * 1.19) },
+            goal: { target: 100000, current: 68420, progressPct: 68.42, remaining: 31580, requiredDaily: 1755, forecast: 93400 },
+            realtime: { last5: 72, last15: 184, last60: 718 }, trend,
+            breakdowns: {
+              landingPages: rows([['/everyday-makeup/5-minute-everyday-makeup/', .29], ['/eye-shape-makeup/soft-glam-hooded-eyes/', .22], ['/skin-tone-undertone/warm-peach-fair-skin/', .17], ['/occasion-makeup/date-night/', .12], ['Other pages', .2]]),
+              contents: rows([['soft-glam-closeup-v3', .31], ['everyday-routine-checklist', .24], ['hooded-eyes-before-after', .18], ['warm-peach-step-guide', .14], ['Other / untagged', .13]]),
+              countries: rows([['United States', .56], ['United Kingdom', .13], ['Canada', .11], ['Australia', .08], ['Other', .12]]),
+              devices: rows([['Mobile', .82], ['Desktop', .13], ['Tablet', .05]])
+            }
+          };
+        }
+
+        async function loadData({ keepVisible = false } = {}) {
+          if (document.hidden) return;
+          const token = sessionStorage.getItem(TOKEN_KEY);
+          if (!demoMode && !token) {
+            showState('error');
+            $('#error-copy').textContent = 'Connect with an admin token to load the report.';
+            setStatus('disconnected', 'Not connected');
+            return;
+          }
+
+          if (!keepVisible || !currentData) showState('loading');
+          requestController?.abort();
+          requestController = new AbortController();
+
+          try {
+            const data = demoMode
+              ? await new Promise((resolve) => setTimeout(() => resolve(createDemoData(selectedRange)), 180))
+              : await fetch(`/api/admin/pinterest?range=${encodeURIComponent(selectedRange)}`, {
+                  headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+                  cache: 'no-store', credentials: 'same-origin', signal: requestController.signal
+                }).then(async (response) => {
+                  const body = await response.json().catch(() => ({}));
+                  if (!response.ok) throw new Error(body?.error?.message || `Request failed (${response.status})`);
+                  return body;
+                });
+
+            currentData = data;
+            render(data);
+            setStatus('connected', demoMode ? 'Demo data' : 'Connected');
+          } catch (error) {
+            if (error?.name === 'AbortError') return;
+            if (!keepVisible || !currentData) showState('error');
+            $('#error-copy').textContent = error?.message || 'The analytics service could not be reached.';
+            setStatus('error', currentData ? 'Showing older data' : 'Connection error');
+          }
+        }
+
+        function render(data) {
+          const hasData = Number(data?.metrics?.uniqueIps) > 0 || Number(data?.metrics?.sessions) > 0;
+          if (!hasData) {
+            showState('empty');
+            $('#last-updated').textContent = `Updated ${formatDate.format(new Date(data.generatedAt))} UTC`;
+            return;
+          }
+          showState('ready');
+          $('#last-updated').textContent = `Updated ${formatDate.format(new Date(data.generatedAt))} UTC`;
+
+          const goal = data.goal || {};
+          const goalPct = Math.max(0, Math.min(100, Number(goal.progressPct) || 0));
+          $('#goal-current').textContent = formatNumber.format(goal.current);
+          $('#goal-target').textContent = formatNumber.format(goal.target);
+          $('#goal-progress').style.width = `${goalPct}%`;
+          $('.progress-track').setAttribute('aria-valuenow', String(Math.round(goalPct)));
+          $('#progress-copy').textContent = `${goalPct.toFixed(1)}% achieved`;
+          $('#remaining-copy').textContent = `${formatNumber.format(goal.remaining)} remaining`;
+          $('#forecast').textContent = formatNumber.format(goal.forecast);
+          $('#forecast').classList.toggle('below-target', Number(goal.forecast) < Number(goal.target));
+          $('#required-daily').textContent = formatNumber.format(goal.requiredDaily);
+          const day = new Date().getUTCDate();
+          const daysInMonth = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth() + 1, 0)).getUTCDate();
+          $('#pace-marker').style.left = `${Math.min(100, day / daysInMonth * 100)}%`;
+
+          const metrics = data.metrics || {};
+          $('#unique-ips').textContent = formatNumber.format(metrics.uniqueIps);
+          $('#sessions').textContent = formatNumber.format(metrics.sessions);
+          const change = metrics.changePct;
+          const comparison = $('#comparison');
+          if (change === null || change === undefined || !Number.isFinite(Number(change))) {
+            comparison.textContent = 'No comparable prior period';
+            comparison.className = 'metric-change neutral';
+          } else {
+            const direction = Number(change) > 0 ? 'up' : Number(change) < 0 ? 'down' : 'neutral';
+            comparison.textContent = `${Number(change) > 0 ? '↑' : Number(change) < 0 ? '↓' : '→'} ${Math.abs(Number(change)).toFixed(1)}% vs matched prior period`;
+            comparison.className = `metric-change ${direction}`;
+          }
+          $('#active-5').textContent = formatNumber.format(data.realtime?.last5);
+          $('#active-15').textContent = formatNumber.format(data.realtime?.last15);
+          $('#active-60').textContent = formatNumber.format(data.realtime?.last60);
+
+          renderTrend(data.trend || []);
+          $$('.breakdown-panel').forEach((panel) => renderBreakdown($('.breakdown-table', panel), data.breakdowns?.[panel.dataset.key] || []));
+        }
+
+        function renderTrend(points) {
+          const container = $('#trend-chart');
+          if (!points.length) {
+            container.innerHTML = '<p class="inline-empty">No trend data for this period.</p>';
+            return;
+          }
+          const width = 1000, height = 260, padX = 34, padTop = 16, padBottom = 34;
+          const values = points.map((point) => Number(point.uniqueIps) || 0);
+          const max = Math.max(...values, 1);
+          const x = (i) => padX + (i / Math.max(1, points.length - 1)) * (width - padX * 2);
+          const y = (value) => padTop + (1 - value / max) * (height - padTop - padBottom);
+          const path = points.map((_, i) => `${i ? 'L' : 'M'} ${x(i).toFixed(2)} ${y(values[i]).toFixed(2)}`).join(' ');
+          const area = `${path} L ${x(points.length - 1)} ${height - padBottom} L ${x(0)} ${height - padBottom} Z`;
+          const grid = [0, .5, 1].map((ratio) => {
+            const gridY = y(max * ratio);
+            return `<g><line x1="${padX}" y1="${gridY}" x2="${width - padX}" y2="${gridY}"/><text x="0" y="${gridY + 4}">${escapeHtml(compactNumber.format(max * ratio))}</text></g>`;
+          }).join('');
+          const labelIndexes = [...new Set([0, Math.floor((points.length - 1) / 2), points.length - 1])];
+          const labels = labelIndexes.map((i) => `<text class="x-label" x="${x(i)}" y="${height - 7}" text-anchor="${i === 0 ? 'start' : i === points.length - 1 ? 'end' : 'middle'}">${escapeHtml(points[i].label)}</text>`).join('');
+          const dots = points.length <= 32 ? points.map((point, i) => `<circle cx="${x(i)}" cy="${y(values[i])}" r="3"><title>${escapeHtml(point.label)}: ${formatNumber.format(values[i])} unique IPs</title></circle>`).join('') : '';
+          container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="trend-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2255d9" stop-opacity=".2"/><stop offset="1" stop-color="#2255d9" stop-opacity="0"/></linearGradient></defs><g class="chart-grid">${grid}</g><path class="trend-area" d="${area}"/><path class="trend-line" d="${path}"/>${dots}<g class="chart-labels">${labels}</g></svg>`;
+          container.setAttribute('aria-label', `Pinterest unique network IP trend. ${points.length} buckets, highest bucket ${formatNumber.format(max)}.`);
+        }
+
+        function renderBreakdown(container, rows) {
+          if (!rows.length) {
+            container.innerHTML = '<p class="inline-empty">No breakdown data.</p>';
+            return;
+          }
+          const max = Math.max(...rows.map((row) => Number(row.uniqueIps) || 0), 1);
+          container.innerHTML = `<div class="table-head"><span>Dimension</span><span>Unique IPs</span><span>Sessions</span></div>${rows.slice(0, 6).map((row) => `<div class="table-row"><span class="dimension"><b>${escapeHtml(row.value)}</b><i style="--share:${Math.max(2, (Number(row.uniqueIps) || 0) / max * 100)}%"></i></span><span>${formatNumber.format(row.uniqueIps)}</span><span>${formatNumber.format(row.sessions)}</span></div>`).join('')}`;
+        }
+
+        $$('.range-tabs button').forEach((button) => button.addEventListener('click', () => {
+          if (button.dataset.range === selectedRange) return;
+          selectedRange = button.dataset.range;
+          $$('.range-tabs button').forEach((item) => item.removeAttribute('aria-current'));
+          button.setAttribute('aria-current', 'true');
+          loadData();
+        }));
+
+        $('#open-auth').addEventListener('click', () => {
+          tokenInput.value = sessionStorage.getItem(TOKEN_KEY) || '';
+          authDialog.showModal();
+          requestAnimationFrame(() => tokenInput.focus());
+        });
+        $('#auth-form').addEventListener('submit', (event) => {
+          if (event.submitter?.value === 'cancel') return;
+          event.preventDefault();
+          const token = tokenInput.value.trim();
+          if (!token) { tokenInput.setCustomValidity('Enter an admin token.'); tokenInput.reportValidity(); return; }
+          tokenInput.setCustomValidity('');
+          sessionStorage.setItem(TOKEN_KEY, token);
+          tokenInput.value = '';
+          authDialog.close();
+          loadData();
+        });
+        $('#clear-token').addEventListener('click', () => {
+          sessionStorage.removeItem(TOKEN_KEY);
+          tokenInput.value = '';
+          currentData = null;
+          authDialog.close();
+          loadData();
+        });
+        $('#refresh').addEventListener('click', () => loadData({ keepVisible: true }));
+        $('#retry').addEventListener('click', () => loadData());
+        document.addEventListener('visibilitychange', () => { if (!document.hidden) loadData({ keepVisible: true }); });
+        setInterval(() => { if (!document.hidden) loadData({ keepVisible: true }); }, 60000);
+
+        if (demoMode) document.body.classList.add('demo-mode');
+        loadData();
+      })();
+    </script>
+
+    <style is:global>
+      :root { color-scheme: light; --ink: #111820; --muted: #5c6875; --faint: #84909c; --line: #d9dfe5; --line-soft: #e9edf1; --canvas: #f4f6f8; --surface: #fff; --blue: #2255d9; --blue-dark: #173fad; --blue-soft: #eaf0ff; --green: #16805c; --red: #b13a42; font-family: 'Geist Variable', Geist, system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+      html { background: var(--canvas); color: var(--ink); font-size: 16px; }
+      body { min-width: 320px; margin: 0; background: var(--canvas); font-family: inherit; line-height: 1.45; }
+      button, input { font: inherit; }
+      button { color: inherit; }
+      button:focus-visible, input:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 32%, transparent); outline-offset: 2px; }
+      [hidden] { display: none !important; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+      .skip-link { position: fixed; z-index: 20; top: 8px; left: 8px; padding: 8px 12px; background: var(--ink); color: #fff; transform: translateY(-140%); }
+      .skip-link:focus { transform: none; }
+      .topbar { position: sticky; z-index: 10; top: 0; display: flex; min-height: 62px; align-items: center; justify-content: space-between; gap: 24px; padding: 0 max(24px, calc((100vw - 1340px) / 2)); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(12px); }
+      .brand-block { display: flex; align-items: center; gap: 10px; }
+      .brand-block > span:last-child { display: grid; line-height: 1.1; }
+      .brand-block strong { font-size: .9rem; }
+      .brand-block small { margin-top: 3px; color: var(--muted); font-size: .72rem; }
+      .brand-mark { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 8px; background: var(--ink); color: #fff; font-size: .83rem; font-weight: 750; }
+      .topbar-actions, .heading-actions { display: flex; align-items: center; gap: 10px; }
+      .status { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: .76rem; }
+      .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+      .status.connected i { background: var(--green); box-shadow: 0 0 0 3px #e3f2ec; }
+      .status.error i { background: var(--red); }
+      .quiet-button, .primary-button, .icon-button { min-height: 36px; border-radius: 8px; font-weight: 650; cursor: pointer; transition: background 160ms ease, border-color 160ms ease, transform 160ms ease; }
+      .quiet-button { padding: 7px 12px; border: 1px solid var(--line); background: var(--surface); font-size: .8rem; }
+      .quiet-button:hover { border-color: #aab4bf; background: #f8fafb; }
+      .primary-button { padding: 8px 14px; border: 1px solid var(--blue); background: var(--blue); color: #fff; font-size: .82rem; }
+      .primary-button:hover { background: var(--blue-dark); }
+      .primary-button:active, .quiet-button:active, .icon-button:active { transform: translateY(1px); }
+      .icon-button { display: grid; width: 36px; padding: 0; place-items: center; border: 1px solid var(--line); background: var(--surface); font-size: 1.4rem; font-weight: 400; }
+      .icon-button svg { width: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+      .icon-button:hover { background: #f8fafb; }
+      .icon-button:disabled { cursor: wait; opacity: .55; }
+      .icon-button.is-loading svg { animation: spin 800ms linear infinite; }
+      .report-shell { width: min(100% - 48px, 1340px); margin: 0 auto; padding: 38px 0 60px; }
+      .report-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+      .context-line { margin: 0 0 7px; color: var(--muted); font-size: .75rem; font-weight: 630; }
+      .context-line span { margin: 0 5px; color: var(--line); }
+      h1, h2, p { margin-top: 0; }
+      h1 { margin-bottom: 5px; font-size: 1.7rem; line-height: 1.15; letter-spacing: -.025em; }
+      h2 { margin-bottom: 4px; font-size: .98rem; line-height: 1.25; letter-spacing: -.01em; }
+      .heading-note { margin: 0; color: var(--muted); font-size: .84rem; }
+      .heading-actions > span { color: var(--muted); font-size: .74rem; }
+      .range-tabs { display: flex; gap: 3px; margin: 27px 0 20px; padding: 3px; overflow-x: auto; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+      .range-tabs::-webkit-scrollbar { display: none; }
+      .range-tabs button { position: relative; flex: 0 0 auto; min-height: 38px; padding: 8px 14px; border: 0; background: transparent; color: var(--muted); font-size: .8rem; font-weight: 620; cursor: pointer; }
+      .range-tabs button:hover { color: var(--ink); }
+      .range-tabs button[aria-current="true"] { color: var(--blue); }
+      .range-tabs button[aria-current="true"]::after { position: absolute; right: 10px; bottom: -4px; left: 10px; height: 2px; background: var(--blue); content: ''; }
+      .loading-state { display: grid; gap: 14px; }
+      .skeleton-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .skeleton { height: 120px; border-radius: 12px; background: linear-gradient(100deg, #e8ecf0 30%, #f5f7f9 50%, #e8ecf0 70%); background-size: 300% 100%; animation: shimmer 1.3s infinite; }
+      .skeleton-wide { height: 180px; }
+      .message-state { display: flex; min-height: 190px; align-items: center; gap: 16px; padding: 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+      .message-state h2 { margin: 0 0 5px; }
+      .message-state p { margin: 0; color: var(--muted); font-size: .84rem; }
+      .message-state .primary-button { margin-left: auto; }
+      .message-icon { display: grid; flex: 0 0 auto; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #fbecee; color: var(--red); font-weight: 750; }
+      .message-icon.empty { background: var(--blue-soft); color: var(--blue); }
+      .goal-panel { display: grid; grid-template-columns: minmax(0, 1fr) 310px; overflow: hidden; border-radius: 12px; background: #13223c; color: #fff; }
+      .goal-copy { padding: 28px 32px 26px; }
+      .goal-label-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .goal-label-row h2 { margin: 0; color: #fff; font-size: .82rem; font-weight: 630; }
+      .goal-label-row span { color: #aebbd0; font-size: .72rem; }
+      .goal-value-row { display: flex; align-items: baseline; gap: 9px; margin: 16px 0; }
+      .goal-value-row strong { font-size: 2.3rem; line-height: 1; letter-spacing: -.045em; }
+      .goal-value-row span { color: #aebbd0; font-size: .86rem; }
+      .goal-value-row b { color: #fff; font-weight: 650; }
+      .progress-track { position: relative; height: 9px; border-radius: 5px; background: #31415b; }
+      .progress-track span { display: block; width: 0; height: 100%; border-radius: inherit; background: #6d93ff; transition: width 300ms cubic-bezier(.22,.61,.36,1); }
+      .progress-track i { position: absolute; top: -4px; width: 1px; height: 17px; background: #fff; opacity: .78; }
+      .goal-foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 9px; color: #aebbd0; font-size: .72rem; }
+      .goal-forecast { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-left: 1px solid #35445e; background: #182943; }
+      .goal-forecast div { display: grid; align-content: center; gap: 7px; padding: 26px; }
+      .goal-forecast div + div { border-left: 1px solid #35445e; }
+      .goal-forecast dt { color: #aebbd0; font-size: .72rem; }
+      .goal-forecast dd { margin: 0; font-size: 1.35rem; font-weight: 680; }
+      .goal-forecast dd.below-target { color: #ffb8ad; }
+      .metric-strip { display: grid; grid-template-columns: 1.3fr 1.1fr repeat(3, .8fr); margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+      .metric-strip article { min-width: 0; padding: 21px 22px; border-right: 1px solid var(--line-soft); }
+      .metric-strip article:last-child { border-right: 0; }
+      .metric-strip p { display: flex; align-items: center; gap: 5px; margin: 0 0 11px; color: var(--muted); font-size: .72rem; }
+      .metric-strip strong { display: block; margin-bottom: 7px; font-size: 1.55rem; line-height: 1; letter-spacing: -.03em; }
+      .metric-strip article > span { display: block; color: var(--faint); font-size: .68rem; line-height: 1.3; }
+      .metric-strip .metric-change.up { color: var(--green); }
+      .metric-strip .metric-change.down { color: var(--red); }
+      .info-dot { display: inline-grid; width: 17px; height: 17px; padding: 0; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--muted); font-size: .63rem; cursor: help; }
+      .trend-panel, .breakdown-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+      .section-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; }
+      .section-heading h2 { margin: 0 0 3px; }
+      .section-heading p { margin: 0; color: var(--muted); font-size: .72rem; }
+      .legend { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: .7rem; }
+      .legend i { width: 17px; height: 2px; background: var(--blue); }
+      .chart-wrap { height: 280px; padding: 0 18px 12px; }
+      .chart-wrap svg { width: 100%; height: 100%; overflow: visible; }
+      .chart-grid line { stroke: var(--line-soft); stroke-width: 1; vector-effect: non-scaling-stroke; }
+      .chart-grid text, .chart-labels text { fill: var(--faint); font-family: inherit; font-size: 10px; }
+      .trend-area { fill: url(#trend-fill); }
+      .trend-line { fill: none; stroke: var(--blue); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; vector-effect: non-scaling-stroke; }
+      .chart-wrap circle { fill: #fff; stroke: var(--blue); stroke-width: 2; vector-effect: non-scaling-stroke; }
+      .breakdowns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .breakdown-panel { min-width: 0; }
+      .breakdown-table { padding: 0 22px 15px; }
+      .table-head, .table-row { display: grid; grid-template-columns: minmax(0, 1fr) 86px 78px; gap: 12px; align-items: center; }
+      .table-head { min-height: 30px; border-bottom: 1px solid var(--line); color: var(--faint); font-size: .65rem; }
+      .table-head span:not(:first-child), .table-row > span:not(:first-child) { text-align: right; }
+      .table-row { min-height: 48px; border-bottom: 1px solid var(--line-soft); font-size: .73rem; }
+      .table-row:last-child { border-bottom: 0; }
+      .dimension { min-width: 0; overflow: hidden; }
+      .dimension b { display: block; overflow: hidden; font-weight: 560; text-overflow: ellipsis; white-space: nowrap; }
+      .dimension i { display: block; width: var(--share); max-width: 100%; height: 2px; margin-top: 6px; background: var(--blue); opacity: .68; }
+      .inline-empty { margin: 20px 0; color: var(--muted); font-size: .78rem; }
+      .method-note { display: flex; gap: 18px; margin-top: 18px; padding: 16px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .72rem; }
+      .method-note strong { flex: 0 0 auto; color: var(--ink); }
+      .method-note p { max-width: 100ch; margin: 0; }
+      dialog { width: min(100% - 32px, 480px); padding: 0; border: 0; border-radius: 12px; background: var(--surface); color: var(--ink); box-shadow: 0 8px 30px rgb(17 24 32 / .22); }
+      dialog::backdrop { background: rgb(14 23 34 / .48); }
+      dialog form { padding: 24px; }
+      .dialog-heading { display: flex; align-items: start; justify-content: space-between; gap: 20px; }
+      .dialog-heading h2 { margin: 0 0 5px; font-size: 1.05rem; }
+      .dialog-heading p, .field-help { margin: 0; color: var(--muted); font-size: .76rem; }
+      dialog label { display: block; margin: 22px 0 7px; font-size: .76rem; font-weight: 650; }
+      dialog input { width: 100%; height: 42px; padding: 8px 11px; border: 1px solid #aeb7c1; border-radius: 8px; background: #fff; color: var(--ink); }
+      dialog input::placeholder { color: #66717d; }
+      .field-help { margin-top: 7px; }
+      .dialog-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; }
+      .danger-button { color: var(--red); }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+      @media (max-width: 980px) {
+        .goal-panel { grid-template-columns: 1fr; }
+        .goal-forecast { border-top: 1px solid #35445e; border-left: 0; }
+        .metric-strip { grid-template-columns: 1fr 1fr repeat(3, .75fr); }
+        .metric-strip article { padding-inline: 16px; }
+        .breakdowns { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 720px) {
+        .topbar { padding-inline: 16px; }
+        .status span { display: none; }
+        .report-shell { width: min(100% - 28px, 1340px); padding-top: 26px; }
+        .report-heading { align-items: start; }
+        .heading-actions > span { display: none; }
+        h1 { font-size: 1.45rem; }
+        .range-tabs { margin-top: 21px; }
+        .goal-copy { padding: 24px 20px 22px; }
+        .goal-value-row strong { font-size: 2rem; }
+        .metric-strip { grid-template-columns: 1fr 1fr; }
+        .metric-strip article:nth-child(2) { border-right: 0; }
+        .metric-strip article:nth-child(-n+2) { border-bottom: 1px solid var(--line-soft); }
+        .realtime-metric { padding-block: 17px !important; }
+        .metric-strip .realtime-metric:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line-soft); }
+        .chart-wrap { height: 235px; padding-inline: 10px; }
+        .table-head, .table-row { grid-template-columns: minmax(0, 1fr) 76px 70px; gap: 8px; }
+        .method-note { display: grid; gap: 5px; }
+        .message-state { align-items: start; flex-wrap: wrap; }
+        .message-state .primary-button { width: 100%; margin: 4px 0 0; }
+      }
+      @media (max-width: 440px) {
+        .brand-block small { display: none; }
+        .topbar-actions { gap: 6px; }
+        .goal-label-row { align-items: start; }
+        .goal-value-row { flex-wrap: wrap; }
+        .goal-forecast div { padding: 19px 20px; }
+        .metric-strip strong { font-size: 1.35rem; }
+        .breakdown-table, .section-heading { padding-inline: 15px; }
+        .table-head, .table-row { grid-template-columns: minmax(0, 1fr) 72px; }
+        .table-head span:last-child, .table-row > span:last-child { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </body>
+</html>

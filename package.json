@@ -14,7 +14,9 @@
     "preview": "astro preview",
     "preview:dist": "node scripts/preview-dist.mjs",
     "qa:browser": "node scripts/browser-qa.mjs",
-    "audit:indexing": "node scripts/audit-build.mjs"
+    "audit:indexing": "node scripts/audit-build.mjs",
+    "cf:types": "wrangler types",
+    "db:migrate:local": "wrangler d1 migrations apply huesteps-pinterest-analytics --local"
   },
   "dependencies": {
     "@astrojs/rss": "latest",
@@ -26,7 +28,8 @@
   },
   "devDependencies": {
     "@astrojs/check": "latest",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "wrangler": "^4.110.0"
   },
   "engines": {
     "node": ">=20.0.0"

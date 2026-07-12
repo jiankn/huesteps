@@ -92,7 +92,7 @@ for (const file of htmlFiles) {
     descriptions.set(description, rel);
   }
 
-  if (/noindex/i.test(robotsMeta) && rel !== '/404.html') warn.push(`${rel} contains noindex.`);
+  if (/noindex/i.test(robotsMeta) && !['/404.html', '/admin/index.html'].includes(rel)) warn.push(`${rel} contains noindex.`);
 
   for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
     try {

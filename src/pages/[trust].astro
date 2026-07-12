@@ -52,13 +52,14 @@ const pages: Record<string, Page> = {
   },
   'privacy-policy': {
     title: 'Privacy Policy',
-    description: 'What data HueSteps does and does not collect when you use the static website.',
-    intro: 'HueSteps is designed as a low-data static website. It has no accounts, photo upload, comments, checkout, or personalized advertising at launch.',
+    description: 'What data HueSteps processes for site delivery and privacy-respecting Pinterest referral analytics.',
+    intro: 'HueSteps is designed as a low-data website. It has no accounts, photo upload, comments, checkout, or personalized advertising at launch.',
     sections: [
       { title: 'Data processed to deliver the site', paragraphs: ['Cloudflare provides DNS, security, content delivery, and hosting. As with ordinary web delivery, Cloudflare may process request information such as IP address, device or browser details, requested URL, timing, and security signals under its own terms and privacy commitments.'] },
-      { title: 'Analytics', paragraphs: ['Cloudflare Web Analytics can be enabled for an independent HueSteps property. It is disabled unless the production environment includes the analytics token. HueSteps does not include GA4, AdSense, a consent platform, or marketing pixels in the MVP.'] },
+      { title: 'Pinterest referral analytics', paragraphs: ['When a visit includes a Pinterest campaign source or comes from a verified Pinterest referrer, HueSteps records limited referral data: landing path, campaign and Pin identifiers supplied in the URL, visit time, country, and broad device category. The referrer is used to validate the source but is not stored. This measures Pinterest traffic and does not create an advertising profile.', 'Cloudflare receives the network request as the hosting provider. Before HueSteps stores an address-derived identifier, the server reduces IPv6 addresses to a /64 network and applies HMAC-SHA-256 with a private secret. HueSteps never stores or exposes the raw IP address. The resulting pseudonymous network identifier estimates a unique network IP, not a unique person.', 'Pseudonymous Pinterest event data is retained for no more than 400 days and then deleted. If your browser sends Global Privacy Control or Do Not Track, HueSteps does not write a Pinterest analytics event.'] },
+      { title: 'Other analytics and advertising', paragraphs: ['Cloudflare Web Analytics can be enabled for an independent HueSteps property only when the production environment includes its analytics token. HueSteps does not include GA4, AdSense, a consent platform, or third-party marketing pixels at launch. This policy will be updated before advertising or materially different analytics are enabled.'] },
       { title: 'External links and email', paragraphs: ['Opening an external merchant or social link sends you to that service and its privacy practices. Emailing HueSteps shares the information you include with the mailbox provider used by the brand. Do not send sensitive health, payment, or identification information.'] },
-      { title: 'Your choices', paragraphs: [`You can browse without an account. For a privacy question or deletion request concerning an email you sent us, contact ${SITE.email}.`], note: 'This policy must be reviewed before adding advertising, personalized analytics, forms, accounts, or photo features.' }
+      { title: 'Your choices', paragraphs: [`You can browse without an account and can enable Global Privacy Control or Do Not Track to prevent Pinterest analytics writes. For a privacy question or deletion request concerning an email you sent us, contact ${SITE.email}.`], note: 'This policy must be reviewed before adding advertising, personalized analytics, forms, accounts, or photo features.' }
     ]
   },
   'terms-of-use': {
@@ -93,7 +94,7 @@ const page = pages[slug]!;
     <header class="policy-hero">
       <h1>{page.title}</h1>
       <p class="lede">{page.intro}</p>
-      <p class="fine-print">Effective July 10, 2026</p>
+      <p class="fine-print">{slug === 'privacy-policy' ? 'Effective July 12, 2026' : 'Effective July 10, 2026'}</p>
     </header>
     <div class="policy-body">
       {page.sections.map((section) => (
