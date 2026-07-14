@@ -1,0 +1,1931 @@
+{
+  "version": 1,
+  "reviewCriteria": [
+    "The image crop clearly centers the named targetRegion.",
+    "The expectedOutcome is visibly present and later-step makeup is not shown early.",
+    "An intentional target-area crop and slight identity variation are allowed, but skin depth, undertone, white balance, and lighting stay comparable; cumulative makeup progress must be visible and cannot be explained only by a different face or crop.",
+    "Skin texture and application detail remain clear at article display size."
+  ],
+  "reviews": {
+    "soft-glam-wedding-guest-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "b9d556594d2bcfca477ddcf802dc8eb52b98a4407b8eb06db056872334f92a74",
+      "notes": "The full-face baseline shows settled bare skin, clean lids, natural lips, and visible pores before wedding-guest color is introduced."
+    },
+    "soft-glam-wedding-guest-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "53bd00c62afd937442b136f83ffd421b03c1f327c1bbb0325d8c1f382a4b96a5",
+      "notes": "The same full-face anchor shows selective complexion evening while the face perimeter and natural skin texture remain visible rather than fully masked."
+    },
+    "soft-glam-wedding-guest-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "55ea3f5c47cce079d64b4be347ec803b9f1954c428ed058f32cc0086128e8192",
+      "notes": "The crop centers both brows; sparse areas are softly filled while individual hairs and skin gaps remain clearly visible, with no later eye makeup shown."
+    },
+    "soft-glam-wedding-guest-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Mushroom taupe establishes the eye direction at above the natural crease without a hard outer edge.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "182ee7034721c9b9bc5c17c8cdb4eb855abc4f40a0b6eb89dc77a3353e02b3f8",
+      "notes": "The crop centers both eyes and clearly shows rose-taupe lid color with diffused outer depth, matching the eye-shadow step rather than another facial region."
+    },
+    "soft-glam-wedding-guest-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Mushroom taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "9e77abd32c88eb93c76c84375f48926e5f59d31d9e28b24560bcb5079e67d5e6",
+      "notes": "A close eye crop clearly displays a thin deep-brown line at the upper lash roots; the nose, cheek, and lips do not dominate the frame."
+    },
+    "soft-glam-wedding-guest-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Soft berry is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "ddd1db62f73791726824f534ad33f0fe92e5e172529b640a7a736d52bac59150",
+      "notes": "The three-quarter crop centers the outer cheekbone, where soft berry blush and a restrained highlight are visible over realistic skin texture."
+    },
+    "soft-glam-wedding-guest-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Soft berry and the soft satin finish without becoming the only focal point.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "f86aa4a6a6073afab0ec0389ea2ae98a5c40f52d500cbc2d2108d2d7e1ef4a2b",
+      "notes": "The close crop centers the lips and shows an even muted-berry satin finish with preserved lip lines and no unrelated eye or cheek emphasis."
+    },
+    "soft-glam-wedding-guest-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Soft Glam Wedding Guest Makeup reads as soft satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "soft-glam-wedding-guest-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T05:00:02.626Z",
+      "assetSha256": "571b065e5c2a73d9d3fe8bd32f4036edcb5afa434fd8df51ff5dd1535722386a",
+      "notes": "The final full-face image integrates the soft rose-taupe eyes, defined lash roots, berry cheek, and muted berry lip at a comparable light-medium neutral skin depth."
+    },
+    "easy-date-night-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "1aeb4f198c9375aef7aab7c07677b4e33247d3cd453186c0dfc6b2858a707248",
+      "notes": "Retained production preparation frame: straight-on bare full face and lids, settled surface, visible pores and no later-step color makeup."
+    },
+    "easy-date-night-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "easy-date-night-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "6dc053842b4b6aaf7283fd19922a6a5c40b2bc006e41fea1275c09d63a5ef265",
+      "notes": "Selective complexion correction is readable from the fingertip press beside the nose; center face is more even while perimeter freckles and natural variation remain."
+    },
+    "easy-date-night-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "easy-date-night-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "8aee67f3d5be665af8c8e9002dd702adb0046c7a27001929ada9a6f5dc0479ea",
+      "notes": "Both brows dominate the frame; individual hairs and skin remain visible, with airy inner thirds and lightly defined tails rather than solid blocks."
+    },
+    "easy-date-night-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Rose bronze establishes the eye direction at inner two-thirds of the lid without a hard outer edge.",
+      "previousStepImage": "easy-date-night-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "91d69c2ae84dda09ee550c319a46dc180d45a071dc270a7f7272ac24dd03486a",
+      "notes": "Both lids are visible with a downward gaze; muted rose-bronze satin reads across the inner-to-center two-thirds and fades before the outer edge, with no liner yet."
+    },
+    "easy-date-night-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft cocoa makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "easy-date-night-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "b04c798dc581dd7f818567b8d2a311569e34b00e1686af6ebd78e8daedeb31f7",
+      "notes": "The frame is centered on one upper lash root: a hairline soft-cocoa line sits between and immediately above upper lashes, with a clean lower lash line and no wing."
+    },
+    "easy-date-night-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Tea rose is visible at cheek center and lips while natural skin still shows through the edges.",
+      "previousStepImage": "easy-date-night-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "ea6df9ea10b8173660d8e21d4ee2153f15f7330ea7074a3eb21408c917ed29f3",
+      "notes": "Tea-rose cream is confined to the cheek center with translucent pore-visible edges; a first sheer lip press is secondary and the cheek remains the focal region."
+    },
+    "easy-date-night-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Tea rose and the luminous finish without becoming the only focal point.",
+      "previousStepImage": "easy-date-night-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "58b836c2ef8e375c083db2747292701e05513a9790acda47eafd36192c3f21ea",
+      "notes": "Accepted revision shows a thin tea-rose wash with visible lip lines, softly diffused side and lower perimeter, no lip liner, and center-only satin balm sheen."
+    },
+    "easy-date-night-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Easy Date Night Makeup reads as luminous in front-facing light without overloaded corrections.",
+      "previousStepImage": "easy-date-night-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:09.404Z",
+      "assetSha256": "5acf699b8a290ce38886732fd326950a080ba4c0feb3dab59e21ab709a11f2ac",
+      "notes": "Final straight-on full face combines selective luminous skin, airy brows, rose-bronze lids, thin cocoa roots, soft tea-rose cheeks and blurred lips without heavy glam or artifact bands."
+    },
+    "polished-office-makeup-10-minutes/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "ccec236744234b9a4fd5931f39b372d299c9e2010cb4773e0ae94fcc30f76694",
+      "notes": "Full-face baseline shows settled natural skin and bare lids with no later taupe, liner, cheek, or lip color visible."
+    },
+    "polished-office-makeup-10-minutes/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "6732c68922ce57e57f49b9c8c96d3bf344e575ad1eb083d6f006a41162023096",
+      "notes": "Closer complexion view shows selective center-face correction while pores remain visible and brows, eyes, and lips stay untreated."
+    },
+    "polished-office-makeup-10-minutes/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "9095a3f0d2bc22bf03b146f6b8d077413dc0ac7e651fdac345fba9affbf8f405",
+      "notes": "Upper-face crop clearly shows softly filled brow gaps and retained individual hairs without introducing eye shadow or lash definition."
+    },
+    "polished-office-makeup-10-minutes/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Workday taupe establishes the eye direction at lid and slightly above crease without a hard outer edge.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "63200278c812d631cf450e638d86f83ecd70c9629cadf2129fb6ef6e10431efe",
+      "notes": "Both-eye macro clearly shows workday taupe over the lid and slightly above the crease with a soft edge and no dark lash line."
+    },
+    "polished-office-makeup-10-minutes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft brown makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "949804bcb300f32a8abe8bd0479d3be7ebee06b6145f621bd8740ed1a528f8f4",
+      "notes": "Eye macro adds a thin soft-brown upper-lash-root definition while the taupe lid space remains visible and unblocked."
+    },
+    "polished-office-makeup-10-minutes/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Muted peach is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "77aa3f9c4350c8a41bb679ca3fbe76374585d911d3e04725c841f5374cf6c6ef",
+      "notes": "Three-quarter close view shows muted peach on the upper cheek and a first light lip layer with natural skin texture at the edges."
+    },
+    "polished-office-makeup-10-minutes/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Muted peach and the natural satin finish without becoming the only focal point.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "b91ad107c288666cb4ffa46f329d1643fa2d64376fb39a1a76f36a2f9af201bc",
+      "notes": "Lip macro shows the completed muted-peach satin lip, clean cupid bow, softened outer edge, and intact natural lip texture."
+    },
+    "polished-office-makeup-10-minutes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Polished Office Makeup in 10 Minutes reads as natural satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "polished-office-makeup-10-minutes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:09:42.670Z",
+      "assetSha256": "2ced92f86f9f22388eff6fc9ec55b2e799eb2df698d23808354469b06fda9b39",
+      "notes": "Final full-face view shows balanced taupe eyes, soft-brown lash roots, muted-peach cheeks and lips, and a natural satin finish."
+    },
+    "fresh-brunch-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "34b28f4b70b8b81791d4b042a2ada5e1ea82a8d74d39935dd6354444acb2a6fb",
+      "notes": "The full-face preparation image shows settled bare skin, clean lids, natural lips, and visible freckles and pores before the fresh-brunch palette begins."
+    },
+    "fresh-brunch-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "fresh-brunch-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "53f51ce81a9b451a0c5c70023550e8f2aee21afaac83f2e57379c59bfb8b7898",
+      "notes": "The complexion is selectively evened while natural variation, freckles, and the face perimeter remain visible at the same warm light-medium skin depth."
+    },
+    "fresh-brunch-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "fresh-brunch-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "2b03635d5172192339b0d4eb8f3fe9c207dafe2e670de5f56f7531d50aeba6c8",
+      "notes": "The crop centers the brow frame; individual hairs and soft inner edges remain visible without introducing later champagne eye color."
+    },
+    "fresh-brunch-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Soft champagne establishes the eye direction at inner lid and tear duct without a hard outer edge.",
+      "previousStepImage": "fresh-brunch-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "09db6cc41caa93c28de2c1872bedc41fdca2c55f27e199c31ecc0ecf5b4d693f",
+      "notes": "Soft champagne is clearly visible on both inner lids and tear ducts, with a diffused edge and no hard outer-eye shadow."
+    },
+    "fresh-brunch-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Caramel brown makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "fresh-brunch-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "dd966fd04350ee4fd3a5c10771050b9bda48125f41ad1ef265e447ec78355c36",
+      "notes": "The eye macro clearly centers a thin caramel-brown upper-lash-root line while preserving iris color, lid space, and the inner champagne highlight."
+    },
+    "fresh-brunch-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Apricot cream is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "fresh-brunch-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "ca803bb9ad3485ebfa2fc6b3b1ba2c1d3048825666ac6952045234a1cecb4d54",
+      "notes": "Apricot cream is visibly placed high on both cheeks with translucent pore-visible edges and no unrelated facial region replacing the cheek step."
+    },
+    "fresh-brunch-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Apricot cream and the fresh dewy finish without becoming the only focal point.",
+      "previousStepImage": "fresh-brunch-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "cb54cea5f3aae2c2c71038829a5fd0d58f0a6f2490c4d1d1d2de362fd881df56",
+      "notes": "The lip macro shows an even apricot-peach satin finish with preserved lip lines and a color relationship that matches the cheek cream."
+    },
+    "fresh-brunch-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Fresh Brunch Makeup reads as fresh dewy in front-facing light without overloaded corrections.",
+      "previousStepImage": "fresh-brunch-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:06:42.134Z",
+      "assetSha256": "e4a997eff86c44d9bb5e499f43e7de9cce8994d0ce90c6a43d14c24e11fa7a5c",
+      "notes": "The final full-face image integrates fresh dewy skin, light brows, inner champagne, caramel lash definition, apricot cheeks, and matching lips at a consistent skin depth."
+    },
+    "holiday-party-shimmer-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "3abd689bd811e320cc7f438ed0e3df543905c04dc47573c36084b5dcaf5b916e",
+      "notes": "The full-face preparation frame shows clean lids, natural lips, settled bare skin, and visible pores before the holiday palette is introduced."
+    },
+    "holiday-party-shimmer-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "05b5770511a1eacd08763bf3fbe235ac39f6c04ca75a968b89f9a3dc45543ba2",
+      "notes": "Selective complexion evening reduces central discoloration while maintaining natural skin variation and the same light-medium neutral depth."
+    },
+    "holiday-party-shimmer-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "44ba546036f19fa73aebf8a15e1c69ea26e290ae567d2e43228e9cf1f9132edb",
+      "notes": "The brow-focused crop keeps individual hairs and soft inner edges visible, with no cranberry or gold eye color appearing early."
+    },
+    "holiday-party-shimmer-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Matte cranberry establishes the eye direction at outer lid and crease without a hard outer edge.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "3076a1380fc519584ef3b6e3bc3f342f67e50152086d8c7fa29176543592043e",
+      "notes": "Both eyes clearly show matte cranberry on the outer lid and crease plus fine antique-gold shimmer on the center and inner lid, with realistic particle texture."
+    },
+    "holiday-party-shimmer-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Matte cranberry makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "72fdb8760896019016e607e35ee0f0c8d22134b698a18e97982a47d8728f479d",
+      "notes": "The eye macro centers a precise upper-lash-root line; the lid colors remain visible and the nose, cheek, and lips do not replace the target region."
+    },
+    "holiday-party-shimmer-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Deep berry is visible at lips and upper cheek while natural skin still shows through the edges.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "c00551481a987c79ff3d0c1a6609f523b634b4a2b47f903b06bb43256bd6b1a6",
+      "notes": "The three-quarter crop clearly shows high deep-berry cheek color and the first coordinated berry lip layer over pore-visible skin."
+    },
+    "holiday-party-shimmer-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Deep berry and the dimensional shimmer finish without becoming the only focal point.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "5713782f3c5c939278d3818d5f110274cb3d8ea45661cbc27de824b99ce0e478",
+      "notes": "The full lip macro shows a dimensional deep-berry satin finish with intact lip lines, even coverage, and no unrelated eye or cheek focus."
+    },
+    "holiday-party-shimmer-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Holiday Party Shimmer Makeup reads as dimensional shimmer in front-facing light without overloaded corrections.",
+      "previousStepImage": "holiday-party-shimmer-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:24.284Z",
+      "assetSha256": "af363458fd0fcb77dcead72d0f25770f059eee4f302770ef8a119acc89944a9c",
+      "notes": "The final full face integrates cranberry-and-gold eyes, controlled lash roots, deep-berry cheeks, and berry lips at a consistent skin depth and white balance."
+    },
+    "easy-vacation-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "bfab4a52690a1e2ac7f25f0808e8e6101d56341db7e65e60f6092a32d23fac27",
+      "notes": "The full-face baseline shows settled bare skin, clean lids, natural lips, and visible pores before the warm vacation palette begins."
+    },
+    "easy-vacation-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "easy-vacation-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "a9fc211db31dc56e69c994eae93ab4f761370c7518399e7b813aaa550f71cede",
+      "notes": "The complexion is selectively evened without erasing the face perimeter, natural variation, or the warm light-medium skin character."
+    },
+    "easy-vacation-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "easy-vacation-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "646035902dd0651f4505a83cfd3f4a274a0aa29253fbeea7a0c784b0e9cf66bb",
+      "notes": "The brow macro keeps clear hair strands and skin gaps while establishing a neat frame without showing later eye color."
+    },
+    "easy-vacation-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Sheer bronze establishes the eye direction at lid and outer cheek without a hard outer edge.",
+      "previousStepImage": "easy-vacation-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "bf2cda2dbd832303ced72db9d564b9c4270ac2e565b63de0d9c5ae09acd5911e",
+      "notes": "Both eyes clearly display the warm vacation shadow across the lids and outer structure, with the eye area rather than another facial region filling the frame."
+    },
+    "easy-vacation-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Espresso makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "easy-vacation-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "0032272bad6e132a24dbc65f2190fc3df864dd25284aa8feb67fc8784095eb08",
+      "notes": "The close eye crop shows a thin brown line directly at the upper lash roots while preserving the warm lid shade and open lower lash line."
+    },
+    "easy-vacation-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Sheer bronze is visible at lid and outer cheek while natural skin still shows through the edges.",
+      "previousStepImage": "easy-vacation-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "982139c5d686ebcd3abd8638deca31391e9b2806bc0754f729791a59d90647e9",
+      "notes": "Warm vacation cheek color is visible high on the cheekbone in a three-quarter crop with translucent, pore-visible edges."
+    },
+    "easy-vacation-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Sheer bronze and the sheer sunlit finish without becoming the only focal point.",
+      "previousStepImage": "easy-vacation-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "fdc30bec1dcdd4ae226d350bec337a3d264c0aa763a112f7b23e41741a830542",
+      "notes": "The lip macro shows a coordinated warm peach-coral satin finish with preserved lip texture and no unrelated facial focal point."
+    },
+    "easy-vacation-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Easy Vacation Makeup reads as sheer sunlit in front-facing light without overloaded corrections.",
+      "previousStepImage": "easy-vacation-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T10:30:26.983Z",
+      "assetSha256": "5fe38912058c80938d68f13a80fe6eec9abdf88e173275a43b588e8949a10aef",
+      "notes": "The final full face combines warm eyes, controlled lash definition, sunlit cheek color, and peach-coral lips with comparable undertone and exposure."
+    },
+    "elegant-dinner-party-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "a0e721e3e77a80b1ee50ec7deeb5e73c4d9c001afd678ecfe14110d1508da0d2",
+      "notes": "The full-face preparation image shows settled bare skin, clean lids, natural lips, and visible pore detail before the dinner palette is introduced."
+    },
+    "elegant-dinner-party-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "3cfbc191e905f84373286e0ee4d43594ab3e2ada8ee4bac499ecc64e5b9c9f6c",
+      "notes": "The complexion is selectively evened at the same light-medium neutral depth while natural skin variation remains visible around the perimeter."
+    },
+    "elegant-dinner-party-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "807590d6ba6cdb9d51cec8d2766081ea8380840891ac95db7934c04fc7aa1fbb",
+      "notes": "The brow-focused crop retains individual hairs and soft inner edges, creating a polished frame without introducing later plum eye color."
+    },
+    "elegant-dinner-party-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Soft plum establishes the eye direction at outer lid and lash line without a hard outer edge.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "6f2e63c0e7e9a10deaa176ca032976a04905089e14f872cbd3f380bf5935a476",
+      "notes": "Both eyes clearly show the elegant plum-mauve lid and outer structure with controlled blending and visible skin texture."
+    },
+    "elegant-dinner-party-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft plum makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "b69846a5462ba467f7e9889fa30d9fa852f6547f49686d49ae1cd1f05af4033c",
+      "notes": "The crop centers both upper lash roots, where a clear thin line adds definition without a wing, false-lash band, or unrelated facial focus."
+    },
+    "elegant-dinner-party-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Muted wine is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "d9c7590fb9efbc62e3164270c2b79a09662ae598f1f78f267177c4bac07838ac",
+      "notes": "The three-quarter crop clearly shows coordinated rose-plum cheek color high on the cheekbone with translucent pore-visible edges."
+    },
+    "elegant-dinner-party-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Muted wine and the velvet satin finish without becoming the only focal point.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "7efb10efc001c824dc74144a578d462a3f9fc50b3ed3d0fc81163ba8cda6b48a",
+      "notes": "The lip macro shows an even refined mauve-berry satin finish with preserved lip lines and no unrelated eye or cheek emphasis."
+    },
+    "elegant-dinner-party-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Elegant Dinner Party Makeup reads as velvet satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "elegant-dinner-party-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:05.899Z",
+      "assetSha256": "83ce9a031001231fcfe2cff3ae5e1a338b6a9f28935bb94e6cfaf82d26e11ec4",
+      "notes": "The final full face integrates plum-mauve eyes, precise roots, polished cheeks, and berry-mauve lips at a consistent undertone and exposure."
+    },
+    "natural-job-interview-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "d10196ea57ebe2cc557653ba4152a6896b623472df88b3fbdbb5c9fa06b58b91",
+      "notes": "The full-face baseline shows settled bare skin, clean lids, natural lips, and visible pores before the professional makeup layers begin."
+    },
+    "natural-job-interview-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "natural-job-interview-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "1a781735c3d62c7e2d88809f04785a2425827448da78941a6cacf5c8048d17f0",
+      "notes": "Selective complexion evening softens central discoloration without erasing natural skin variation or changing the medium warm-neutral depth."
+    },
+    "natural-job-interview-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "natural-job-interview-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "c1af5fe25ba31d3cd166a2ae86cbfee63f3a271e5639261c0a695ba7997081ca",
+      "notes": "The brow frame is neat and professional while individual hairs, soft inner edges, and natural density remain visible."
+    },
+    "natural-job-interview-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Neutral taupe establishes the eye direction at lid and crease without a hard outer edge.",
+      "previousStepImage": "natural-job-interview-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "7655eef99c347a851083c49eecf8d00b09ba284358fd29769e50b7a970c6bacc",
+      "notes": "Both eyes show a restrained neutral work-appropriate shadow with diffused edges and no smoky or evening-level intensity."
+    },
+    "natural-job-interview-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft brown makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "natural-job-interview-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "0404df73acfa63812ab61df4497cba13d0d12593c914091cf337e126dda15512",
+      "notes": "The eye crop centers thin upper-lash-root definition and does not substitute the nose, lips, cheek, or a heavy wing for the requested step."
+    },
+    "natural-job-interview-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Rose beige is visible at cheeks and lips while natural skin still shows through the edges.",
+      "previousStepImage": "natural-job-interview-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "7c70a17b6ae6c09bfde3b25ddb01cd65677770c3a8273463f1bafae5611e446f",
+      "notes": "A translucent rose-beige cheek color is visible high on the cheek in a three-quarter crop while natural pores remain readable."
+    },
+    "natural-job-interview-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Rose beige and the natural matte finish without becoming the only focal point.",
+      "previousStepImage": "natural-job-interview-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "a4f897ba1b85f6c7a043fb74cac286d7db709595563c8511d0b88dec7a22b5c3",
+      "notes": "The lip macro shows a thin professional rose-beige finish with preserved lip texture, soft edges, and no heavy liner."
+    },
+    "natural-job-interview-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Natural Job Interview Makeup reads as natural matte in front-facing light without overloaded corrections.",
+      "previousStepImage": "natural-job-interview-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:03.355Z",
+      "assetSha256": "798711ca2c5365b7a782a64e2d45b783781cde883ae8f0359824b816f8391322",
+      "notes": "The final full face integrates even skin, light brows, neutral eyes, controlled lash roots, subtle cheeks, and rose-beige lips without looking overdone."
+    },
+    "soft-glam-hooded-eyes/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "f3624cb13f7fdd421b5a0b71e74ab04dd2c5a3988242c5e4b8cde797de15d470",
+      "notes": "The baseline clearly shows the natural hooded fold, clean visible lid area, warm light-medium skin, and real pore detail before color placement."
+    },
+    "soft-glam-hooded-eyes/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Visible taupe creates a soft guide at just above the hood fold that remains visible with a relaxed gaze.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "8815045e1a524dc9b127f6980e59d8688bf1d618c39ff178ef49b4cf1d7e0b74",
+      "notes": "A medium taupe guide is visibly mapped above the natural hood fold on both eyes and remains readable with the eyes open."
+    },
+    "soft-glam-hooded-eyes/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "b5b66c119b2ba4ba061544735763cf54db49c363147fe2b5f72c748167897518",
+      "notes": "The outer third is clearly deeper than step 02 on both eyes while the center visible lid remains available for the focal shade."
+    },
+    "soft-glam-hooded-eyes/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Satin rose is clearly visible at visible center lid while the transition border stays intact.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "a99a44abb9ef94c648c566a5f950a891fdede23a6899578fd1f244f60ac0ce0d",
+      "notes": "Satin rose is visibly pressed onto the center visible lid without removing the taupe transition or the deeper outer structure."
+    },
+    "soft-glam-hooded-eyes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Cobalt micro-liner makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "8ba647fd2708006277c120324d5935fffe53c257a6f813dc0e9d59a251028344",
+      "notes": "A thin continuous deep-brown line now defines both upper lash roots while leaving the rose lid area visible and avoiding a heavy wing."
+    },
+    "soft-glam-hooded-eyes/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "de84b11a0478b0fa82b0af2291c0a0940f1234d7c8d9e4d2ee5b96226a394b9f",
+      "notes": "A restrained lower-lash echo appears along the outer third only; the inner lower line stays clean and the upper sequence remains intact."
+    },
+    "soft-glam-hooded-eyes/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "abfde69310e7ac1a731d0e1d622c16c74aad2be096a8a83063ba9a22ab916e32",
+      "notes": "The lashes are naturally curled and separated without a thick false-lash band or obstruction of the hooded-eye placement map."
+    },
+    "soft-glam-hooded-eyes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The soft satin eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "soft-glam-hooded-eyes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T07:21:07.374Z",
+      "assetSha256": "39885570d53b4a413cb6cc9119b07a604ecd70f4609ce6e2f2cc611ce964b323",
+      "notes": "The finished open-eye balance keeps comparable skin depth and exposure and shows taupe structure, rose center, controlled lash roots, lower echo, and natural lashes."
+    },
+    "everyday-makeup-deep-set-eyes/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "1ab61a230823c4bd54ab26f96279c0c244babeb1e8b4a18d5ffe90266ef65889",
+      "notes": "The baseline clearly shows the natural deep-set eye structure, clean lids, warm medium skin, and visible pore detail before color placement."
+    },
+    "everyday-makeup-deep-set-eyes/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Light taupe creates a soft guide at above the socket edge that remains visible with a relaxed gaze.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "9565077424b22cd7d96970c982f2d9df0341daf6782cab76657b8e6e7aee123a",
+      "notes": "A balanced neutral taupe band is visibly placed above the natural socket on both eyes, keeping the mobile lids lighter and the eyes open."
+    },
+    "everyday-makeup-deep-set-eyes/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "1a5ff2872d1655bed02e7a6f6cadd050844d7c3471f9e5f84adb41184fb6f6ad",
+      "notes": "The outer third is equally deepened on both eyes while the center mobile lids remain open for the brightening shade."
+    },
+    "everyday-makeup-deep-set-eyes/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Soft beige is clearly visible at mobile lid while the transition border stays intact.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "e2648969e64429e19828d655f7059d42b4974325137f50dcc8338d5a78675fd1",
+      "notes": "A light satin champagne is clearly visible on both center lids without erasing the above-socket taupe or outer structure."
+    },
+    "everyday-makeup-deep-set-eyes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Brown espresso makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "749f4a90f2ac2a74e598418808d4bd7766b430253acc43ec6e79294def98a674",
+      "notes": "A thin continuous deep-cocoa line sits directly along both upper lash roots, defining them without a wing or heavy lid coverage."
+    },
+    "everyday-makeup-deep-set-eyes/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "07f092439020ebffd8caff2d2bbb27ac83e1180aa1980d308aa9bfd76b55072b",
+      "notes": "A restrained outer-lower-third echo is visible while the inner lower lash line stays clean and the upper placement remains intact."
+    },
+    "everyday-makeup-deep-set-eyes/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "a962db9ed7e2d81dd130f8c6bc73ba74f787222fbfeea2daf9e4bce587403c01",
+      "notes": "Natural lashes are lightly curled and individually separated without a false-lash band or excessive density over the deep-set lids."
+    },
+    "everyday-makeup-deep-set-eyes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The bright satin eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "everyday-makeup-deep-set-eyes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:39:01.309Z",
+      "assetSha256": "934e3498d0ac2fac8e87257f324e14cc9cf35bb4e5054f2b3ea8581cb96eca53",
+      "notes": "The final view preserves comparable skin depth and lighting and shows balanced taupe lift, center brightness, controlled roots, lower echo, and natural lashes."
+    },
+    "elongated-eye-makeup-round-eyes/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "81f6eb8a3516f10a98e203f20fc3207495e5a5dd2e386d2ba794d6eda1f46cdb",
+      "notes": "Open-eye macro shows the primed round-eye baseline with visible natural lid folds, bare color placement, and unchanged lashes."
+    },
+    "elongated-eye-makeup-round-eyes/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Mid taupe creates a soft guide at outer half and slightly beyond corner that remains visible with a relaxed gaze.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "9cb112049f45efcf1f513d8641784f2e878f636dbdb30664cb1ba988a5c6b001",
+      "notes": "Mid taupe is clearly visible from the outer iris across the outer half with a soft outward direction and a clean inner lid."
+    },
+    "elongated-eye-makeup-round-eyes/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "89972d3f4179c0a4d90494b2b6319799fd0612e33768a42bebda7b90d442bf43",
+      "notes": "The outer third adds a distinctly deeper low horizontal taupe wedge while the center lid remains open for the focal shade."
+    },
+    "elongated-eye-makeup-round-eyes/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Soft bronze is clearly visible at center to outer lid while the transition border stays intact.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "339ecd486ca9480fb5acaa805ee0b8d07bdeee474e0dba1696d8590e5c055638",
+      "notes": "Soft bronze is newly visible from the center through the outer lid without covering the deeper taupe structure or inner brightness."
+    },
+    "elongated-eye-makeup-round-eyes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Deep brown makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "bf2b446fb2e71507e41f0b179487a06a213f9873c348bfb694e9d30b1032fb89",
+      "notes": "A short deep-brown definition appears only along the outer upper lash roots and leaves the lower lash line untouched."
+    },
+    "elongated-eye-makeup-round-eyes/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "f0d6b5992fc8208e1d6f5aaef735396b7e30c8129712dc52779dbe726e45e70f",
+      "notes": "The outer third of the lower lash line gains a soft restrained echo while the inner half stays clean and the endpoint remains horizontal."
+    },
+    "elongated-eye-makeup-round-eyes/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "6b5587466126839b5651359f74b2c4ce959a7d96f5e7ece7f1a702750d86cc3e",
+      "notes": "Upper lashes gain a light natural curl and separated definition without a strip-lash band; the detector warning was visually checked as natural lashes."
+    },
+    "elongated-eye-makeup-round-eyes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The soft matte eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "elongated-eye-makeup-round-eyes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-12T15:46:49.961Z",
+      "assetSha256": "07e4f696c54a2560fbd465a7efadf731b8db53176137a3645634bd85b86e9d1b",
+      "notes": "Final open-eye macro preserves the horizontal taupe-bronze structure, restrained lower echo, and light separated lashes without added heaviness."
+    },
+    "soft-shimmer-makeup-monolids/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "aa5eacf18b071aaf5b38814e7b1facffd80e2f9aa708e6fd954e8c5419f4a949",
+      "notes": "Open-eye baseline clearly shows the natural monolid fold, clean lids, warm-light neutral skin, and visible skin texture before color placement."
+    },
+    "soft-shimmer-makeup-monolids/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Cocoa matte creates a soft guide at upper lash roots that remains visible with a relaxed gaze.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "d95cca272cbbbb2898b78d90b830824c7f6ac16ce7566b9504f7415529d3c6b1",
+      "notes": "A readable cocoa matte band sits directly above both upper lash roots and remains visible with the eyes relaxed; no later shimmer is present."
+    },
+    "soft-shimmer-makeup-monolids/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "be9a0477ba7b4d9d946ed4cc2e2bb939baa3e1f451bc1a28c731a78631c9a9cc",
+      "notes": "The outer third is visibly deeper than step 02 in a low horizontal structure while the center visible lid remains open for shimmer."
+    },
+    "soft-shimmer-makeup-monolids/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Rose copper is clearly visible at center visible lid while the transition border stays intact.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "938e28526a9241fb2eb90694bd400d92a1f81655c7d9be16e4de33fef6cc67ee",
+      "notes": "Rose-copper reflect is clearly concentrated on the center visible lid while the earlier cocoa transition and outer depth remain intact."
+    },
+    "soft-shimmer-makeup-monolids/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Cocoa matte makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "89718bcc856a687d6faccbd38a2d2a3ccac5fce1a3b2baa89b5a93a4d8446e58",
+      "notes": "A thin espresso-cocoa line now defines the upper lash roots without covering the rose-copper focal area or creating a wing."
+    },
+    "soft-shimmer-makeup-monolids/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "28f2f44311dacbb2598c60146c8fb9675507fd368dbf2818ad4bfc4fcc3e0826",
+      "notes": "A restrained cocoa echo is visible only along the outer lower third; the inner lower lash line stays clean and prior upper-lid work is preserved."
+    },
+    "soft-shimmer-makeup-monolids/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "735184fb18af9b832d18bc98e15d677472d3293da72ef5213a140676d8e9fb89",
+      "notes": "Natural lashes are lightly curled and individually separated with no thick band, false-lash density, or loss of the visible lid makeup."
+    },
+    "soft-shimmer-makeup-monolids/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The soft shimmer eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "soft-shimmer-makeup-monolids/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:22:53.933Z",
+      "assetSha256": "ad0af3191554825c2ef7c33e9be790555031b44d398c222f3d2fefd4baa76765",
+      "notes": "The final straight-ahead view keeps the same skin depth and lighting and shows balanced cocoa structure, rose-copper center, lower echo, and natural lashes."
+    },
+    "lifted-makeup-downturned-eyes/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "c05404545e19fc4ce5cbc3cc833e3fbde343e44c2dcb16b34466e28ab621d219",
+      "notes": "The open-eye baseline clearly shows naturally downturned outer corners, clean lids, a light-neutral skin tone, and intact pores before color placement."
+    },
+    "lifted-makeup-downturned-eyes/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Lift taupe creates a soft guide at outer lid angled upward that remains visible with a relaxed gaze.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "04c1492f7a799d903876d92c066bc7133b85604c63243b4ba2c9bdb45fedfb76",
+      "notes": "A visible taupe guide occupies the outer half of both lids and angles slightly upward rather than following the downward outer-corner slope."
+    },
+    "lifted-makeup-downturned-eyes/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "14122a36e7a57c75f543c66e9926344527250e70b9d11c34583f83c348e91bbc",
+      "notes": "The outer third is distinctly deeper than step 02, with the deepest color ending before the natural downturn and the center lid left open."
+    },
+    "lifted-makeup-downturned-eyes/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Satin beige is clearly visible at inner and center lid while the transition border stays intact.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "dab4fa484caa3ea5ec3c7356024e99f3cf0a5cf01eb643c1ea0de492e3871a24",
+      "notes": "Satin beige clearly brightens the inner and center lid while the lifted outer taupe structure remains visible and unblurred."
+    },
+    "lifted-makeup-downturned-eyes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Deep cocoa makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "86e810fdc6925bed5c34648806e21e4d3b895e8c94fdc65736647e936c6fe8c8",
+      "notes": "A thin deep-cocoa line defines the upper lash roots and stops before the downturned endpoint, preserving the beige lid and lifted outer structure."
+    },
+    "lifted-makeup-downturned-eyes/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "c3043e3657af6cbc65c2d19011113f6d18ba80419c60333af8169857cccd0fac",
+      "notes": "A restrained outer-lower-third echo appears without extending into the inner lower lash line or pulling the eye visually downward."
+    },
+    "lifted-makeup-downturned-eyes/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "44dae29c4ad4a93a30378edf65010c14c0d11f9f872406e7b137af84a7fbce5c",
+      "notes": "The center and outer lashes are naturally curled and separated, with no artificial lash band and no loss of the previous shadow placement."
+    },
+    "lifted-makeup-downturned-eyes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The satin matte eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "lifted-makeup-downturned-eyes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T01:50:49.516Z",
+      "assetSha256": "f0e0e036b86ff92b22cfaa2135c6b0df2aafe8f09711de370424f5e23c8665f7",
+      "notes": "The finished straight-ahead result keeps consistent skin depth and exposure and shows balanced satin lids, lifted outer depth, controlled lash roots, and natural lashes."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-01-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "The lids feel smooth and dry while the natural fold and open-eye landmarks remain easy to see.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "3c52b9f05c74ac26185e6ba9975ef4ba26c63e7585ddf775841ef98b196c6612",
+      "notes": "The baseline shows the close-set eye spacing, clean lids, fair-light neutral skin, and intact pore detail before directional color placement."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-02-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Neutral taupe creates a soft guide at outer half of lid that remains visible with a relaxed gaze.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "f43a53d6f5bde6b702cdc6e3fc73b0dd89d93eda21564768fad0b8811b5960ac",
+      "notes": "A medium cool-neutral taupe is clearly placed over the outer half of both lids while the inner third remains visibly lighter."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-03-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "The outer structure is slightly deeper than the transition while the center lid remains available for the focal shade.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "887f015b09de5032407943f2b860a8c541fe73e2ce00c1a3000bd3c3f91c9fa9",
+      "notes": "The outer third deepens into a readable horizontal espresso-taupe wedge, increasing outward emphasis without darkening the inner corners."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-04-curated.webp": {
+      "targetRegion": "lid",
+      "expectedOutcome": "Bright satin is clearly visible at inner third of lid while the transition border stays intact.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "d217011d12e93c46b20addc6bad03f23b27757883e2daa43f76cc7829c36f544",
+      "notes": "Bright pearl satin visibly illuminates the inner third while the outer espresso-taupe depth from step 03 remains present."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Brown espresso makes the upper lashes look denser without hiding the focal lid shade.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "36ceef721b0560d3a552066206b2cc0238716c29881b2c7864db961caa32f967",
+      "notes": "Brown espresso lightly defines only the outer upper lash roots and does not close the bright inner eye or create a heavy full-length line."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-06-curated.webp": {
+      "targetRegion": "lower-lash",
+      "expectedOutcome": "A restrained lower-lash echo connects the palette without closing the inner corner or pulling the eye down.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "c5c5bfa2033d9ffd46fda02fbbce25d4d686d8d4aa8d81d1c5f376527dd1d49c",
+      "notes": "A controlled echo appears along the outer lower third, with the inner lower lash line and inner satin remaining clean and bright."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-07-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "The center and outer lashes lift clear of the lid and remain individually separated.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "eec4c92ce27688aa19033a15f7b27b885059493711a83091ca2787aa11065b2f",
+      "notes": "The lashes are naturally lifted and separated toward the outer side, with no thick false-lash band and no loss of the placement map."
+    },
+    "balanced-eye-makeup-close-set-eyes/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The bright satin eye reads evenly from straight ahead and every focal area remains visible with a relaxed gaze.",
+      "previousStepImage": "balanced-eye-makeup-close-set-eyes/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T02:24:53.437Z",
+      "assetSha256": "34b84a27253ccf292d991be394617b8c617c1666ac6994574d7e4ec7706bce85",
+      "notes": "The finished view preserves comparable skin depth and lighting and shows balanced inner brightness, outward taupe structure, restrained liner, and natural lashes."
+    },
+    "cool-rosy-makeup-fair-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "fe8ea36b4ab15e02ab7889676b9d09ade8b2129d2f48e4f0a29bedc6ba56517b",
+      "notes": "The full-face preparation image establishes clean fair skin with a cool-neutral cast, visible pores, bare lids, and natural lips before color is added."
+    },
+    "cool-rosy-makeup-fair-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "8c0518663ff376d5a1b2259928b4bc371ef86728c73b91762e316db2c0497857",
+      "notes": "The complexion is selectively evened at the same fair depth without bleaching the skin or erasing natural texture around the cheeks and forehead."
+    },
+    "cool-rosy-makeup-fair-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "a479bf0ba6e220367c41a9ea687426a4f5416826b1416770718999625ec3fbf9",
+      "notes": "The brow-focused crop clearly shows softly filled arches with individual hairs and restrained inner edges while the eyelids remain uncolored."
+    },
+    "cool-rosy-makeup-fair-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Mushroom taupe establishes the eye direction at crease and outer lash line without a hard outer edge.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "4a396390cbaf408113e6534b6a6dbff885ace05bb3baaa65efc97282672d1b9f",
+      "notes": "Both eyes visibly carry a cool rosy wash with diffused edges, preserving the fair cool-neutral skin and the earlier brow work."
+    },
+    "cool-rosy-makeup-fair-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Mushroom taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "5e793e9d8608abccd9e4e411e717fbd777c6b4ee422722777b9335230a739143",
+      "notes": "The upper-lash crop centers the correct eye region and shows a thin, readable root-level definition without a wing or unrelated nose, lip, or cheek focus."
+    },
+    "cool-rosy-makeup-fair-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Cool rose is visible at lid center and upper cheek while natural skin still shows through the edges.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "b87e8cf2986e9c458f63a58b8b177218ce018c9c6f8b840a960b4fa09e58e0ed",
+      "notes": "The three-quarter face clearly shows translucent cool-rose color placed high on the cheek while pores and the fair skin depth remain visible."
+    },
+    "cool-rosy-makeup-fair-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Cool rose and the soft rosy satin finish without becoming the only focal point.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "78c6fafa74f6a8f2096e431f4c0f2a4c30f32101ac4aae2da3aa4493e3a85d05",
+      "notes": "The lip macro shows a coordinated muted rose finish with natural lip lines, clean edges, and no shift toward orange or brown."
+    },
+    "cool-rosy-makeup-fair-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Cool Rosy Makeup for Fair Skin reads as soft rosy satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "cool-rosy-makeup-fair-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:03.217Z",
+      "assetSha256": "734e248e46ed83c47314ab31217bd9fb920c3314b854f8ccf2575942384b9689",
+      "notes": "The final full face integrates cool rosy eyes, subtle lash definition, cool-rose cheeks, and muted rose lips under the same neutral lighting and skin depth."
+    },
+    "warm-peach-makeup-fair-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "2eba9149b655be94e04bc80c563d1af603ec80719a70268b87b1a6c191862444",
+      "notes": "The opening full face shows prepared fair skin with a warm-neutral undertone, visible natural texture, bare eyes, and untreated lips."
+    },
+    "warm-peach-makeup-fair-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "c6534c6fffb28cc5257aa191fb5da8b0cd041b3bedc1dc8af89da1ad62daac95",
+      "notes": "Selective complexion work evens redness while retaining the same fair skin depth and avoiding a yellow, orange, or over-smoothed finish."
+    },
+    "warm-peach-makeup-fair-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "a23f8fdd5ac89bee8e1bf94515d0a775f09e4f939cdfa06d7f4cfa3112ad0b2b",
+      "notes": "The brow crop shows a light hair-by-hair frame with soft fronts and no premature eye color, keeping the tutorial action unambiguous."
+    },
+    "warm-peach-makeup-fair-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Light caramel establishes the eye direction at lid and soft crease without a hard outer edge.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "252d8f0f82de4c1df8b6ee905a0be2f921d3e71cbc78bb788bc3d7995d302925",
+      "notes": "Both eyes clearly show a light caramel-peach wash and gentle crease shaping that suit the warm peach palette without becoming orange."
+    },
+    "warm-peach-makeup-fair-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft bronze makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "55ca0a26f91526dc7961ef1ba2edd8b19a31168a30e1c5fc64d01e62786548c7",
+      "notes": "The image is centered on both upper lash roots, where a fine continuous definition is visible and no unrelated facial region is substituted."
+    },
+    "warm-peach-makeup-fair-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Pink peach is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "ab7bf13d83639f69c0cfdbada886be5f37c61cb8bb49edb67cfa798d74970118",
+      "notes": "The cheek-focused angle shows high, translucent pink-peach color with pore detail and the earlier fair warm-neutral complexion preserved."
+    },
+    "warm-peach-makeup-fair-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Pink peach and the fresh satin finish without becoming the only focal point.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "c78fb209ce208923674e2027328676a3c2beadbf8b876579f66c4729e3ff7c53",
+      "notes": "The lip macro adds a coordinated pink-peach satin tint with visible lip texture and no brown, gray, or neon shift."
+    },
+    "warm-peach-makeup-fair-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Warm Peach Makeup for Fair Skin reads as fresh satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "warm-peach-makeup-fair-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:04.109Z",
+      "assetSha256": "f40f5e7644fdc53a484bc41aad510c5a8034434d5ddbd1bd16a7d70795b46087",
+      "notes": "The final full-face image combines caramel-peach eyes, precise roots, high peach cheeks, and a peach lip at a consistent fair depth and white balance."
+    },
+    "neutral-soft-glam-olive-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "377c924deddf34673a1399dc9275c306e596df87ac047161d189923eb93d6947",
+      "notes": "The full-face preparation image establishes medium olive skin with a green-gold undertone, natural pores, clean eyes, and bare lips."
+    },
+    "neutral-soft-glam-olive-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "650357cca7985c72764b6dc58afdba3bff1ca376d0e3c04d7dff60f3d7701883",
+      "notes": "The complexion is selectively evened without lightening the medium depth or neutralizing the characteristic olive undertone."
+    },
+    "neutral-soft-glam-olive-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "8cd0da9a396c3dc4a0a867c7fa5da5b8ab2eb49414618e124b195e41f44731be",
+      "notes": "The brow-focused frame clearly shows softly reinforced dark hairs and controlled arches before eye color is introduced."
+    },
+    "neutral-soft-glam-olive-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Balanced taupe establishes the eye direction at crease and outer lid without a hard outer edge.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "e6911ccf5e73d084ca4faacdea44ed228138b58f9b9eeb270d726e54f9b0a974",
+      "notes": "Both eyes display a neutral softly luminous lid and taupe structure that reads clearly against medium olive skin without turning ashy."
+    },
+    "neutral-soft-glam-olive-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Balanced taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "4c3553479415cc2a6eec570ee9ba43b42b852cff1915f743bdbe43cf024a1a78",
+      "notes": "The tight eye crop places the action directly on the upper lash root, adding precise dark definition while retaining the prior neutral lid work."
+    },
+    "neutral-soft-glam-olive-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Mauve brown is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "c475cdda2e382ee7de82101103328760658009fc3f3aae65f10c716eb75931e8",
+      "notes": "The three-quarter crop shows natural rose-bronze cheek color over visible pores; the slightly warmer camera angle remains within the same medium olive depth."
+    },
+    "neutral-soft-glam-olive-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Mauve brown and the neutral satin finish without becoming the only focal point.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "aa431e5ddf649fcf9e2138cbd75568c0cc0f9d8438172ae06a2db3a44d381fd7",
+      "notes": "The lip macro adds a balanced muted rose-nude finish with natural lines and no pink, white, or orange cast inconsistent with olive skin."
+    },
+    "neutral-soft-glam-olive-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Neutral Soft Glam for Olive Skin reads as neutral satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "neutral-soft-glam-olive-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T15:51:05.472Z",
+      "assetSha256": "b5f52d0d0b1215259a29c7766254d9c6e71890d7eb206552abbc38028d7b0388",
+      "notes": "The final full face coherently integrates neutral luminous eyes, defined lashes, rose-bronze cheeks, and muted lips while preserving medium olive depth."
+    },
+    "warm-bronze-makeup-medium-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "0373a19271300a9c7bdcd9208365edf251a0bbde009a305331d10c4db18aeb38",
+      "notes": "The opening full face establishes prepared medium skin with a warm-neutral golden undertone, visible pores, bare lids, and untreated lips."
+    },
+    "warm-bronze-makeup-medium-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "6a06a98bc5cdfd3d062b5e770dea5ebb1372dc3480b8fe141a5a7f9bf413a52c",
+      "notes": "Selective complexion evening reduces local discoloration while preserving the same medium depth, natural perimeter variation, and realistic skin texture."
+    },
+    "warm-bronze-makeup-medium-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "21dff763db6966b956bc941767d6568d83670c4f8f1d95dd3bef08dacf662d49",
+      "notes": "The corrected brow-and-upper-eye close-up clearly shows light structured brows with individual hairs and no premature caramel or bronze eye color."
+    },
+    "warm-bronze-makeup-medium-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Caramel matte establishes the eye direction at crease and lid edge without a hard outer edge.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "cb9bb775f180053e0638c0a88fe5d62351b6fbf7fc2762684e99b9eb2f295090",
+      "notes": "Both eyes visibly carry a warm caramel matte transition and copper-bronze lid sheen with blended edges that remain readable against medium skin."
+    },
+    "warm-bronze-makeup-medium-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Caramel matte makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "46d58480b5dbf1dced73bff5d35d0f4aa436ff4d0e269977b7d0ee42966e4d8d",
+      "notes": "The close crop centers both upper lash roots and shows a fine continuous dark definition without substituting the nose, lips, or cheeks."
+    },
+    "warm-bronze-makeup-medium-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Terracotta rose is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "991beb8a08fc6712de1d0c20ff1e491895f8a2331f1e37bb91bd79aeeaf38ae9",
+      "notes": "The three-quarter face clearly shows translucent terracotta-rose color and warm bronze dimension on the cheek while pores and natural lip color remain visible."
+    },
+    "warm-bronze-makeup-medium-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Terracotta rose and the warm satin finish without becoming the only focal point.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "e4bc0a7b2d9cbccf48708a9aef6c490d95ecee8a8aa98a589308db8114f29f58",
+      "notes": "The corrected mouth-and-perioral macro shows a warm rose-brown nude lip with complete edges, visible lip lines, and no orange skin-tone drift."
+    },
+    "warm-bronze-makeup-medium-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Warm Bronze Makeup for Medium Skin reads as warm satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "warm-bronze-makeup-medium-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:08.310Z",
+      "assetSha256": "bf714641f5f55af239be849cf2f7048f1de8fed1bb019c633c43f457d146e6d7",
+      "notes": "The final full face integrates caramel-bronze eyes, precise roots, warm terracotta cheeks, and a rose-brown lip at a consistent medium depth and white balance."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "02b94dc5aa63ccb8db3545d625ca472887eb040ae664f42775f6acade7b93aac",
+      "notes": "The opening full face shows settled hydrated deep mahogany-brown skin with a stable neutral-warm undertone, natural eyelids, pores, and bare lips."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "8e13c9509d7c16097e230f623b71caca3acf4c7288f9807bea2be02b62ce221a",
+      "notes": "Selective center-face complexion evening softens local discoloration while keeping natural perimeter variation and the same deep skin depth visible."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "fa8991ba22473bd51cdae70502cfcf0ae5fee4dcfa8b7f6fe6f86e80e77e2337",
+      "notes": "The corrected two-brow close-up shows crisp individual deep-neutral-brown strokes, soft fronts, and no premature wine, berry, or gold eye color."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Rich wine establishes the eye direction at outer lid and crease without a hard outer edge.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "e407e42af1d380e3e9d77fcd881670f165a55bfb43a44fad67ec6e9a548633e3",
+      "notes": "Both open eyes clearly show rich wine structure at the outer lid and crease plus transparent warm old gold on the center and inner lid without chalky or ashy edges."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Rich wine makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "e6a62e4dd0e3e612de94fbc037c74e5b191024be6b5c1290d3d3e048baa6a14d",
+      "notes": "The crop is centered on both complete upper lash roots, where a thin continuous cocoa-wine definition is readable and no unrelated facial region replaces the action."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Deep berry is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "44008b614d1be0c5e239898bdab7e2242f87ee6d9948a170e576c23f6ab6d8ce",
+      "notes": "Both upper cheeks show saturated berry color with restrained bronze luminosity, diffused edges, real pores, and still-natural lips."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Deep berry and the rich luminous finish without becoming the only focal point.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "7a5210cc5e73b904e8181d558f73276afca9f2bd085b0d0a6796df8fe2e91998",
+      "notes": "The mouth-and-perioral macro makes the rich deep-berry satin lip unambiguous, with a precise cupid bow, complete natural lip border, visible vertical lip lines, and deep-skin pores retained."
+    },
+    "rich-berry-gold-makeup-deep-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Rich Berry and Gold Makeup for Deep Skin reads as rich luminous in front-facing light without overloaded corrections.",
+      "previousStepImage": "rich-berry-gold-makeup-deep-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:40:09.448Z",
+      "assetSha256": "f18b53f65f872d908f962c4ed6add7a0e9f108ea51572d8d27e8b3000caea702",
+      "notes": "The final full face combines wine-and-old-gold eyes, fine upper-root definition, berry-bronze cheeks, and a deep berry lip while preserving deep skin detail and a comparable neutral white balance."
+    },
+    "5-minute-everyday-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "e00f72868a0d22f72e12186fa800006822fa0c58ff00a1e925ed8849c743c19a",
+      "notes": "The full-face starting image shows settled prep, natural tonal variation, clean brows and lids, natural lips, and visible pores before any color is introduced."
+    },
+    "5-minute-everyday-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "5-minute-everyday-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "cd38f9b76f857544f01e448ad1b82fea2ab40fb470189b96cadca49157cdb897",
+      "notes": "The center of the face is selectively more even while pore texture and natural skin variation remain visible around the perimeter at the same light-medium neutral depth."
+    },
+    "5-minute-everyday-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "5-minute-everyday-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "d5d3895b510a821ca789b5c178c5d0979bb24eaec4d8052755dd21c1b544e1ac",
+      "notes": "The close-up centers both complete brows; individual hairs and airy inner thirds remain visible, and the lids are still bare before the taupe step."
+    },
+    "5-minute-everyday-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Skin-tone taupe establishes the eye direction at lid and crease without a hard outer edge.",
+      "previousStepImage": "5-minute-everyday-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "243af04c6cb71ce180bccb552955d12ef2ee08da70b2c70527790b2507f0f643",
+      "notes": "Neutral skin-tone taupe is clearly readable across both movable lids and creases with softly diffused outer edges and no premature liner."
+    },
+    "5-minute-everyday-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft brown makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "5-minute-everyday-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "064d33deef1d6203f850fb06f9dbe7a7b3f9fd5eb851d4a6f1f4a23228aaf231",
+      "notes": "The tighter eye macro keeps the taupe wash and places a thin continuous soft-brown band directly at both upper lash roots, with no wing or wrong-region crop."
+    },
+    "5-minute-everyday-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Fresh rose is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "5-minute-everyday-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "dfa5bc6cc0bbb71dfef42b70369b3854da2f92705027ce8385b39547d07b0615",
+      "notes": "The close three-quarter crop makes both high cheek zones readable, with light muted-rose cream diffused over pore-visible skin and the nearer cheek providing a clear placement example."
+    },
+    "5-minute-everyday-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Fresh rose and the fresh natural finish without becoming the only focal point.",
+      "previousStepImage": "5-minute-everyday-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "87faef0664c70f5f805a64699de7be21d5a51434420843377b7d5ae3bea0a6a2",
+      "notes": "The true mouth-and-perioral macro shows an even translucent rose-nude balm over the complete lip shape, with fine vertical lip lines, corners, and cupid bow sharply visible."
+    },
+    "5-minute-everyday-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed 5-Minute Everyday Makeup reads as fresh natural in front-facing light without overloaded corrections.",
+      "previousStepImage": "5-minute-everyday-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:06.471Z",
+      "assetSha256": "748e9b47a98055426a07005db37304c074622000da7432d7f81285d2f12f7a3e",
+      "notes": "The newly generated final full face visibly integrates airy brows, taupe on both lids, thin upper-lash-root definition, high light-rose cheeks, and rose-nude lips while remaining credible in five minutes."
+    },
+    "natural-no-makeup-makeup/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "4150d71bb02dc000f3dec13ae8eb90c835d3bbd6a376ddf0f5bdc58736e5f0a0",
+      "notes": "The centered full-face baseline shows settled skincare, natural freckles and pores, bare lids, untouched brows and uncolored lips before any makeup step."
+    },
+    "natural-no-makeup-makeup/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "natural-no-makeup-makeup/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "e07b31d0e2efa62b2d18e468d82cfc4ea904b2c50361c44954d6e6187c8091c2",
+      "notes": "Selective correction visibly softens center-face unevenness while the hairline, jaw, temples, freckles and outer-cheek variation remain uncovered and realistic."
+    },
+    "natural-no-makeup-makeup/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "natural-no-makeup-makeup/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "3efc20cbe58402a10800bbff964e6db6b6908166d67897b1013bee77986f6739",
+      "notes": "The dedicated brow-and-upper-eye crop shows both complete brows with visible individual hairs and airy inner thirds, while both lids remain bare before taupe is added."
+    },
+    "natural-no-makeup-makeup/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Skin-shadow taupe establishes the eye direction at lash line and crease edge without a hard outer edge.",
+      "previousStepImage": "natural-no-makeup-makeup/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "71ef0cf8e6459e46824494a4051ff1feec0a09970a2a090a2f65cd22d319e865",
+      "notes": "Both eyes clearly carry a translucent neutral taupe veil along the upper lash lines and crease edges; the regenerated version remains matte and contains no separate liner or wing."
+    },
+    "natural-no-makeup-makeup/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Skin-shadow taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "natural-no-makeup-makeup/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "e3160c1e6675a5eec9de0d7ec2d729bc4cffbac3ef66f3c22ec104351b97b371",
+      "notes": "The extreme bilateral eye-band macro keeps both upper lash roots dominant, where a hair-thin taupe-brown root shadow increases density without mascara, a graphic stripe or unrelated mouth/cheek focus."
+    },
+    "natural-no-makeup-makeup/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Natural flush is visible at cheek center diffused upward while natural skin still shows through the edges.",
+      "previousStepImage": "natural-no-makeup-makeup/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "47b882f53b96aeba540cf2194ac2533ea52331b7cd56fcef47045d1a304815d0",
+      "notes": "The three-quarter cheek-focused crop shows a readable muted natural-rose flush diffused upward with pores visible through every edge; the lip remains naturally untinted."
+    },
+    "natural-no-makeup-makeup/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Natural flush and the barely-there satin finish without becoming the only focal point.",
+      "previousStepImage": "natural-no-makeup-makeup/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "0872d2d53cefa997becfe753ee6c4348dcf7d7db7dd43712f3b00209b8e6635e",
+      "notes": "The mouth-and-perioral macro shows a barely-there translucent rose satin tint with crisp lip grooves and no opaque lipstick, overdrawn liner or glassy gloss."
+    },
+    "natural-no-makeup-makeup/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Natural No-Makeup Makeup reads as barely-there satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "natural-no-makeup-makeup/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T16:50:07.195Z",
+      "assetSha256": "20d7135b5fdb78c76d21b784fac9738fdba0b4bb5fc9b9eca8691617e5669aa2",
+      "notes": "The final full face integrates selective complexion, airy brows, subtle taupe eyes and roots, symmetrical natural-rose cheeks and quiet rose lips while preserving the same light-medium neutral skin and daylight balance."
+    },
+    "easy-everyday-soft-glam/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "e511ffbb71ccf274b1db2f677c39c76996ac3cc01a520e7985998e78cd98e62b",
+      "notes": "The centered preparation frame shows settled bare skin and lids with visible pores, natural color variation, and no decorative makeup."
+    },
+    "easy-everyday-soft-glam/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "easy-everyday-soft-glam/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "c4676703b88e8ecce5649cdce498037b186701c51e4aff21e24994243d2a8ce5",
+      "notes": "Selective complexion correction softens center-face unevenness while the hairline, jaw, pores, and natural skin perimeter remain visible."
+    },
+    "easy-everyday-soft-glam/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "easy-everyday-soft-glam/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "1bacf7999819615b7d6b027311bad4ed21e82996bc9e76c0b7b42d300f7448f3",
+      "notes": "The crop centers both complete brows and bare eyelids; hairlike gap filling and feathery inner thirds are visible without taupe shadow."
+    },
+    "easy-everyday-soft-glam/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Buildable taupe establishes the eye direction at lid, crease, and outer corner without a hard outer edge.",
+      "previousStepImage": "easy-everyday-soft-glam/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "ca2c0baecb6d9c415b1c33660a1ff5c6b3658be9fec569fd1646dfeb974613b0",
+      "notes": "Balanced neutral taupe is visibly built across both lids, soft creases, and outer corners with a narrow satin-beige center and no liner."
+    },
+    "easy-everyday-soft-glam/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Buildable taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "easy-everyday-soft-glam/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "81c14de5eed418e9d305c6b2d4aaf11b673a9c1644c8e3c9b73f66020c00789f",
+      "notes": "The tight both-eye macro shows two clearly continuous soft-brown lines directly along the complete upper lash roots, visibly deeper than Step 4 without becoming thick liner or long wings."
+    },
+    "easy-everyday-soft-glam/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Rose brown is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "easy-everyday-soft-glam/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "c7d3179c6d78f90978b026b5ec0ca4d71cf25dba177ed064dbbbded185aed9d4",
+      "notes": "The three-quarter cheek view makes translucent muted rose-brown placement high on the upper cheek the clear target while the lips stay bare."
+    },
+    "easy-everyday-soft-glam/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Rose brown and the soft satin finish without becoming the only focal point.",
+      "previousStepImage": "easy-everyday-soft-glam/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "c439b50049b261fea23a3b078318c4d0387a40fb59e5e8fce8a98d7a156e2162",
+      "notes": "The mouth macro shows a thin rose-nude satin layer with a clean cupid bow, soft edges, and preserved vertical lip lines and surrounding pores."
+    },
+    "easy-everyday-soft-glam/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Easy Everyday Soft Glam reads as soft satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "easy-everyday-soft-glam/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:27.566Z",
+      "assetSha256": "6e034d6a6a3279dc631c71e3c0588d963bd0502c2678d98c4efa7d04cd5c68af",
+      "notes": "The regenerated final full-face image visibly retains daytime taupe and both thin continuous upper-root lines while integrating sheer skin, light brows, rose-brown cheeks, and matching lips."
+    },
+    "wearable-clean-makeup-look/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "3036c265782d54c36c565891cd7c25bddebee53d878e06ff84e96a5f44f1c6e8",
+      "notes": "The opening full face establishes clean satin-prepped light-medium neutral skin with visible pores, bare lids, natural brows, and untreated lips."
+    },
+    "wearable-clean-makeup-look/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "wearable-clean-makeup-look/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "2afbb44170c366f9ec0482ce102d446d83fb09745bb274341c677b9f045357e1",
+      "notes": "Selective complexion evening reduces central unevenness while retaining the same skin depth, natural cheek variation, and non-glassy texture."
+    },
+    "wearable-clean-makeup-look/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "wearable-clean-makeup-look/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "d07902765222318a9bfb7caa2f6c33e70dab4189083cb0e5f153c3203fac2cd5",
+      "notes": "The brow-and-upper-eye close-up clearly shows softly reinforced individual hairs and balanced arches before neutral tan shadow appears."
+    },
+    "wearable-clean-makeup-look/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Neutral tan establishes the eye direction at lid and upper crease edge without a hard outer edge.",
+      "previousStepImage": "wearable-clean-makeup-look/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "b7d52aa018f3170d012c8bde69f67b0212714ff551a75fe8f1e88441530f0e95",
+      "notes": "Both eyes visibly carry a transparent neutral-tan wash with clean blended edges and no premature dark lash-root line."
+    },
+    "wearable-clean-makeup-look/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft espresso makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "wearable-clean-makeup-look/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "effd734f9304a445ccf3a16960fe8060fae53791a856c68d61b03175f79d6955",
+      "notes": "The tighter eye crop centers both complete upper lash roots, where fine dark definition is clearly readable without any unrelated nose, lip, or cheek focus."
+    },
+    "wearable-clean-makeup-look/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Clear rose is visible at upper outer cheek while natural skin still shows through the edges.",
+      "previousStepImage": "wearable-clean-makeup-look/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "85a45d7d5ca6db6c908cfce0bd0c31c29ca0858b99d8289000dde60980326049",
+      "notes": "The three-quarter cheek image shows clean diffused neutral-rose color over visible pores while the earlier eye work and natural lip remain intact."
+    },
+    "wearable-clean-makeup-look/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Clear rose and the clean satin finish without becoming the only focal point.",
+      "previousStepImage": "wearable-clean-makeup-look/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "15fc92ee2609a654bcedfe251be043d38ce25a274f0289bed2b3630076982e4e",
+      "notes": "The mouth-and-perioral macro shows an even rose-beige satin lip with complete borders, visible vertical lip lines, and natural surrounding skin texture."
+    },
+    "wearable-clean-makeup-look/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Wearable Clean Makeup Look reads as clean satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "wearable-clean-makeup-look/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:11:31.741Z",
+      "assetSha256": "8cf45dc14cc64e8909e9dba1720f000ee0b2f9bae70836468bd3d3f8b765eff3",
+      "notes": "The final full face integrates neutral-tan eyes, defined roots, clean rose cheeks, and a rose-beige lip without excessive gloss, smoothing, or skin-tone drift."
+    },
+    "natural-makeup-mature-skin/step-01-curated.webp": {
+      "targetRegion": "full-face",
+      "expectedOutcome": "The skin and lids feel settled, even, and ready for thin layers without a slippery surface.",
+      "previousStepImage": null,
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "4ee8206fde1bc4b4315198faf4f8909ee152e28fe9c86849b002f30d13cd4fa8",
+      "notes": "The centered full-face baseline shows a real mature woman after skincare has settled to soft satin; forehead lines, crow's feet, pores, pigmentation and lip ridges remain visible with no intentional makeup."
+    },
+    "natural-makeup-mature-skin/step-02-curated.webp": {
+      "targetRegion": "complexion",
+      "expectedOutcome": "Discoloration is softened while natural skin remains visible around the perimeter of the face.",
+      "previousStepImage": "natural-makeup-mature-skin/step-01-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "ee6ac72984d642ef1f34aabb76ec1dca1e03cea9305c4e6ed625b76dd1253b16",
+      "notes": "Selective complexion visibly softens center-face redness and unevenness while mature texture and uncovered perimeter variation remain, with no premature brow, eye, cheek or lip color."
+    },
+    "natural-makeup-mature-skin/step-03-curated.webp": {
+      "targetRegion": "brows",
+      "expectedOutcome": "The brows look intentional but retain visible hairs and enough softness for the rest of the look.",
+      "previousStepImage": "natural-makeup-mature-skin/step-02-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "46ad0b7e00384fa85d4b69268d8595b6b15597810f233aecc32a427de15b15cd",
+      "notes": "The bilateral brow-and-upper-eye crop shows both complete brows with individual hairs and airy inner thirds; both mature eyelids stay bare before the taupe step."
+    },
+    "natural-makeup-mature-skin/step-04-curated.webp": {
+      "targetRegion": "both-eyes",
+      "expectedOutcome": "Soft taupe establishes the eye direction at above fold and lash line without a hard outer edge.",
+      "previousStepImage": "natural-makeup-mature-skin/step-03-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "ec11eff28fe079d00869159a6477a5cfcf84915c36ef0ef9a0496888ecce00e0",
+      "notes": "Both open eyes clearly carry a translucent matte neutral-taupe veil over and slightly above the folds, with soft outer depth and no liner, mascara, glitter or heavy crease."
+    },
+    "natural-makeup-mature-skin/step-05-curated.webp": {
+      "targetRegion": "upper-lash",
+      "expectedOutcome": "Soft taupe makes the lashes look denser while the eye color and lid space stay visible.",
+      "previousStepImage": "natural-makeup-mature-skin/step-04-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "5edb07f316c181d5b3a5b80f6a88bc661fee23b7e9442c42c3580974720a6a00",
+      "notes": "The extreme bilateral eye-band macro keeps both upper lash roots dominant; a hairline taupe-brown root shadow increases lash density without a wing, black graphic line, lower liner or unrelated cheek/lip focus."
+    },
+    "natural-makeup-mature-skin/step-06-curated.webp": {
+      "targetRegion": "cheeks",
+      "expectedOutcome": "Muted rose cream is visible at upper cheek and lips while natural skin still shows through the edges.",
+      "previousStepImage": "natural-makeup-mature-skin/step-05-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "29e70b24d947bb08d3c654c97505d7dfc0a897a91aceb9bbec6b8f4894ceaa89",
+      "notes": "The three-quarter cheek-dominant crop shows a readable muted rose-peach-brown cream flush high on the cheek, diffused before crow's feet with pores and fine lines visible and lips still natural."
+    },
+    "natural-makeup-mature-skin/step-07-curated.webp": {
+      "targetRegion": "lips",
+      "expectedOutcome": "The lip supports Muted rose cream and the soft natural satin finish without becoming the only focal point.",
+      "previousStepImage": "natural-makeup-mature-skin/step-06-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "ee9319d313d2f5b33456b54b0b67791abcb7a703c020bd45f0b3963b48a65bb7",
+      "notes": "The mouth-and-perioral macro shows the complete lip in a blotted muted rose-nude satin, preserving vertical lip ridges, cupid's bow and surrounding mature fine lines without gloss or overlining."
+    },
+    "natural-makeup-mature-skin/step-08-curated.webp": {
+      "targetRegion": "final",
+      "expectedOutcome": "The completed Natural Makeup for Mature Skin reads as soft natural satin in front-facing light without overloaded corrections.",
+      "previousStepImage": "natural-makeup-mature-skin/step-07-curated.webp",
+      "status": "approved",
+      "reviewer": "Codex main-agent visual QA",
+      "reviewedAt": "2026-07-13T17:19:28.456Z",
+      "assetSha256": "2de6760a29ff0cef4f5a76813faa4d658e5ceb50ce7e06d2422f0a73564dc076",
+      "notes": "The final full face integrates thin complexion, softly framed brows, taupe mature-eye structure, subtle upper roots, muted high-cheek color and rose-nude lips while preserving the same mature age, skin depth and neutral daylight balance."
+    }
+  }
+}

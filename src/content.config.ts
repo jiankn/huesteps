@@ -53,6 +53,11 @@ const mistake = z.object({
   fix: z.string().min(18)
 });
 
+const decisionGuideItem = z.object({
+  title: z.string().min(12),
+  body: z.string().min(80)
+});
+
 const productOption = z.object({
   tier: z.enum(['Budget', 'Mid-range', 'Luxury']),
   role: z.string().min(4),
@@ -91,6 +96,11 @@ const recipes = defineCollection({
     palette: z.array(paletteItem).min(3).max(5),
     productRoles: z.array(z.string()).min(3).max(6),
     whatMakesItWork: z.array(z.string().min(24)).min(3).max(5),
+    decisionGuide: z.object({
+      heading: z.string().min(12),
+      summary: z.string().min(140),
+      items: z.array(decisionGuideItem).min(5).max(7)
+    }),
     tools: z.array(tool).min(3).max(8),
     beforeYouStart: z.array(z.string()).min(3),
     steps: z.array(step).min(6).max(10),

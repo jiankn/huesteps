@@ -122,6 +122,21 @@ const schema = [
             <h3>What makes this look work</h3>
             <ul>{data.whatMakesItWork.map((item) => <li>{item}</li>)}</ul>
           </div>
+          <div class="decision-guide">
+            <div class="decision-guide-intro">
+              <p class="section-label">Intent check</p>
+              <h3>{data.decisionGuide.heading}</h3>
+              <p>{data.decisionGuide.summary}</p>
+            </div>
+            <div class="decision-guide-grid">
+              {data.decisionGuide.items.map((item) => (
+                <article>
+                  <h4>{item.title}</h4>
+                  <p>{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section id="before-you-start" class="workbench-section">

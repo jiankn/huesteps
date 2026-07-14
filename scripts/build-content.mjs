@@ -1,12 +1,16 @@
+import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const publishedAt = '2026-07-10';
 const visualMigration = JSON.parse(await readFile(path.resolve('src/data/tutorial-visual-migrations.json'), 'utf8'));
+const stepReviewManifest = await readFile(path.resolve('src/data/tutorial-step-image-reviews.json'), 'utf8')
+  .then(JSON.parse)
+  .catch(() => ({ reviews: {} }));
 
 const seeds = [
   {
-    id: 'soft-glam-wedding-guest-makeup', hub: 'occasion-makeup', title: 'Soft Glam Wedding Guest Makeup', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true,
+    id: 'soft-glam-wedding-guest-makeup', hub: 'occasion-makeup', title: 'Soft Glam Wedding Guest Makeup', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create polished wedding guest makeup that photographs well without competing with the wedding party.',
     description: 'A soft rose and taupe wedding guest look with controlled shimmer, balanced skin, and placement notes for different eye shapes.',
     answer: 'Choose softly reflective rose on the lid, a diffused taupe crease, and a satin complexion so the look stays polished in daylight and evening photos.',
@@ -19,7 +23,7 @@ const seeds = [
     shoppingRole: 'rose-taupe eye palette'
   },
   {
-    id: 'easy-date-night-makeup', hub: 'occasion-makeup', title: 'Easy Date Night Makeup', time: 20, difficulty: 'Easy', finish: 'luminous', featured: true,
+    id: 'easy-date-night-makeup', hub: 'occasion-makeup', title: 'Easy Date Night Makeup', time: 20, difficulty: 'Easy', finish: 'luminous', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create warm, softly defined date night makeup that still looks like skin at close distance.',
     description: 'A twenty-minute cocoa and rose date night look with smudged definition, luminous skin, and an easy blurred lip.',
     answer: 'Use cocoa shadow close to the lashes, a rose cream on cheeks and lips, and pinpoint glow rather than a full layer of shimmer.',
@@ -32,7 +36,7 @@ const seeds = [
     shoppingRole: 'blendable cocoa eye pencil'
   },
   {
-    id: 'polished-office-makeup-10-minutes', hub: 'occasion-makeup', title: 'Polished Office Makeup in 10 Minutes', time: 10, difficulty: 'Beginner', finish: 'natural satin', featured: true,
+    id: 'polished-office-makeup-10-minutes', hub: 'occasion-makeup', title: 'Polished Office Makeup in 10 Minutes', time: 10, difficulty: 'Beginner', finish: 'natural satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Build a fast office makeup routine that looks awake and tidy in indoor light.',
     description: 'A streamlined office makeup recipe using taupe, muted peach, and strategic concealer for a polished result in ten minutes.',
     answer: 'Prioritize evenness around the eyes and nose, one matte taupe wash, curled lashes, and a muted cream color shared by cheeks and lips.',
@@ -45,7 +49,7 @@ const seeds = [
     shoppingRole: 'one-and-done matte taupe shadow'
   },
   {
-    id: 'fresh-brunch-makeup', hub: 'occasion-makeup', title: 'Fresh Brunch Makeup', time: 15, difficulty: 'Easy', finish: 'fresh dewy', featured: false,
+    id: 'fresh-brunch-makeup', hub: 'occasion-makeup', title: 'Fresh Brunch Makeup', time: 15, difficulty: 'Easy', finish: 'fresh dewy', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Create fresh daytime makeup that stays lively in natural light without heavy coverage.',
     description: 'A sheer apricot and champagne brunch look with bright inner corners, translucent skin, and softly groomed brows.',
     answer: 'Use sheer apricot on cheeks and lips, champagne only at the inner lid, and spot coverage so natural daylight still shows skin texture.',
@@ -58,7 +62,7 @@ const seeds = [
     shoppingRole: 'sheer apricot multi-use cream'
   },
   {
-    id: 'holiday-party-shimmer-makeup', hub: 'occasion-makeup', title: 'Holiday Party Shimmer Makeup', time: 35, difficulty: 'Intermediate', finish: 'dimensional shimmer', seasonal: true, featured: true,
+    id: 'holiday-party-shimmer-makeup', hub: 'occasion-makeup', title: 'Holiday Party Shimmer Makeup', time: 35, difficulty: 'Intermediate', finish: 'dimensional shimmer', seasonal: true, featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create controlled holiday shimmer that catches evening light without fallout or a heavy smoky eye.',
     description: 'A cranberry and antique-gold holiday look with contained shimmer, clean outer corners, and balanced berry lips.',
     answer: 'Anchor antique-gold shimmer with a cream base, frame it with matte cranberry, and keep the lower edge clean for an evening look that remains wearable.',
@@ -71,7 +75,7 @@ const seeds = [
     shoppingRole: 'adhesive-friendly antique gold shimmer'
   },
   {
-    id: 'easy-vacation-makeup', hub: 'occasion-makeup', title: 'Easy Vacation Makeup', time: 12, difficulty: 'Beginner', finish: 'sheer sunlit', seasonal: true,
+    id: 'easy-vacation-makeup', hub: 'occasion-makeup', title: 'Easy Vacation Makeup', time: 12, difficulty: 'Beginner', finish: 'sheer sunlit', seasonal: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create a compact vacation routine with multi-use color and minimal tools.',
     description: 'A suitcase-friendly bronze and coral makeup recipe using sheer layers, cream textures, and only a few multipurpose roles.',
     answer: 'Use a sheer bronze cream around the eye, coral on cheeks and lips, and spot coverage so the routine stays quick and easy to pack.',
@@ -84,7 +88,7 @@ const seeds = [
     shoppingRole: 'travel-friendly cream bronze stick'
   },
   {
-    id: 'elegant-dinner-party-makeup', hub: 'occasion-makeup', title: 'Elegant Dinner Party Makeup', time: 30, difficulty: 'Intermediate', finish: 'velvet satin', featured: false,
+    id: 'elegant-dinner-party-makeup', hub: 'occasion-makeup', title: 'Elegant Dinner Party Makeup', time: 30, difficulty: 'Intermediate', finish: 'velvet satin', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Create refined evening makeup with sculpted plum definition and a restrained satin finish.',
     description: 'A plum, pewter, and muted-wine dinner look with softly sculpted eyes and a polished complexion that avoids heavy contour.',
     answer: 'Build plum depth at the outer lash line, use pewter satin sparingly on the lid, and repeat muted wine on cheeks and lips for a unified result.',
@@ -97,7 +101,7 @@ const seeds = [
     shoppingRole: 'plum and pewter eye duo'
   },
   {
-    id: 'natural-job-interview-makeup', hub: 'occasion-makeup', title: 'Natural Job Interview Makeup', time: 15, difficulty: 'Beginner', finish: 'natural matte', featured: false,
+    id: 'natural-job-interview-makeup', hub: 'occasion-makeup', title: 'Natural Job Interview Makeup', time: 15, difficulty: 'Beginner', finish: 'natural matte', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Create composed interview makeup that reads clearly in person and on camera without distraction.',
     description: 'A neutral interview makeup routine with tidy brows, soft brown definition, balanced skin, and a comfortable rose-beige lip.',
     answer: 'Even only the areas that need it, define lashes with soft brown, groom brows, and use a muted rose-beige lip that can be reapplied easily.',
@@ -110,7 +114,7 @@ const seeds = [
     shoppingRole: 'reliable neutral eye and brow kit'
   },
   {
-    id: 'soft-glam-hooded-eyes', hub: 'eye-shape-makeup', title: 'Soft Glam for Hooded Eyes', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, visualReviewedAt: '2026-07-11',
+    id: 'soft-glam-hooded-eyes', hub: 'eye-shape-makeup', title: 'Soft Glam for Hooded Eyes', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-07-11',
     intent: 'Keep a soft-glam gradient visible on hooded eyes while minimizing transfer.',
     description: 'A hooded-eye soft glam recipe that maps taupe above the fold, controls lid shimmer, and keeps the outer shape lifted.',
     answer: 'Map the transition with eyes open, keep shimmer on the visible center lid, and build depth at the outer lash line instead of inside the fold.',
@@ -123,7 +127,7 @@ const seeds = [
     shoppingRole: 'precise opaque cobalt micro-liner'
   },
   {
-    id: 'everyday-makeup-deep-set-eyes', hub: 'eye-shape-makeup', title: 'Everyday Makeup for Deep-Set Eyes', time: 15, difficulty: 'Easy', finish: 'bright satin', featured: false,
+    id: 'everyday-makeup-deep-set-eyes', hub: 'eye-shape-makeup', title: 'Everyday Makeup for Deep-Set Eyes', time: 15, difficulty: 'Easy', finish: 'bright satin', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Brighten deep-set eyes without adding extra socket depth.',
     description: 'An everyday deep-set eye recipe that keeps the lid light, uses definition at the roots, and avoids dark crease shading.',
     answer: 'Use a light satin across the mobile lid, keep medium shadow above rather than inside the socket, and concentrate liner between the lashes.',
@@ -136,7 +140,7 @@ const seeds = [
     shoppingRole: 'skin-tone satin lid shade'
   },
   {
-    id: 'elongated-eye-makeup-round-eyes', hub: 'eye-shape-makeup', title: 'Elongated Eye Makeup for Round Eyes', time: 25, difficulty: 'Intermediate', finish: 'soft matte', featured: true,
+    id: 'elongated-eye-makeup-round-eyes', hub: 'eye-shape-makeup', title: 'Elongated Eye Makeup for Round Eyes', time: 25, difficulty: 'Intermediate', finish: 'soft matte', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create horizontal length on round eyes without a sharp graphic wing.',
     description: 'A softly elongated round-eye look using sideward taupe placement, outer lash definition, and controlled lower shadow.',
     answer: 'Pull mid-tone shadow outward from the outer iris, keep the inner lid bright, and place mascara toward the outer lashes to create length.',
@@ -149,7 +153,7 @@ const seeds = [
     shoppingRole: 'smudgeable deep brown pencil'
   },
   {
-    id: 'soft-shimmer-makeup-monolids', hub: 'eye-shape-makeup', title: 'Soft Shimmer Makeup for Monolids', time: 20, difficulty: 'Easy', finish: 'soft shimmer', featured: true,
+    id: 'soft-shimmer-makeup-monolids', hub: 'eye-shape-makeup', title: 'Soft Shimmer Makeup for Monolids', time: 20, difficulty: 'Easy', finish: 'soft shimmer', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Build visible shimmer and depth on monolids without relying on a crease.',
     description: 'A monolid shimmer recipe using a vertical gradient, root-level definition, and a centered reflective point that stays visible.',
     answer: 'Blend depth upward from the lash roots, press shimmer at the center of the visible lid, and keep the upper edge softly diffused.',
@@ -162,7 +166,7 @@ const seeds = [
     shoppingRole: 'smooth rose-copper shimmer single'
   },
   {
-    id: 'lifted-makeup-downturned-eyes', hub: 'eye-shape-makeup', title: 'Lifted Makeup for Downturned Eyes', time: 25, difficulty: 'Intermediate', finish: 'satin matte', featured: true,
+    id: 'lifted-makeup-downturned-eyes', hub: 'eye-shape-makeup', title: 'Lifted Makeup for Downturned Eyes', time: 25, difficulty: 'Intermediate', finish: 'satin matte', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create a lifted eye shape without forcing a long or sharp wing.',
     description: 'A downturned-eye placement guide using an early lifted endpoint, upward outer shading, and selective lower-lash definition.',
     answer: 'Stop shadow before the natural corner drops, lift the endpoint toward the brow tail, and keep the outer lower lash line mostly clean.',
@@ -175,7 +179,7 @@ const seeds = [
     shoppingRole: 'precise smudge-resistant cocoa pencil'
   },
   {
-    id: 'balanced-eye-makeup-close-set-eyes', hub: 'eye-shape-makeup', title: 'Balanced Eye Makeup for Close-Set Eyes', time: 20, difficulty: 'Easy', finish: 'bright satin', featured: false,
+    id: 'balanced-eye-makeup-close-set-eyes', hub: 'eye-shape-makeup', title: 'Balanced Eye Makeup for Close-Set Eyes', time: 20, difficulty: 'Easy', finish: 'bright satin', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Create visual space between close-set eyes with brightness and outer-focused definition.',
     description: 'A close-set eye recipe that keeps the inner corners clear, places depth beyond the iris, and directs lashes outward.',
     answer: 'Keep the inner third bright and clean, begin deeper shadow after the pupil, and direct liner and mascara toward the outer half.',
@@ -185,10 +189,44 @@ const seeds = [
     placement: ['Reserve the inner third for light satin or bare skin.','Begin taupe outside the pupil and blend outward.','Keep brow fronts soft and at their natural starting points.'],
     adjustments: [['Hooded close-set eyes','Place light satin on the visible inner lid and taupe above the outer fold.','Both spacing and visibility are preserved.'],['Deep skin','Use warm gold-beige light and rich cocoa depth.','The inner highlight stays luminous without turning pale.'],['Cool undertones','Choose pearl-taupe light and mushroom outer shade.','Cooler neutrals avoid yellowing the inner eye.']],
     mistakes: [['Eyes look closer together','Dark shadow reaches the inner corner or nose bridge.','Remove inner depth with a clean brush and add skin-tone satin.'],['The outer half looks abrupt','Taupe starts in a vertical block at the pupil.','Blend the start with a clean brush so it fades gradually.'],['Brows crowd the center','Pencil extends beyond the natural brow start.','Remove the extra inner strokes and brush the front upward.']],
-    shoppingRole: 'bright satin and neutral taupe eye duo'
+    shoppingRole: 'bright satin and neutral taupe eye duo',
+    decisionGuideOverride: {
+      heading: 'How to decide if Balanced Eye Makeup for Close-Set Eyes is the right tutorial',
+      summary: 'This 20-minute close-set eye routine uses negative space as deliberately as shadow. The inner corners and brow fronts stay visually open, taupe begins beyond the pupil, and the darkest definition is reserved for the outer upper lashes. Those placement decisions make the eyes appear farther apart without relying on a long wing. Each checkpoint is judged straight on, because an angled mirror can hide inner-corner crowding that is obvious in conversation or an office video call.',
+      items: [
+        {
+          title: 'Choose it when the inner eye feels crowded',
+          body: 'Use this tutorial when shadow, liner, or strong brow fronts make the space above the nose bridge look compressed. It is designed for a polished daytime result: the inner lid remains bright, the transition starts after the pupil, and mascara is weighted toward the outer half. Choose another tutorial if your main concern is a recessed socket or a hidden mobile lid, because those shapes need vertical brightness decisions rather than this page\'s horizontal spacing strategy.'
+        },
+        {
+          title: 'Build a light-to-dark path away from the bridge',
+          body: 'Think of the palette as a horizontal gradient. A skin-compatible satin creates clean reflection beside the tear duct, neutral taupe begins softly near the center and gains strength outward, and brown espresso finishes only the outer upper lash line. The exact undertone can change, but the value order should not: lightest inside, midtone through the outer lid, deepest at the outside roots. Reversing that order visually pulls the eyes back toward the nose.'
+        },
+        {
+          title: 'Adapt the spacing map to lid visibility and skin depth',
+          body: 'On hooded close-set eyes, place the satin where it can still be seen with the eyes open and lift the taupe slightly above the outer fold; do not carry either shade into the nose-side socket. On deep skin, replace pale beige with warm gold-beige and choose rich cocoa instead of gray taupe so the gradient stays luminous rather than ashy. Cool complexions can use pearl-taupe and mushroom, provided the inner shade remains close enough to the skin to avoid a white dot.'
+        },
+        {
+          title: 'Close-set priority: open the inner distance',
+          body: 'Close-set eyes need a spacing strategy before they need more darkness. This page keeps the inner lid bright, moves structure toward the outer half, and prevents brow pencil or liner from crowding the nose bridge. If the eyes appear closer together, remove depth from the inner corner first, then rebuild only the outer upper lash line. The goal is a wider-looking center gap with enough espresso at the outside to keep the eyes defined. A useful final check is the bridge test: the brightest satin should sit near the tear duct, the taupe should begin after the inner third, and the brow fronts should look brushed open rather than shaded inward. Check a phone selfie straight on; the center space should read cleaner before the outer wing reads stronger.'
+        },
+        {
+          title: 'Run three spacing checks before building depth',
+          body: 'Face the mirror squarely and inspect three landmarks. First, the tear-duct side should remain the cleanest and lightest zone. Second, taupe should fade in gradually after the pupil rather than starting as a vertical stripe. Third, the brow fronts must end at their natural starting points and remain softer than the tails. If all three are true, adding more darkness will not improve the spacing illusion; it will only make the daytime finish heavier.'
+        },
+        {
+          title: 'Repair crowding without restarting the eye',
+          body: 'If the eyes look closer together, sweep a clean brush through the inner socket and bridge-side lid, then press a skin-tone satin over the cleared area. If the outside now looks disconnected, blur only the leading edge of the taupe with tiny inward strokes; do not drag the dark color back to the tear duct. Brow pencil that has crossed the natural start should be lifted with a spoolie rather than covered with concealer, which can leave a conspicuous pale block.'
+        },
+        {
+          title: 'Stop when the center reads open at conversation distance',
+          body: 'Step back until the whole face is visible. The two inner corners should catch light without obvious white spots, the taupe should be noticed mainly outside the pupils, and the lash emphasis should point outward without becoming a graphic wing. Check one straight-on phone photo as well as the mirror. When the bridge area looks cleaner before the liner looks stronger, the spacing goal is complete; another layer of shadow is more likely to undo it than refine it.'
+        }
+      ]
+    }
   },
   {
-    id: 'cool-rosy-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Cool Rosy Makeup for Fair Skin', time: 20, difficulty: 'Easy', finish: 'soft rosy satin', featured: true,
+    id: 'cool-rosy-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Cool Rosy Makeup for Fair Skin', time: 20, difficulty: 'Easy', finish: 'soft rosy satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Use cool rosy color on fair skin without creating redness or a frosty finish.',
     description: 'A fair-skin cool rose recipe with mushroom definition, controlled blush placement, and a soft raspberry-beige lip.',
     answer: 'Pair a muted cool rose with mushroom taupe, keep blush away from existing facial redness, and choose satin instead of icy shimmer.',
@@ -201,7 +239,7 @@ const seeds = [
     shoppingRole: 'muted cool rose multi-use color'
   },
   {
-    id: 'warm-peach-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Warm Peach Makeup for Fair Skin', time: 18, difficulty: 'Easy', finish: 'fresh satin', featured: false,
+    id: 'warm-peach-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Warm Peach Makeup for Fair Skin', time: 18, difficulty: 'Easy', finish: 'fresh satin', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Use warm peach on fair skin in sheer layers that stay fresh rather than orange.',
     description: 'A sheer peach and soft-caramel makeup recipe for fair warm skin, with placement that keeps warmth controlled and transparent.',
     answer: 'Choose a translucent pink-peach, ground it with light caramel taupe, and apply in thin layers so the warmth never becomes an opaque orange block.',
@@ -214,7 +252,7 @@ const seeds = [
     shoppingRole: 'sheer pink-peach cream blush'
   },
   {
-    id: 'neutral-soft-glam-olive-skin', hub: 'skin-tone-undertone', title: 'Neutral Soft Glam for Olive Skin', time: 28, difficulty: 'Intermediate', finish: 'neutral satin', featured: true,
+    id: 'neutral-soft-glam-olive-skin', hub: 'skin-tone-undertone', title: 'Neutral Soft Glam for Olive Skin', time: 28, difficulty: 'Intermediate', finish: 'neutral satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create neutral soft glam on olive skin without pulling too orange, pink, or gray.',
     description: 'An olive-skin soft glam recipe built from balanced taupe, muted mauve-brown, and antique beige satin.',
     answer: 'Use balanced taupe and muted mauve-brown rather than strongly orange bronze, then add antique beige satin for dimension without ashiness.',
@@ -227,7 +265,7 @@ const seeds = [
     shoppingRole: 'balanced neutral taupe palette'
   },
   {
-    id: 'warm-bronze-makeup-medium-skin', hub: 'skin-tone-undertone', title: 'Warm Bronze Makeup for Medium Skin', time: 25, difficulty: 'Easy', finish: 'warm satin', featured: true,
+    id: 'warm-bronze-makeup-medium-skin', hub: 'skin-tone-undertone', title: 'Warm Bronze Makeup for Medium Skin', time: 25, difficulty: 'Easy', finish: 'warm satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Build warm bronze dimension on medium skin without losing contrast.',
     description: 'A medium-skin bronze recipe using caramel transition, copper satin, and terracotta-rose color for clear warm definition.',
     answer: 'Layer caramel and copper instead of one flat bronze, keep espresso at the lash roots, and use terracotta-rose to balance warmth across the face.',
@@ -240,7 +278,7 @@ const seeds = [
     shoppingRole: 'caramel and copper eye palette'
   },
   {
-    id: 'rich-berry-gold-makeup-deep-skin', hub: 'skin-tone-undertone', title: 'Rich Berry and Gold Makeup for Deep Skin', time: 30, difficulty: 'Intermediate', finish: 'rich luminous', featured: true,
+    id: 'rich-berry-gold-makeup-deep-skin', hub: 'skin-tone-undertone', title: 'Rich Berry and Gold Makeup for Deep Skin', time: 30, difficulty: 'Intermediate', finish: 'rich luminous', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create saturated berry and gold makeup on deep skin without ashy edges or weak pigment.',
     description: 'A deep-skin makeup recipe with rich wine structure, warm gold reflection, and berry color that stays saturated across eyes, cheeks, and lips.',
     answer: 'Use saturated wine over a compatible base, choose warm old gold rather than pale champagne, and keep deep brown at the lash line for structure.',
@@ -253,7 +291,7 @@ const seeds = [
     shoppingRole: 'saturated wine and warm gold palette'
   },
   {
-    id: '5-minute-everyday-makeup', hub: 'everyday-makeup', title: '5-Minute Everyday Makeup', time: 5, difficulty: 'Beginner', finish: 'fresh natural', featured: true,
+    id: '5-minute-everyday-makeup', hub: 'everyday-makeup', title: '5-Minute Everyday Makeup', time: 5, difficulty: 'Beginner', finish: 'fresh natural', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Complete a credible everyday makeup routine in five minutes with only high-impact steps.',
     description: 'A five-minute routine focused on inner-corner concealer, brows, lashes, and one cream color for cheeks and lips.',
     answer: 'Spend time on the center of the face, brows, curled lashes, and one cheek-lip cream instead of attempting a full complexion and detailed eye.',
@@ -266,7 +304,7 @@ const seeds = [
     shoppingRole: 'reliable cheek and lip cream'
   },
   {
-    id: 'natural-no-makeup-makeup', hub: 'everyday-makeup', title: 'Natural No-Makeup Makeup', time: 15, difficulty: 'Easy', finish: 'barely-there satin', featured: true,
+    id: 'natural-no-makeup-makeup', hub: 'everyday-makeup', title: 'Natural No-Makeup Makeup', time: 15, difficulty: 'Easy', finish: 'barely-there satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create no-makeup makeup with targeted correction and no obvious product borders.',
     description: 'A natural no-makeup recipe based on spot correction, brushed brows, subtle lash depth, and translucent skin-like color.',
     answer: 'Correct only visible distractions, match every product to existing skin contrast, and blend edges until color looks like part of the face.',
@@ -279,7 +317,7 @@ const seeds = [
     shoppingRole: 'skin-like precision concealer'
   },
   {
-    id: 'easy-everyday-soft-glam', hub: 'everyday-makeup', title: 'Easy Everyday Soft Glam', time: 20, difficulty: 'Easy', finish: 'soft satin', featured: true,
+    id: 'easy-everyday-soft-glam', hub: 'everyday-makeup', title: 'Easy Everyday Soft Glam', time: 20, difficulty: 'Easy', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Scale soft glam down for daytime using a limited neutral palette and thin layers.',
     description: 'An everyday soft-glam recipe with a one-brush taupe gradient, satin lid center, soft liner, and muted rose-brown color.',
     answer: 'Use one taupe from sheer to deep, add satin only at the lid center, and soften liner so the result has polish without evening-level intensity.',
@@ -292,7 +330,7 @@ const seeds = [
     shoppingRole: 'buildable neutral taupe single'
   },
   {
-    id: 'wearable-clean-makeup-look', hub: 'everyday-makeup', title: 'Wearable Clean Makeup Look', time: 15, difficulty: 'Easy', finish: 'clean satin', featured: false,
+    id: 'wearable-clean-makeup-look', hub: 'everyday-makeup', title: 'Wearable Clean Makeup Look', time: 15, difficulty: 'Easy', finish: 'clean satin', featured: false, contentUpdatedAt: '2026-07-12',
     intent: 'Create a crisp, wearable clean makeup look without laminated brows or overly glossy skin.',
     description: 'A practical clean makeup recipe with airy brows, pinpoint glow, lifted blush, and soft lash definition for daily wear.',
     answer: 'Keep brows flexible, place glow only on high points, define the upper lashes, and use a lifted translucent blush rather than coating the face in shine.',
@@ -305,7 +343,7 @@ const seeds = [
     shoppingRole: 'flexible clear brow gel'
   },
   {
-    id: 'natural-makeup-mature-skin', hub: 'everyday-makeup', title: 'Natural Makeup for Mature Skin', time: 20, difficulty: 'Easy', finish: 'soft natural satin', featured: true,
+    id: 'natural-makeup-mature-skin', hub: 'everyday-makeup', title: 'Natural Makeup for Mature Skin', time: 20, difficulty: 'Easy', finish: 'soft natural satin', featured: true, contentUpdatedAt: '2026-07-12',
     intent: 'Create comfortable natural makeup on mature skin using flexible texture and restrained powder.',
     description: 'A mature-skin makeup recipe with thin complexion layers, soft eye definition, cream color, and placement that avoids emphasizing texture.',
     answer: 'Use flexible thin layers, keep shimmer smooth and localized, place definition at the lashes, and powder only where makeup creases or transfers.',
@@ -321,16 +359,43 @@ const seeds = [
 
 // These are the existing v1 target-area guides. Keep this list explicit so a
 // newly added recipe cannot silently ship generated crops as finished step art.
-// Remove an id only after its full progressive set passes the v2 visual review.
+// Semantic approval of progressive assets is tracked separately in
+// tutorial-step-image-reviews.json and enforced by its strict audit.
 const LEGACY_STEP_IMAGE_GUIDES = new Set(visualMigration.legacyFocusGuideRecipeIds);
 
 const usesProgressiveHighDetailImages = (seed) => !LEGACY_STEP_IMAGE_GUIDES.has(seed.id);
 
-for (const seed of seeds) {
-  if (usesProgressiveHighDetailImages(seed) && !seed.visualReviewedAt) {
-    throw new Error(`${seed.id} requires visualReviewedAt before progressive step images can ship.`);
+const resolveStepImagesReviewedAt = async (seed, steps) => {
+  if (!usesProgressiveHighDetailImages(seed)) return undefined;
+
+  const reviewedAt = [];
+  for (const [index, step] of steps.entries()) {
+    const review = stepReviewManifest.reviews?.[step.image];
+    const previousStepImage = index === 0 ? null : steps[index - 1].image;
+    if (review?.status !== 'approved'
+      || review.targetRegion !== step.visualFocus
+      || review.expectedOutcome !== step.outcome
+      || review.previousStepImage !== previousStepImage
+      || typeof review.reviewer !== 'string'
+      || review.reviewer.trim().length < 2
+      || typeof review.notes !== 'string'
+      || review.notes.trim().length < 12
+      || !review.reviewedAt
+      || Number.isNaN(Date.parse(review.reviewedAt))) return undefined;
+
+    let assetSha256;
+    try {
+      const file = path.resolve('src/assets/tutorial-steps', ...step.image.split('/'));
+      assetSha256 = createHash('sha256').update(await readFile(file)).digest('hex');
+    } catch {
+      return undefined;
+    }
+    if (review.assetSha256 !== assetSha256) return undefined;
+    reviewedAt.push(Date.parse(review.reviewedAt));
   }
-}
+
+  return new Date(Math.max(...reviewedAt)).toISOString();
+};
 
 const paletteText = (item) => item[0] + ': ' + item[2];
 const lowerFirst = (value) => value.charAt(0).toLowerCase() + value.slice(1);
@@ -347,6 +412,209 @@ const findPalette = (seed, pattern, fallbackIndex = 0, excluded) => (
 );
 
 const durationFor = (seed, fraction) => Math.max(20, Math.min(600, Math.round(seed.time * 60 * fraction / 5) * 5));
+
+const siteUrl = 'https://huesteps.com';
+const hubDetails = {
+  'occasion-makeup': {
+    title: 'Occasion Makeup',
+    lens: 'room, timing, photography, and how formal the setting feels',
+    guide: 'Choose by the room, not the trend'
+  },
+  'eye-shape-makeup': {
+    title: 'Eye Shape Makeup',
+    lens: 'open-eye visibility, endpoint direction, and how much lid space remains visible',
+    guide: 'Choose the placement change first'
+  },
+  'skin-tone-undertone': {
+    title: 'Skin Tone & Undertone',
+    lens: 'shade depth, undertone temperature, and whether the color stays clear on skin',
+    guide: 'Depth first, undertone second'
+  },
+  'everyday-makeup': {
+    title: 'Everyday Makeup',
+    lens: 'available minutes, daily repeatability, and the features that create the most polish',
+    guide: 'Choose by available time'
+  }
+};
+
+const listText = (items) => {
+  if (items.length <= 1) return items[0] ?? '';
+  if (items.length === 2) return items.join(' and ');
+  return items.slice(0, -1).join(', ') + ', and ' + items.at(-1);
+};
+
+const makeDecisionGuide = (seed) => {
+  if (seed.decisionGuideOverride) return seed.decisionGuideOverride;
+
+  const hub = hubDetails[seed.hub];
+  const primary = seed.palette[0];
+  const focal = seed.palette[1];
+  const anchor = seed.palette[2] ?? seed.palette[0];
+  const firstAdjustment = seed.adjustments[0];
+  const secondAdjustment = seed.adjustments[1] ?? seed.adjustments[0];
+  const thirdAdjustment = seed.adjustments[2] ?? seed.adjustments[0];
+  const firstMistake = seed.mistakes[0];
+  const secondMistake = seed.mistakes[1] ?? seed.mistakes[0];
+  const thirdMistake = seed.mistakes[2] ?? seed.mistakes[0];
+  const timingNote = seed.time <= 12
+    ? 'Because the routine is short, the page treats skipped blending, targeted coverage, and product restraint as part of the result rather than as missing steps.'
+    : seed.time >= 30
+      ? 'Because the routine has enough time for layering, the page protects clean edges, controlled payoff, and final corrections instead of rushing every feature at once.'
+      : 'Because the routine sits in the middle timing range, the page balances visible definition with enough restraint for normal conversation distance.';
+
+  return {
+    heading: 'How to decide if ' + seed.title + ' is the right tutorial',
+    summary: seed.title + ' is a ' + seed.time + '-minute ' + seed.difficulty.toLowerCase() + ' recipe for ' + listText(seed.occasions) + '. It is built around a specific job: ' + normalizeSentence(lowerFirst(seed.intent)) + ' The editorial lens for this page is ' + hub.lens + ', so the steps explain when to keep the product sheer, when to build depth, and when to stop correcting before the makeup becomes heavier than the intended ' + seed.finish + ' finish.',
+    items: [
+      {
+        title: 'Choose it for ' + listText(seed.occasions),
+        body: 'This tutorial fits readers who want ' + lowerFirst(seed.answer) + ' It is less useful if you want a completely different focal point, because the sequence protects ' + primary[0] + ' at ' + primary[3] + ' and uses the remaining steps to support that choice instead of turning the page into a generic full-face routine. ' + timingNote
+      },
+      {
+        title: 'Color logic: ' + primary[0] + ', ' + focal[0] + ', and ' + anchor[0],
+        body: primary[0] + ' carries the ' + primary[2] + ' role at ' + primary[3] + ', while ' + focal[0] + ' creates the visible contrast at ' + focal[3] + '. ' + anchor[0] + ' then ties the face back to the same color story at ' + anchor[3] + '. If one shade is swapped, keep the same depth relationship before changing the undertone; otherwise the look can lose the clear ' + seed.finish + ' read that makes ' + seed.title + ' distinct.'
+      },
+      {
+        title: 'Open-eye and skin-depth adjustment',
+        body: firstAdjustment[0] + ' should start with this placement change: ' + normalizeSentence(firstAdjustment[1]) + ' The reason is simple: ' + normalizeSentence(lowerFirst(firstAdjustment[2])) + ' For ' + secondAdjustment[0] + ', the more important edit is ' + normalizeSentence(lowerFirst(secondAdjustment[1])) + ' This keeps the tutorial useful across ' + listText(seed.eyes) + ' eye shapes and ' + listText(seed.tones) + ' skin depths without rewriting the whole palette.'
+      },
+      makeSpecificDecisionNote(seed),
+      {
+        title: 'What to check before adding more product',
+        body: 'The first checkpoint is whether ' + primary[0] + ' still sits where the page promised: ' + primary[3] + '. The second is whether ' + focal[0] + ' remains visible at ' + focal[3] + ' without spreading into the area reserved for structure or skin texture. The third is whether the correction for ' + thirdAdjustment[0] + ' is still present after blending: ' + normalizeSentence(lowerFirst(thirdAdjustment[1])) + ' If those checks pass, extra product is more likely to create noise than improvement.'
+      },
+      {
+        title: 'Failure signal and fastest fix',
+        body: 'The most likely failure point is "' + firstMistake[0] + '" because ' + lowerFirst(normalizeSentence(firstMistake[1])) + ' Fix it by doing this first: ' + normalizeSentence(firstMistake[2]) + ' If the next visible issue is "' + secondMistake[0] + '," use the same rule: correct the cause, not the whole face. That cause is ' + lowerFirst(normalizeSentence(secondMistake[1])) + ' and the focused repair is ' + normalizeSentence(lowerFirst(secondMistake[2]))
+      },
+      {
+        title: 'When to stop the tutorial',
+        body: 'Stop when the result matches the page goal rather than when every product has been intensified. For ' + seed.title + ', that means the ' + seed.finish + ' finish still looks intentional, the ' + seed.shoppingRole + ' role has been handled, and the final visible problem is no longer "' + thirdMistake[0] + '." If that problem appears, the likely cause is ' + lowerFirst(normalizeSentence(thirdMistake[1])) + ' so the best next move is ' + normalizeSentence(lowerFirst(thirdMistake[2]))
+      }
+    ]
+  };
+};
+
+const makeSources = (seed) => {
+  const hub = hubDetails[seed.hub];
+  return [
+    {
+      label: seed.title + ' editorial method: placement cues, product-role wording, and correction boundaries',
+      url: siteUrl + '/editorial-policy/'
+    },
+    {
+      label: seed.title + ' AI image disclosure for progressive step visuals',
+      url: siteUrl + '/ai-image-content-policy/'
+    },
+    {
+      label: hub.title + ' hub context for ' + seed.title + ': ' + hub.guide,
+      url: siteUrl + '/' + seed.hub + '/'
+    }
+  ];
+};
+
+const makeSpecificDecisionNote = (seed) => {
+  if (seed.id.includes('deep-set')) {
+    return {
+      title: 'Deep-set priority: bring the lid forward',
+      body: 'Deep-set eyes already create natural socket shadow, so this tutorial treats brightness as structure instead of adding a darker crease. Keep the lightest satin on the mobile lid, soften taupe above the socket edge, and avoid packing brown into the hollow. If the eye starts looking smaller or more recessed, the fix is not a bigger wing; it is restoring lid brightness and keeping lash definition thin enough that the brow bone does not feel heavier. A good mirror check is the blink test: after a normal blink, the beige lid should still catch light below the brow ridge, the espresso should remain at the lash roots, and the taupe should frame the socket without turning into a second shadow. Photograph the eye from slightly above if needed; the mobile lid should look awake, not buried.'
+    };
+  }
+  if (seed.id.includes('close-set')) {
+    return {
+      title: 'Close-set priority: open the inner distance',
+      body: 'Close-set eyes need a spacing strategy before they need more darkness. This page keeps the inner lid bright, moves structure toward the outer half, and prevents brow pencil or liner from crowding the nose bridge. If the eyes appear closer together, remove depth from the inner corner first, then rebuild only the outer upper lash line. The goal is a wider-looking center gap with enough espresso at the outside to keep the eyes defined. A useful final check is the bridge test: the brightest satin should sit near the tear duct, the taupe should begin after the inner third, and the brow fronts should look brushed open rather than shaded inward. Check a phone selfie straight on; the center space should read cleaner before the outer wing reads stronger.'
+    };
+  }
+  if (seed.id.includes('hooded')) {
+    return {
+      title: 'Hooded-eye priority: map above the fold',
+      body: 'For hooded eyes, the closed-lid diagram matters less than the relaxed open-eye view. This tutorial places structure where it can still be seen after the lid folds, then keeps reflective color below the transfer-prone area. If the makeup disappears when the eyes open, raise the matte guide in tiny increments before adding shimmer. If texture collects under the hood, remove product rather than layering more shine.'
+    };
+  }
+  if (seed.id.includes('monolid')) {
+    return {
+      title: 'Monolid priority: build a visible gradient',
+      body: 'A monolid look needs a gradient that reads from the front, not a crease copied from another eye shape. Keep the deepest tone closest to the lash roots, let the middle shade rise in a soft oval, and place reflection where the eye naturally catches light. If the result looks flat, increase the vertical fade slowly; if it looks heavy, clean the lower edge and return brightness to the center lid.'
+    };
+  }
+  if (seed.id.includes('round')) {
+    return {
+      title: 'Round-eye priority: length before height',
+      body: 'Round eyes usually need horizontal pull more than extra vertical depth. This tutorial keeps the center from becoming too tall, extends structure outward, and makes the outer lash line the directional anchor. If the eye looks larger but not more elongated, reduce lower-lash darkness and move the endpoint outward in small strokes. The finished shape should feel softly stretched, not sharply boxed.'
+    };
+  }
+  if (seed.id.includes('downturned')) {
+    return {
+      title: 'Downturned-eye priority: lift the endpoint',
+      body: 'Downturned eyes change most when the outer endpoint rises before it reaches the natural drop of the lash line. Keep lower-lash color restrained, clean the outer corner early, and direct mascara or liner upward at the final third. If the look drags downward, remove the shadow below the endpoint first; adding more liner on top usually makes the corner heavier instead of lifted.'
+    };
+  }
+  if (seed.id.includes('mature-skin')) {
+    return {
+      title: 'Mature-skin priority: flexible texture first',
+      body: 'Mature skin benefits from thin, flexible layers that move with expression lines. This tutorial favors satin placement, soft edges, and controlled powder so the makeup reads polished without collecting around texture. If the finish looks dry, lift excess powder before adding glow. If color disappears, add a sheer second layer only where the face naturally keeps brightness, such as the upper cheek or mobile lid.'
+    };
+  }
+  if (seed.id.includes('deep-skin')) {
+    return {
+      title: 'Deep-skin priority: saturation without ashiness',
+      body: 'On deep skin, clarity comes from enough pigment depth and the right base temperature. This tutorial avoids pale versions of the color story and uses richer berry, cocoa, gold, or wine tones where the placement needs to stay visible. If a highlight looks gray, switch to warmth or translucency before adding more product. If the cheek disappears, increase chroma rather than spreading the shade lower.'
+    };
+  }
+  if (seed.id.includes('olive-skin')) {
+    return {
+      title: 'Olive-skin priority: balanced temperature',
+      body: 'Olive skin can make colors turn orange, gray, or overly pink when the undertone is ignored. This tutorial keeps neutral depth in the eye, uses rose-brown or taupe to bridge warmth and coolness, and checks the face in daylight before intensifying. If the palette looks muddy, the first correction is temperature, not opacity: shift the shade cleaner while keeping the same placement map.'
+    };
+  }
+  if (seed.id.includes('fair-skin')) {
+    return {
+      title: 'Fair-skin priority: soft contrast control',
+      body: 'Fair skin usually shows edges quickly, so this tutorial builds color in transparent passes and keeps the deepest shade narrow. The point is not to avoid definition; it is to make definition look intentional before it becomes a hard stripe. If blush, liner, or shadow jumps forward too fast, soften the perimeter with the base tool and rebuild with half the amount instead of changing the whole look.'
+    };
+  }
+  if (seed.id.includes('medium-skin')) {
+    return {
+      title: 'Medium-skin priority: warmth with clean depth',
+      body: 'Medium skin often carries bronze, caramel, and rose-brown beautifully when the depth is deliberate. This tutorial keeps warmth visible but stops it from spreading into a muddy wash by assigning each shade a clear zone. If the eye loses shape, restore the lash-root contrast first. If the cheek looks too orange, cool the lip or eye slightly rather than removing all warmth.'
+    };
+  }
+  if (seed.id.includes('interview')) {
+    return {
+      title: 'Interview priority: composed, not distracting',
+      body: 'Interview makeup has to read tidy in person and on camera without making the makeup itself the topic. This tutorial puts effort into inner-eye evenness, brows, and a comfortable lip because those are the signals people notice during conversation. If something feels too bold, lower contrast before removing coverage. The best version should survive a greeting, a video call, and a quick touch-up without demanding attention.'
+    };
+  }
+  if (seed.id.includes('wedding')) {
+    return {
+      title: 'Wedding-guest priority: polished restraint',
+      body: 'A wedding guest look needs enough polish for photographs while leaving the visual spotlight with the event. This tutorial keeps shimmer controlled, repeats rose or berry tones softly, and avoids a smoky edge that competes with formalwear. If the makeup photographs flat, restore cheek and lid dimension. If it starts feeling bridal or editorial, reduce opacity and keep the lip softer than the eye.'
+    };
+  }
+  if (seed.id.includes('holiday')) {
+    return {
+      title: 'Holiday priority: contained shimmer',
+      body: 'Holiday makeup can carry sparkle, but only when the reflective area has a clean boundary. This tutorial presses shimmer over a prepared lid, anchors it with matte depth, and cleans fallout before complexion work. If the shine travels too far, remove loose particles instead of blending them outward. The strongest impact should come from a controlled center flash, not glitter scattered across every surface.'
+    };
+  }
+  if (seed.id.includes('vacation')) {
+    return {
+      title: 'Vacation priority: packable repeatability',
+      body: 'Vacation makeup works best when the routine can survive sunscreen, limited tools, and quick mirror checks. This tutorial chooses cream or pencil roles that travel easily and places color where natural fading still looks intentional. If sunscreen pills, press rather than rub. If warmth turns muddy, simplify the palette before adding another product. The goal is a compact routine, not a full vanity recreated in a suitcase.'
+    };
+  }
+  if (seed.id.includes('office')) {
+    return {
+      title: 'Office priority: tidy indoor clarity',
+      body: 'Office makeup usually lives under indoor light, screens, and close conversation, so this tutorial avoids heavy perimeter coverage and overdrawn definition. It focuses on the center of the face, brows, and a controlled taupe or brown eye cue. If the look feels tired, brighten around the inner eye before adding shadow. If it feels too made up, remove base at the jaw and soften the brow front.'
+    };
+  }
+  return {
+    title: 'Routine priority: protect the main promise',
+    body: seed.title + ' should be judged against its main promise before any extra trend detail is added: ' + normalizeSentence(lowerFirst(seed.intent)) + ' Keep the most important color role, ' + seed.palette[0][2] + ', locked to ' + seed.palette[0][3] + ', and let every later correction support that decision. If the look starts drifting, return to the first placement note instead of layering a new product category.'
+  };
+};
 
 const toolsetFor = (seed) => {
   const eyeShade = findPalette(seed, /eye|lid|crease|transition|shadow|structure/i, 0);
@@ -492,9 +760,9 @@ const makeEyeDetailedSteps = (seed) => {
       title: 'Define the upper lash roots',
       outcome: liner[0] + ' makes the upper lashes look denser without hiding the focal lid shade',
       tool: 'Short dense liner brush or precise pencil',
-      productRole: paletteText(liner),
+      productRole: liner[0] + ': upper-lash definition only',
       action: seed.definition + ' Work in short sections and check the endpoint with the eye open before extending it.',
-      placement: liner[3] + ', with the endpoint guided by the open-eye shape',
+      placement: 'Between and immediately above the upper lash roots, stopping at the endpoint guided by the open-eye shape',
       motion: 'Stamp between lash roots, then use one short outward stroke at the endpoint',
       amount: 'The thinnest visible deposit of ' + liner[0] + ', deepest only where the recipe needs lift',
       durationSeconds: durationFor(seed, 0.12),
@@ -543,7 +811,7 @@ const makeEyeDetailedSteps = (seed) => {
 
 const makeFaceDetailedSteps = (seed) => {
   const eye = findPalette(seed, /eye|lid|crease|transition|shadow|structure|wash/i, 0);
-  const liner = findPalette(seed, /lash|liner|definition|tightline/i, 2);
+  const liner = findPalette(seed, /lash|liner|definition|tightline/i, seed.palette.indexOf(eye));
   const color = findPalette(seed, /cheek|blush|lip|multi-use|complexion|skin/i, 1);
   const steps = [
     {
@@ -598,9 +866,9 @@ const makeFaceDetailedSteps = (seed) => {
       title: 'Add precise lash definition',
       outcome: liner[0] + ' makes the lashes look denser while the eye color and lid space stay visible',
       tool: 'Short dense liner brush or smudgeable pencil',
-      productRole: paletteText(liner),
+      productRole: liner[0] + ': upper-lash definition only',
       action: seed.definition + ' Work from the lash roots outward and stop as soon as the intended shape reads from normal distance.',
-      placement: liner[3] + ', kept closest to the roots and thinnest near the inner eye',
+      placement: 'Between and immediately above the upper lash roots, kept thinnest near the inner eye and stopped at the intended upper endpoint',
       motion: 'Stamp between lashes, then soften only the outer endpoint if the recipe calls for diffusion',
       amount: 'The thinnest visible line of ' + liner[0] + '; correct one section instead of redrawing everything',
       durationSeconds: durationFor(seed, 0.11),
@@ -672,7 +940,7 @@ const detailedProductOptions = (seed) => [
   }
 ];
 
-const recipes = seeds.map((seed, index) => {
+const recipes = await Promise.all(seeds.map(async (seed, index) => {
   const sameHub = seeds.filter((candidate) => candidate.hub === seed.hub && candidate.id !== seed.id);
   const crossHub = seeds.filter((candidate) => candidate.hub !== seed.hub);
   const related = [sameHub[index % sameHub.length], sameHub[(index + 2) % sameHub.length], sameHub[(index + 4) % sameHub.length], crossHub[index % crossHub.length]]
@@ -680,6 +948,9 @@ const recipes = seeds.map((seed, index) => {
     .map((candidate) => candidate.id)
     .filter((id, position, all) => all.indexOf(id) === position)
     .slice(0, 4);
+
+  const steps = makeDetailedSteps(seed);
+  const stepImagesReviewedAt = await resolveStepImagesReviewedAt(seed, steps);
 
   return {
     id: seed.id,
@@ -690,7 +961,7 @@ const recipes = seeds.map((seed, index) => {
     primaryIntent: seed.intent,
     directAnswer: seed.answer,
     publishedAt,
-    updatedAt: seed.visualReviewedAt ?? publishedAt,
+    updatedAt: seed.contentUpdatedAt ?? publishedAt,
     authorId: 'huesteps-editorial-team',
     reviewedBy: 'huesteps-editorial-team',
     difficulty: seed.difficulty,
@@ -704,17 +975,18 @@ const recipes = seeds.map((seed, index) => {
     heroAlt: `AI visualization of ${seed.title.toLowerCase()} showing ${seed.palette[0][0].toLowerCase()}, ${seed.palette[1][0].toLowerCase()}, and a ${seed.finish} finish.`,
     aiGenerated: true,
     stepImageStandard: usesProgressiveHighDetailImages(seed) ? visualMigration.progressiveStandard : visualMigration.legacyStandard,
-    stepImagesReviewedAt: seed.visualReviewedAt,
+    ...(stepImagesReviewedAt ? { stepImagesReviewedAt } : {}),
     palette: seed.palette.map(([name, hex, role, placement]) => ({ name, hex, role, placement })),
     productRoles: seed.palette.map(([name, , role]) => `${name}: ${role}`),
     whatMakesItWork: makeWhatMakesItWork(seed),
+    decisionGuide: makeDecisionGuide(seed),
     tools: toolsetFor(seed),
     beforeYouStart: [
       seed.prep,
       'Set out the tools for ' + seed.title + ' before starting so the ' + seed.finish + ' layers can be placed without a long pause.',
       'Check ' + seed.palette[0][3] + ' in front-facing daylight and keep the first application lighter than the final target.'
     ],
-    steps: makeDetailedSteps(seed),
+    steps,
     placementNotes: seed.placement,
     adjustments: seed.adjustments.map(([forValue, change, why]) => ({ for: forValue, change, why })),
     commonMistakes: seed.mistakes.map(([problem, cause, fix]) => ({ problem, cause, fix })),
@@ -722,11 +994,11 @@ const recipes = seeds.map((seed, index) => {
     faq: makeFaq(seed),
     suggestedProducts: detailedProductOptions(seed),
     relatedRecipes: related,
-    sources: [],
+    sources: makeSources(seed),
     seasonal: seed.seasonal ?? false,
     featured: seed.featured ?? false
   };
-});
+}));
 
 const outputDir = path.resolve('src/data');
 await mkdir(outputDir, { recursive: true });

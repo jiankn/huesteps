@@ -45,6 +45,20 @@ const VISUAL_FOCUS_VALUES = new Set([
   'final',
 ]);
 
+const VISUAL_FOCUS_PLACEMENT_RULES = {
+  brows: { required: /\bbrow/i },
+  'upper-lash': {
+    required: /\bupper\s+lash/i,
+    forbidden: /\blower\s+(?:lash|eye)|\bcheeks?\b|\blips?\b/i,
+  },
+  'lower-lash': {
+    required: /\blower\s+lash/i,
+    forbidden: /\bupper\s+lash|\bcheeks?\b|\blips?\b/i,
+  },
+  cheeks: { required: /\bcheeks?\b/i },
+  lips: { required: /\blips?\b/i },
+};
+
 const PLACEHOLDER_PATTERNS = [
   /\b(?:todo|tbd|placeholder|lorem ipsum|coming soon|replace me|n\/?a|xxx)\b/i,
   /\b(?:insert|add) (?:copy|text|image|details?) here\b/i,
@@ -65,6 +79,56 @@ const normalizeText = (value) => String(value)
   .replace(/[^\p{L}\p{N}]+/gu, ' ')
   .replace(/\s+/g, ' ')
   .trim();
+
+const SIMILARITY_STOPWORDS = new Set([
+  'a',
+  'an',
+  'and',
+  'are',
+  'as',
+  'at',
+  'be',
+  'before',
+  'between',
+  'both',
+  'but',
+  'by',
+  'can',
+  'for',
+  'from',
+  'has',
+  'have',
+  'if',
+  'in',
+  'into',
+  'is',
+  'it',
+  'its',
+  'not',
+  'of',
+  'on',
+  'only',
+  'or',
+  'so',
+  'than',
+  'that',
+  'the',
+  'then',
+  'this',
+  'to',
+  'with',
+  'without',
+  'while',
+  'when',
+  'where',
+  'which',
+  'who',
+  'will',
+  'you',
+  'your',
+]);
+
+const shingleTokens = (value) => wordTokens(value).filter((token) => token.length > 1 && !SIMILARITY_STOPWORDS.has(token));
 
 const isMeaningfulString = (value, minLength) => typeof value === 'string' && value.trim().length >= minLength;
 const hasPlaceholder = (value) => typeof value === 'string' && PLACEHOLDER_PATTERNS.some((pattern) => pattern.test(value));
@@ -128,7 +192,7 @@ const collectTextEntries = (value, key = '', output = []) => {
 };
 
 const shingles = (text, size = 3) => {
-  const tokens = wordTokens(normalizeText(text));
+  const tokens = shingleTokens(normalizeText(text));
   const result = new Set();
   for (let index = 0; index <= tokens.length - size; index += 1) result.add(tokens.slice(index, index + size).join(' '));
   return result;
@@ -180,9 +244,6 @@ for (const recipe of recipes) {
     progressiveRecipeCount += 1;
     if (legacyFocusGuideRecipeIds.has(slug)) {
       fail.push(`${slug} claims the progressive standard but remains in legacyFocusGuideRecipeIds.`);
-    }
-    if (!recipe.stepImagesReviewedAt || Number.isNaN(Date.parse(recipe.stepImagesReviewedAt))) {
-      fail.push(`${slug}.stepImagesReviewedAt is required for progressive high-detail images.`);
     }
   }
 
@@ -236,6 +297,18 @@ for (const recipe of recipes) {
   if (!Array.isArray(recipe.steps) || recipe.steps.length < 6 || recipe.steps.length > 10) {
     fail.push(`${slug}.steps must contain 6 to 10 complete steps.`);
   } else {
+    const stepFive = recipe.steps[4];
+    if (recipe.hub !== 'eye-shape-makeup' && stepFive?.visualFocus !== 'upper-lash') {
+      fail.push(`${slug}.steps[4] must target upper-lash definition in the full-face sequence.`);
+    }
+    if (slug === 'elongated-eye-makeup-round-eyes') {
+      const stepFiveText = ['title', 'outcome', 'productRole', 'action', 'placement']
+        .map((field) => stepFive?.[field] ?? '')
+        .join(' ');
+      if (stepFive?.visualFocus !== 'upper-lash' || /\blower\b/i.test(stepFiveText)) {
+        fail.push(`${slug}.steps[4] must describe upper-lash definition only and cannot include a lower-eye target.`);
+      }
+    }
     totalSteps += recipe.steps.length;
     for (let index = 0; index < recipe.steps.length; index += 1) {
       const step = recipe.steps[index];
@@ -257,6 +330,15 @@ for (const recipe of recipes) {
       }
       if (!VISUAL_FOCUS_VALUES.has(step.visualFocus)) {
         fail.push(`${prefix}.visualFocus must be one of: ${[...VISUAL_FOCUS_VALUES].join(', ')}.`);
+      }
+      const placementRule = VISUAL_FOCUS_PLACEMENT_RULES[step.visualFocus];
+      if (placementRule && typeof step.placement === 'string') {
+        if (!placementRule.required.test(step.placement)) {
+          fail.push(`${prefix}.placement does not name the ${step.visualFocus} target required by visualFocus.`);
+        }
+        if (placementRule.forbidden?.test(step.placement)) {
+          fail.push(`${prefix}.placement includes an off-target region for visualFocus=${step.visualFocus}: ${step.placement}`);
+        }
       }
 
       if (typeof step.image !== 'string' || !step.image.trim()) {

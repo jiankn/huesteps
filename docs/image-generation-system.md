@@ -14,6 +14,29 @@
 
 No celebrity likeness, cloned reference identity, off-center subject, cropped chin, cropped forehead, eye outside frame, mismatched eyes, warped eyelids, duplicated lashes, visible strip-lash band, fused jewelry, hair crossing an iris, plastic or wax skin, beauty-filter blur, porcelain whitening, gray cast, blown forehead highlight, smeared lipstick, distorted lip anatomy, generic stock smile, passport-photo mood, corporate headshot, influencer selfie, visible hands, text, logo or watermark.
 
+## Progressive tutorial step image gate
+
+Use this gate for every `progressive-high-detail-v2` tutorial step set, including future recipes.
+
+- Generate independent step-state images, not a Pinterest composite, not crops from one finished look, and not the old focus-guide graphics.
+- Each recipe needs eight comparable 4:3 assets at 1280 x 960 or larger before review: `step-01` through `step-08`.
+- A set may keep the same face, or may vary identity slightly, but the same recipe must preserve skin depth, undertone, camera distance, lighting, crop, white balance and retouching strength.
+- Makeup must be cumulative and visible: each image should show what changed after that step. Reject sets where the only difference is a tiny brightness, warmth or smoothing shift.
+- Preserve real skin texture: visible pores, eyelid folds, fine lines, small hairs and natural product texture. Reject wax skin, heavy blur, over-sharpening, plastic pore erasure or flat AI complexion.
+- Reject any burned-in teaching overlay: step numbers, captions, arrows, dots, makeup maps, dotted guidelines, ruler marks, split-screen separators or text. Also reject fake lash-count tick marks, eyeliner ruler strokes, brow-measuring lines, drawn crease guides and any black helper line that looks added on top of the photo. The webpage supplies all instructional text in HTML.
+- Reject horizontal artifacts even if the face is otherwise attractive: gray lines across the eyes or cheeks, banding across the face, pressure-mark seams, accidental crop seams and generated guide lines are not acceptable.
+- Eye-shape recipes should usually be eye macro or half-face close-up; full-face crops are allowed only if the eye technique is still clear at article-card size.
+- Full-face everyday, skin-tone and occasion recipes should still be close enough for pores and product placement to read; distant portrait beauty shots are not tutorial step images.
+- The generator may create a base portrait first, but every step image must be reviewed as a final instructional state. Do not approve a sequence only because the base portrait looks good.
+
+Production flow:
+
+1. Put candidate sources under `tmp/progressive-all-v3/<recipe>/sources/step-01.png` through `step-08.png`.
+2. Run `node scripts/prepare-progressive-step-images.mjs --recipe <recipe> --source-dir tmp/progressive-all-v3/<recipe>/sources` only after a human pass thinks the source set is viable.
+3. Run `node scripts/audit-progressive-image-set.mjs --source-dir src/assets/tutorial-steps/<recipe> --suffix -curated --output-dir tmp/progressive-all-v3/<recipe>/final-audit`.
+4. Open the contact sheet and reject if makeup progression, anatomy, texture, crop or overlay rules fail.
+5. Only after approval, remove the slug from `src/data/tutorial-visual-migrations.json`, add `visualReviewedAt` in `scripts/build-content.mjs`, rebuild content and run `pnpm.cmd run audit:content`.
+
 ## Geometry
 
 - Full-face card/detail asset: face centroid `x=50%±3%`, eye line `y=38–42%`, complete hairline and chin, shoulders present, central 40% safe zone.

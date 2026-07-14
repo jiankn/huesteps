@@ -5,6 +5,7 @@ import sharp from 'sharp';
 
 const root = process.cwd();
 const recipesPath = path.join(root, 'src', 'data', 'recipes.json');
+const visualMigrationPath = path.join(root, 'src', 'data', 'tutorial-visual-migrations.json');
 const outputRoot = path.join(root, 'src', 'assets', 'tutorial-steps');
 const force = process.argv.includes('--force');
 
@@ -71,18 +72,35 @@ const isFresh = async (source, output) => {
   return outputStat.mtimeMs >= sourceStat.mtimeMs;
 };
 
-const recipes = JSON.parse(await readFile(recipesPath, 'utf8'));
+const [recipes, visualMigration] = await Promise.all([
+  readFile(recipesPath, 'utf8').then(JSON.parse),
+  readFile(visualMigrationPath, 'utf8').then(JSON.parse)
+]);
+const legacyRecipeIds = new Set(visualMigration.legacyFocusGuideRecipeIds);
 let generated = 0;
 let reused = 0;
 
 for (const recipe of recipes) {
-  const source = resolveHero(recipe.heroImage);
-  const metadata = await sharp(source).metadata();
-  if (!metadata.width || !metadata.height) throw new Error(`Cannot read dimensions for ${source}`);
+  const isLegacy = legacyRecipeIds.has(recipe.slug);
+  const source = isLegacy ? resolveHero(recipe.heroImage) : undefined;
+  const metadata = source ? await sharp(source).metadata() : undefined;
+  if (source && (!metadata?.width || !metadata?.height)) throw new Error(`Cannot read dimensions for ${source}`);
 
   for (const [index, step] of recipe.steps.entries()) {
     if (!step.image) throw new Error(`${recipe.slug} step ${index + 1} is missing image.`);
     const output = path.join(outputRoot, ...step.image.replaceAll('\\', '/').split('/'));
+
+    if (!isLegacy) {
+      if (!/-curated\.webp$/i.test(step.image)) {
+        throw new Error(`${recipe.slug} step ${index + 1} must reference a curated progressive image.`);
+      }
+      if (!existsSync(output)) {
+        throw new Error(`Missing progressive step image: ${step.image}. Curated images cannot be synthesized from a finished-look hero.`);
+      }
+      reused += 1;
+      continue;
+    }
+
     await mkdir(path.dirname(output), { recursive: true });
 
     if (await isFresh(source, output)) {
