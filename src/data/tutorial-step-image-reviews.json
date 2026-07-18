@@ -3,7 +3,7 @@
   "reviewCriteria": [
     "The image crop clearly centers the named targetRegion.",
     "The expectedOutcome is visibly present and later-step makeup is not shown early.",
-    "An intentional target-area crop and slight identity variation are allowed, but skin depth, undertone, white balance, and lighting stay comparable; cumulative makeup progress must be visible and cannot be explained only by a different face or crop.",
+    "The same identity, apparent age, skin depth, undertone, eye color, hairline, expression, camera, crop, white balance, and lighting remain consistent; cumulative makeup progress must come only from the named makeup change.",
     "Skin texture and application detail remain clear at article display size."
   ],
   "reviews": {
@@ -1613,9 +1613,9 @@
       "previousStepImage": null,
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "4150d71bb02dc000f3dec13ae8eb90c835d3bbd6a376ddf0f5bdc58736e5f0a0",
-      "notes": "The centered full-face baseline shows settled skincare, natural freckles and pores, bare lids, untouched brows and uncolored lips before any makeup step."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "9b6f19d0107a8b1041428d767e8ad1c7d3568707697b934fca194519f00c3322",
+      "notes": "The bare-skin baseline keeps the full hairline, chin, neutral wardrobe, ordinary asymmetry, faint freckles, nose redness, under-eye tone, and natural lips visible with no later-step makeup."
     },
     "natural-no-makeup-makeup/step-02-curated.webp": {
       "targetRegion": "complexion",
@@ -1623,9 +1623,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-01-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "e07b31d0e2efa62b2d18e468d82cfc4ea904b2c50361c44954d6e6187c8091c2",
-      "notes": "Selective correction visibly softens center-face unevenness while the hairline, jaw, temples, freckles and outer-cheek variation remain uncovered and realistic."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "b8618d07a6d074ff4751fafb89ba0c93194706738928199d4228ed439cc2b12e",
+      "notes": "Pinpoint complexion correction softens only the inner under-eye and center-face distractions while the forehead, outer cheeks, freckles, pores, and natural color variation remain uncovered."
     },
     "natural-no-makeup-makeup/step-03-curated.webp": {
       "targetRegion": "brows",
@@ -1633,9 +1633,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-02-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "3efc20cbe58402a10800bbff964e6db6b6908166d67897b1013bee77986f6739",
-      "notes": "The dedicated brow-and-upper-eye crop shows both complete brows with visible individual hairs and airy inner thirds, while both lids remain bare before taupe is added."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "3d441d67dbb094923c8f7eff53fedf808574d0e6b3d3c1662b544a392af1267f",
+      "notes": "The same identity and complexion state remain stable while the brows gain only light grooming and a few plausible gap-filling hairs; the inner thirds stay airy and asymmetric."
     },
     "natural-no-makeup-makeup/step-04-curated.webp": {
       "targetRegion": "both-eyes",
@@ -1643,9 +1643,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-03-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "71ef0cf8e6459e46824494a4051ff1feec0a09970a2a090a2f65cd22d319e865",
-      "notes": "Both eyes clearly carry a translucent neutral taupe veil along the upper lash lines and crease edges; the regenerated version remains matte and contains no separate liner or wing."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "bb2be38b742bc8fe4544e99bf9a502b42eeaefdba19cf5064777bcc517e61f91",
+      "notes": "A translucent neutral-taupe haze is visible at both upper lash roots and faint crease edges without a wing, ruler mark, burned-in guide, hard stripe, or later cheek and lip color."
     },
     "natural-no-makeup-makeup/step-05-curated.webp": {
       "targetRegion": "upper-lash",
@@ -1653,9 +1653,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-04-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "e3160c1e6675a5eec9de0d7ec2d729bc4cffbac3ef66f3c22ec104351b97b371",
-      "notes": "The extreme bilateral eye-band macro keeps both upper lash roots dominant, where a hair-thin taupe-brown root shadow increases density without mascara, a graphic stripe or unrelated mouth/cheek focus."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "f3f2ce761da9f3507f125eaa31807db751dc13abb314ea7d31cd23e209136ad9",
+      "notes": "Upper lashes read slightly darker, lifted, and individually separated while the taupe stays at root level; there is no strip-lash band, lower-lash target, wing, or heavy mascara buildup."
     },
     "natural-no-makeup-makeup/step-06-curated.webp": {
       "targetRegion": "cheeks",
@@ -1663,9 +1663,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-05-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "47b882f53b96aeba540cf2194ac2533ea52331b7cd56fcef47045d1a304815d0",
-      "notes": "The three-quarter cheek-focused crop shows a readable muted natural-rose flush diffused upward with pores visible through every edge; the lip remains naturally untinted."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "8232e5fa49d2190242e04a025bc46e3150f0bc1facb237f52233dd67b9dc4bc7",
+      "notes": "Muted neutral-rose cream appears high on both cheeks with a soft upward diffusion and visible skin beneath the edges; the natural uncolored lip remains unchanged at this checkpoint."
     },
     "natural-no-makeup-makeup/step-07-curated.webp": {
       "targetRegion": "lips",
@@ -1673,9 +1673,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-06-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "0872d2d53cefa997becfe753ee6c4348dcf7d7db7dd43712f3b00209b8e6635e",
-      "notes": "The mouth-and-perioral macro shows a barely-there translucent rose satin tint with crisp lip grooves and no opaque lipstick, overdrawn liner or glassy gloss."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "d5982c344f95141277f3b32f224ac4ce8ccc63758d6f6e9f691bc91a826d5aa3",
+      "notes": "The transparent rose-beige lip tint now connects to the cheek color while preserving crisp lip grooves, the true perimeter, and a satin rather than opaque or glassy finish."
     },
     "natural-no-makeup-makeup/step-08-curated.webp": {
       "targetRegion": "final",
@@ -1683,9 +1683,9 @@
       "previousStepImage": "natural-no-makeup-makeup/step-07-curated.webp",
       "status": "approved",
       "reviewer": "Codex main-agent visual QA",
-      "reviewedAt": "2026-07-13T16:50:07.195Z",
-      "assetSha256": "20d7135b5fdb78c76d21b784fac9738fdba0b4bb5fc9b9eca8691617e5669aa2",
-      "notes": "The final full face integrates selective complexion, airy brows, subtle taupe eyes and roots, symmetrical natural-rose cheeks and quiet rose lips while preserving the same light-medium neutral skin and daylight balance."
+      "reviewedAt": "2026-07-18T16:53:00.444Z",
+      "assetSha256": "903d76beabc4403a24fa6223d8e6b469d5dc2efdb0407ea669b93af3512d96c6",
+      "notes": "The completed full-face result preserves the same identity, skin depth, camera, lighting, wardrobe, and realistic texture while integrating pinpoint base, airy brows, quiet eyes, sheer cheeks, and transparent lips."
     },
     "easy-everyday-soft-glam/step-01-curated.webp": {
       "targetRegion": "full-face",

@@ -55,7 +55,7 @@ if (shouldSync) {
     reviewCriteria: [
       'The image crop clearly centers the named targetRegion.',
       'The expectedOutcome is visibly present and later-step makeup is not shown early.',
-      'An intentional target-area crop and slight identity variation are allowed, but skin depth, undertone, white balance, and lighting stay comparable; cumulative makeup progress must be visible and cannot be explained only by a different face or crop.',
+      'The same identity, apparent age, skin depth, undertone, eye color, hairline, expression, camera, crop, white balance, and lighting remain consistent; cumulative makeup progress must come only from the named makeup change.',
       'Skin texture and application detail remain clear at article display size.'
     ],
     reviews,

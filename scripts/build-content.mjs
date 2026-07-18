@@ -304,16 +304,26 @@ const seeds = [
     shoppingRole: 'reliable cheek and lip cream'
   },
   {
-    id: 'natural-no-makeup-makeup', hub: 'everyday-makeup', title: 'Natural No-Makeup Makeup', time: 15, difficulty: 'Easy', finish: 'barely-there satin', featured: true, contentUpdatedAt: '2026-07-12',
-    intent: 'Create no-makeup makeup with targeted correction and no obvious product borders.',
-    description: 'A natural no-makeup recipe based on spot correction, brushed brows, subtle lash depth, and translucent skin-like color.',
-    answer: 'Correct only visible distractions, match every product to existing skin contrast, and blend edges until color looks like part of the face.',
+    id: 'natural-no-makeup-makeup', hub: 'everyday-makeup', title: 'Natural No-Makeup Makeup', time: 15, difficulty: 'Easy', finish: 'barely-there satin', featured: true, contentUpdatedAt: '2026-07-19',
+    intent: 'Create believable no-makeup makeup with pinpoint correction, quiet lash definition, and translucent color that still looks like real skin.',
+    description: 'A 15-minute no-makeup makeup tutorial with pinpoint concealing, airy brows, soft-brown lashes, sheer rose cheeks, transparent lip tint, and honest step visuals.',
+    answer: 'Correct only the areas that interrupt evenness, keep freckles and perimeter skin uncovered, then add airy brows, soft-brown lash depth, sheer rose cheeks, and a transparent lip tint.',
     occasions: ['everyday', 'casual daytime'], eyes: ['hooded', 'monolid', 'deep-set', 'round'], tones: ['fair', 'light', 'medium', 'deep'], undertones: ['warm', 'neutral', 'cool'],
     palette: [['Skin-shadow taupe','#8C7B72','invisible eye structure','lash line and crease edge'],['Natural flush','#B56E70','sheer cheek color','cheek center diffused upward'],['Lip tone rose','#9E6468','lip evening','center of lips']],
-    prep: 'Let moisturizer and sunscreen settle, then blot only where the skin feels slippery.', base: 'Spot-correct discoloration with a precise brush and melt each edge with fingers.', brows: 'Brush hairs into place and add only a few hairlike strokes.', definition: 'Use skin-shadow taupe between lashes and remove any visible line.', finishStep: 'Press translucent flush onto cheeks and a lip-tone tint onto dry areas of the lips.',
+    prep: 'Let moisturizer and sunscreen settle, then blot only where the skin feels slippery.', base: 'Spot-correct discoloration with a precise brush and melt each edge with fingers.', brows: 'Brush hairs into place and add only a few hairlike strokes.', definition: 'Press skin-shadow taupe between the upper lashes, curl them, and comb through one thin coat of soft-brown mascara so no visible line remains.', finishStep: 'Press a transparent rose-beige tint from the center of the lips outward, preserving the natural lip edge and texture.',
     placement: ['Keep every edge diffused beyond the exact corrected area.','Place eye depth at the lash roots, not as a visible stripe.','Match cheek placement to the face natural flush pattern, then lift slightly.'],
     adjustments: [['Visible freckles','Correct around rather than over them.','Preserving natural variation prevents a uniform makeup layer.'],['Deep skin','Choose a rich translucent red-brown flush.','A pale base would turn gray instead of invisible.'],['Oily skin','Use thin long-wear concealer and powder only corrected zones.','Targeted setting preserves the bare-skin effect.']],
-    mistakes: [['The base is obvious','Tint covers the entire face at one opacity.','Lift product from the perimeter and reintroduce natural skin variation.'],['Brows look styled','Gel creates a glossy rigid block.','Comb through with a clean spoolie and leave a few hairs relaxed.'],['Blush looks like a circle','Color was placed and blended in one small spot.','Diffuse the edge upward and outward with the clean side of the sponge.']],
+    mistakes: [['The base is obvious','Tint covers the entire face at one opacity.','Lift product from the perimeter and reintroduce natural skin variation.'],['Brows look styled','Gel creates a glossy rigid block.','Comb through with a clean spoolie and leave a few hairs relaxed.'],['Blush looks like a circle','Color was placed and blended in one small spot.','Diffuse the edge upward and outward with the clean side of the sponge.'],['The eye definition looks like eyeliner','Too much taupe sits above the upper lash roots.','Press a clean detail brush over the visible edge until only root depth remains.'],['The lip looks like lipstick','Too much pigment or gloss covers the natural lip texture.','Blot once, then soften the perimeter with a clean fingertip.']],
+    stepGuidance: [
+      { ifWrong: 'Blot only the moving or slippery areas and wait another minute before adding complexion product.', proTip: 'Check the skin from the side; settled skincare should reflect softly without sliding under a fingertip.', avoid: 'Avoid adding primer everywhere when only the nose or center forehead still feels slippery.' },
+      { ifWrong: 'Tap a clean fingertip around each corrected spot until its boundary disappears into uncovered skin.', proTip: 'Work around freckles instead of covering them so the finished complexion keeps believable variation.', avoid: 'Avoid spreading leftover concealer across the outer cheeks, hairline, temples, or jaw.' },
+      { ifWrong: 'Comb both brows through with a clean spoolie and remove product from the inner thirds first.', proTip: 'Add a stroke only where you can still see skin through a genuine gap between brow hairs.', avoid: 'Avoid making the brow fronts, arches, and tails equally dark or perfectly symmetrical.' },
+      { ifWrong: 'Use a clean tapered brush to lift any taupe that reads as a visible stripe or hard crease.', proTip: 'Look straight ahead after each light pass; the eye should appear quietly structured, not shadowed.', avoid: 'Avoid extending taupe past the outer eye or building a smoky edge for this low-contrast look.' },
+      { ifWrong: 'Comb through the upper lashes immediately and press away any visible line above the roots.', proTip: 'Concentrate the mascara comb at the roots, then pull the remaining product through the tips once.', avoid: 'Avoid a second full mascara coat, a wing, lower-lash darkness, or any visible strip-lash band.' },
+      { ifWrong: 'Press the clean side of the sponge around the blush edge, then lift the blend slightly upward.', proTip: 'Place less cream than you think you need and assess both cheeks in straight-on daylight.', avoid: 'Avoid a round opaque patch, low placement below the cheek center, or shimmer over textured areas.' },
+      { ifWrong: 'Blot once and soften the lip perimeter with a clean fingertip until natural grooves show again.', proTip: 'Keep the deepest tint at the natural lip center and use only residue near the outer edge.', avoid: 'Avoid overlining, opaque lipstick coverage, or glassy gloss that becomes the main focal point.' },
+      { ifWrong: 'Lift excess from the problem area before adding powder, color, or another correction layer.', proTip: 'Compare the face at conversational distance; every individual product should be difficult to identify.', avoid: 'Avoid automatically powdering the full face or intensifying every feature during the final check.' }
+    ],
     shoppingRole: 'skin-like precision concealer'
   },
   {
@@ -679,6 +689,7 @@ const makeDetailedStep = (seed, index, step) => {
   const number = String(index + 1).padStart(2, '0');
   const mistake = seed.mistakes[index % seed.mistakes.length];
   const adjustment = seed.adjustments[index % seed.adjustments.length];
+  const guidance = seed.stepGuidance?.[index] ?? {};
   const curated = usesProgressiveHighDetailImages(seed) ? '-curated' : '';
   const outcome = normalizeSentence(step.outcome);
   return {
@@ -696,9 +707,9 @@ const makeDetailedStep = (seed, index, step) => {
     durationSeconds: step.durationSeconds,
     whyItWorks: normalizeSentence(step.whyItWorks ?? ('Keeping ' + lowerFirst(step.productRole) + ' at ' + step.placement + ' directly supports this tutorial goal: ' + lowerFirst(seed.intent))),
     completeWhen: normalizeSentence(step.completeWhen ?? outcome),
-    ifWrong: normalizeSentence(step.ifWrong ?? mistake[2]),
-    proTip: normalizeSentence(step.proTip ?? (adjustment[0] + ': ' + adjustment[1])),
-    avoid: normalizeSentence(step.avoid ?? ('Avoid ' + lowerFirst(mistake[0]) + '; ' + lowerFirst(mistake[1]))),
+    ifWrong: normalizeSentence(step.ifWrong ?? guidance.ifWrong ?? mistake[2]),
+    proTip: normalizeSentence(step.proTip ?? guidance.proTip ?? (adjustment[0] + ': ' + adjustment[1])),
+    avoid: normalizeSentence(step.avoid ?? guidance.avoid ?? ('Avoid ' + lowerFirst(mistake[0]) + '; ' + lowerFirst(mistake[1]))),
     visualFocus: step.visualFocus
   };
 };

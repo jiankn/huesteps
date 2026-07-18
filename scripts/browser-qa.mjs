@@ -95,6 +95,31 @@ const cases = [
     colorScheme: 'light',
     reducedMotion: false,
   },
+  {
+    name: 'day-01-no-makeup-375-light',
+    path: '/everyday-makeup/natural-no-makeup-makeup/',
+    width: 375,
+    height: 812,
+    colorScheme: 'light',
+    reducedMotion: false,
+  },
+  {
+    name: 'day-01-no-makeup-1440-light',
+    path: '/everyday-makeup/natural-no-makeup-makeup/',
+    width: 1440,
+    height: 900,
+    colorScheme: 'light',
+    reducedMotion: false,
+  },
+  {
+    name: 'day-01-no-makeup-steps-375-light',
+    path: '/everyday-makeup/natural-no-makeup-makeup/',
+    width: 375,
+    height: 812,
+    colorScheme: 'light',
+    reducedMotion: false,
+    selector: '#steps',
+  },
   { name: 'trust-375-light', path: '/about/', width: 375, height: 812, colorScheme: 'light', reducedMotion: false },
 ];
 

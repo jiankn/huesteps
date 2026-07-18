@@ -1,5 +1,22 @@
 # HueSteps image generation system
 
+## HueSteps image hard rules V1
+
+These rules are mandatory for every new HueSteps tutorial, hero image, and Pinterest Pin.
+
+- Treat every image as credible makeup evidence, not as a generic attractive AI portrait.
+- Lock one original, non-celebrity identity per tutorial. The face, apparent age, skin depth and undertone, eye color, hairline, ears, expression, wardrobe, camera, crop, lighting, exposure, white balance, and background must remain consistent from Step 1 through the final Pin.
+- Preserve real human variation: irregular pores, peach fuzz, fine lines, lip grooves, individual brow hairs, small color variation, and ordinary facial asymmetry. Reject plastic skin, poreless blur, HDR texture, etched or repeated AI micro-patterns, doll eyes, duplicated lashes, and anatomy errors.
+- Make the sequence cumulative. Each step changes only the named makeup area; later makeup must never appear early.
+- Keep before-and-after comparisons honest. Makeup may change; facial structure, age, skin color, expression, camera angle, crop, and lighting may not.
+- Use an eye-level 70–105mm-equivalent portrait perspective, soft neutral 5000–5500K light, and a clean backdrop. Everyday tutorials use a calm direct gaze, simple pulled-back hair, a matte solid top, and no distracting jewelry or logos.
+- Produce tutorial sources at 4:3 and at least 1280x960. Produce Pinterest Pins at 1000x1500 (2:3). Add all typography in deterministic post-production, never in the image model.
+- Derive the website hero and every Pin from the approved tutorial identity chain. Never regenerate an unrelated “similar” model for social creative.
+- Mark the work as AI-assisted on Pinterest and disclose AI-generated visualization on the tutorial page. Never present the model as a real client or claim first-hand wear testing.
+- Reject a set for identity drift, skin-tone drift, altered eye color, anatomical errors, synthetic skin texture, mismatched makeup/text, misleading before-and-after framing, or Pin-to-page visual mismatch.
+
+Quality score: realism 25, identity continuity 25, makeup accuracy 20, teaching clarity 15, Pinterest click value 10, technical quality 5. A set must score at least 90/100 and have no hard-fail issue.
+
 ## Shared contract
 
 - Original non-celebrity identity. Reference images control only makeup, lighting, polish and composition; never copy the reference person.
@@ -20,7 +37,7 @@ Use this gate for every `progressive-high-detail-v2` tutorial step set, includin
 
 - Generate independent step-state images, not a Pinterest composite, not crops from one finished look, and not the old focus-guide graphics.
 - Each recipe needs eight comparable 4:3 assets at 1280 x 960 or larger before review: `step-01` through `step-08`.
-- A set may keep the same face, or may vary identity slightly, but the same recipe must preserve skin depth, undertone, camera distance, lighting, crop, white balance and retouching strength.
+- Every image in a recipe must keep the same face and preserve skin depth, undertone, camera distance, lighting, crop, white balance and retouching strength.
 - Makeup must be cumulative and visible: each image should show what changed after that step. Reject sets where the only difference is a tiny brightness, warmth or smoothing shift.
 - Preserve real skin texture: visible pores, eyelid folds, fine lines, small hairs and natural product texture. Reject wax skin, heavy blur, over-sharpening, plastic pore erasure or flat AI complexion.
 - Reject any burned-in teaching overlay: step numbers, captions, arrows, dots, makeup maps, dotted guidelines, ruler marks, split-screen separators or text. Also reject fake lash-count tick marks, eyeliner ruler strokes, brow-measuring lines, drawn crease guides and any black helper line that looks added on top of the photo. The webpage supplies all instructional text in HTML.
