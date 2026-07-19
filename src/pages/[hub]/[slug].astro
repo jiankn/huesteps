@@ -4,12 +4,12 @@ import BaseLayout from '@/components/BaseLayout.astro';
 import RecipeImage from '@/components/RecipeImage.astro';
 import RecipeCard from '@/components/RecipeCard.astro';
 import PlacementGuide from '@/components/PlacementGuide.astro';
-import ProductSuggestions from '@/components/ProductSuggestions.astro';
 import TutorialSteps from '@/components/TutorialSteps.astro';
 import EditorialReview from '@/components/EditorialReview.astro';
 import { getRecipeImage } from '@/lib/recipe-images';
 import { getRecipeFocal } from '@/lib/recipe-focus';
 import { HUBS, SITE, recipeUrl } from '@/lib/site';
+import '@/styles/recipe-tutorial.css';
 
 export async function getStaticPaths() {
   const recipes = await getCollection('recipes');
@@ -30,6 +30,11 @@ const image = getRecipeImage(data.heroImage);
 const related = data.relatedRecipes
   .map((slug) => allRecipes.find((entry) => entry.data.slug === slug))
   .filter((entry): entry is CollectionEntry<'recipes'> => Boolean(entry));
+const isDayOne = data.slug === 'natural-no-makeup-makeup';
+const heroPromise = isDayOne
+  ? 'Real skin. Quiet definition. Eight honest steps.'
+  : data.directAnswer;
+const prepStatus = isDayOne ? 'SPF settled' : 'Prep settled';
 const canonical = `${SITE.url}${recipeUrl(data.hub, data.slug)}`;
 const schema = [
   {
@@ -56,26 +61,31 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={data.title} description={data.description} image={`/pins/${data.slug}-final.png`} type="article" schema={schema}>
-  <article>
+<BaseLayout title={data.title} description={data.description} image={`/pins/${data.slug}-final.png`} type="article" schema={schema} bodyClass="recipe-page">
+  <article class="tutorial-recipe">
     <header class="recipe-workbench-hero">
       <div class="shell recipe-hero-grid">
         <div class="hero-copy">
           <nav class="recipe-breadcrumbs" aria-label="Breadcrumb">
             <a href="/">Home</a><span aria-hidden="true">/</span><a href={`/${data.hub}/`}>{HUBS[data.hub].title}</a>
           </nav>
-          <h1>{data.title}</h1>
-          <p class="lede">{data.directAnswer}</p>
+          <p class="hero-kicker">{data.timeMinutes}-minute makeup recipe</p>
+          <h1>{isDayOne ? <>Natural <span class="no-break">No-Makeup</span> Makeup</> : data.title}</h1>
+          <p class="lede hero-promise">{heroPromise}</p>
           <p class="recipe-byline">By <a href="/about/">HueSteps Editorial Team</a> · Updated <time datetime={data.updatedAt.toISOString().slice(0, 10)}>{data.updatedAt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time></p>
           <div class="recipe-meta">
             <span>{data.timeMinutes} min</span>
             <span>{data.difficulty}</span>
             <span>{data.finish}</span>
           </div>
-          <a class="button" href="#steps">Start the step-by-step tutorial</a>
+          <div class="hero-actions">
+            <a class="button" href="#steps">Start the {data.steps.length} steps</a>
+            <a class="hero-secondary-link" href="#final-check">See the final result</a>
+          </div>
         </div>
         <div class="hero-media-wrap">
           <div class="hero-media">
+            <span class="final-look-badge">Final look</span>
             <RecipeImage src={image} alt={data.heroAlt} focal={getRecipeFocal(data.heroImage, data.hub === 'eye-shape-makeup' ? 'eye' : 'hero')} priority sizes="(max-width: 820px) 100vw, 58vw" />
           </div>
           {data.aiGenerated && <p class="image-disclosure">AI-generated makeup visualization. It is not a claim of first-hand product use or wear testing.</p>}
@@ -83,77 +93,103 @@ const schema = [
       </div>
     </header>
 
-    <section class="shell section-compact" aria-labelledby="quick-facts-title">
-      <h2 class="sr-only" id="quick-facts-title">Quick facts</h2>
-      <dl class="quick-facts workbench-facts">
-        <div class="fact"><dt>Time</dt><dd>{data.timeMinutes} minutes</dd></div>
-        <div class="fact"><dt>Difficulty</dt><dd>{data.difficulty}</dd></div>
-        <div class="fact"><dt>Finish</dt><dd>{data.finish}</dd></div>
-        <div class="fact"><dt>Best for</dt><dd>{data.eyeShapes.slice(0, 2).join(', ')} eyes</dd></div>
-        <div class="fact"><dt>Occasion</dt><dd>{data.occasions.join(', ')}</dd></div>
-      </dl>
-    </section>
-
     <div class="shell section recipe-layout workbench-layout">
       <aside class="recipe-toc workbench-rail" aria-label="Recipe stages">
-        <h2>Recipe stages</h2>
+        <h2>In this tutorial</h2>
         <a href="#look-recipe"><span>01</span><strong>Look</strong></a>
-        <a href="#before-you-start"><span>02</span><strong>Kit</strong></a>
-        <a href="#steps"><span>03</span><strong>Steps</strong></a>
-        <a href="#placement"><span>04</span><strong>Placement</strong></a>
-        <a href="#adaptations"><span>05</span><strong>Adapt</strong></a>
-        <a href="#mistakes"><span>06</span><strong>Fixes</strong></a>
-        <a href="#faq"><span>07</span><strong>FAQ</strong></a>
-        <a href="#products"><span>08</span><strong>Products</strong></a>
+        <a href="#before-you-start"><span>02</span><strong>Tools</strong></a>
+        <a class="is-active" href="#steps"><span>03</span><strong>Steps</strong></a>
+        <a href="#adaptations"><span>04</span><strong>Adapt</strong></a>
+        <a href="#mistakes"><span>05</span><strong>Fixes</strong></a>
       </aside>
 
       <div class="recipe-content">
-        <section id="look-recipe" class="workbench-section">
-          <header class="workbench-section-heading"><span>01</span><div><p class="section-label">Color and product roles</p><h2>The look recipe</h2><p>Match each function with products you already own before shopping.</p></div></header>
-          <div class="palette-list">
-            {data.palette.map((color) => (
-              <article class="palette-item">
-                <span class="palette-swatch" style={`--swatch:${color.hex}`} aria-hidden="true"></span>
-                <div><h3>{color.name}</h3><p><strong>{color.role}.</strong> Place it {color.placement}.</p></div>
-              </article>
-            ))}
-          </div>
-          <div class="look-logic">
-            <h3>What makes this look work</h3>
-            <ul>{data.whatMakesItWork.map((item) => <li>{item}</li>)}</ul>
-          </div>
-          <div class="decision-guide">
-            <div class="decision-guide-intro">
-              <p class="section-label">Intent check</p>
-              <h3>{data.decisionGuide.heading}</h3>
-              <p>{data.decisionGuide.summary}</p>
-            </div>
-            <div class="decision-guide-grid">
-              {data.decisionGuide.items.map((item) => (
-                <article>
-                  <h4>{item.title}</h4>
-                  <p>{item.body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <details id="look-recipe" class="recipe-preflight">
+          <summary id="before-you-start">
+            <span class="preflight-title">Before you start</span>
+            <span class="preflight-facts" aria-label={`${data.tools.length} tools, ${data.palette.length} shades, ${prepStatus}`}>
+              <span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M7 21V9m0 0V5a2 2 0 0 1 4 0v4M7 9h4M17 21V8m0 0V4a2 2 0 0 0-4 0v4m0 0h4"></path>
+                </svg>
+                <strong>{data.tools.length}</strong> tools
+              </span>
+              <span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path d="M12 3a9 9 0 1 0 0 18h1.4a1.9 1.9 0 0 0 1.3-3.3 1.9 1.9 0 0 1 1.3-3.3h2.8A2.2 2.2 0 0 0 21 12.2 9 9 0 0 0 12 3Z"></path>
+                  <circle cx="7.8" cy="11.3" r=".8"></circle>
+                  <circle cx="10" cy="7.7" r=".8"></circle>
+                  <circle cx="14.2" cy="7.6" r=".8"></circle>
+                </svg>
+                <strong>{data.palette.length}</strong> shades
+              </span>
+              <span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"></path>
+                </svg>
+                {prepStatus}
+              </span>
+            </span>
+            <span class="preflight-chevron" aria-hidden="true"></span>
+          </summary>
 
-        <section id="before-you-start" class="workbench-section">
-          <header class="workbench-section-heading"><span>02</span><div><h2>Your kit and prep</h2><p>Use products you already own when their role and texture match.</p></div></header>
-          <div class="tool-list">
-            {data.tools.map((tool) => (
-              <article class="tool-item"><h3>{tool.name}</h3><p>{tool.purpose}</p><p><strong>Substitute:</strong> {tool.substitute}</p></article>
-            ))}
+          <div class="preflight-details">
+            <section class="preflight-block" aria-labelledby="look-recipe-title">
+              <header>
+                <p class="section-label">Color and product roles</p>
+                <h2 id="look-recipe-title">The look recipe</h2>
+                <p>Match each function with products you already own before shopping.</p>
+              </header>
+              <div class="palette-list">
+                {data.palette.map((color) => (
+                  <article class="palette-item">
+                    <span class="palette-swatch" style={`--swatch:${color.hex}`} aria-hidden="true"></span>
+                    <div><h3>{color.name}</h3><p><strong>{color.role}.</strong> Place it {color.placement}.</p></div>
+                  </article>
+                ))}
+              </div>
+              <div class="look-logic">
+                <h3>What makes this look work</h3>
+                <ul>{data.whatMakesItWork.map((item) => <li>{item}</li>)}</ul>
+              </div>
+              <div class="decision-guide">
+                <div class="decision-guide-intro">
+                  <p class="section-label">Intent check</p>
+                  <h3>{data.decisionGuide.heading}</h3>
+                  <p>{data.decisionGuide.summary}</p>
+                </div>
+                <div class="decision-guide-grid">
+                  {data.decisionGuide.items.map((item) => (
+                    <article>
+                      <h4>{item.title}</h4>
+                      <p>{item.body}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section class="preflight-block" aria-labelledby="kit-title">
+              <header>
+                <p class="section-label">Use what you own</p>
+                <h2 id="kit-title">Tools and prep</h2>
+              </header>
+              <div class="tool-list">
+                {data.tools.map((tool) => (
+                  <article class="tool-item"><h3>{tool.name}</h3><p>{tool.purpose}</p><p><strong>Substitute:</strong> {tool.substitute}</p></article>
+                ))}
+              </div>
+              <h3 class="prep-heading">Prep check</h3>
+              <ul class="prep-list">{data.beforeYouStart.map((item) => <li>{item}</li>)}</ul>
+            </section>
           </div>
-          <h3 class="prep-heading">Before you start</h3>
-          <ul class="prep-list">{data.beforeYouStart.map((item) => <li>{item}</li>)}</ul>
-        </section>
+        </details>
 
         <TutorialSteps steps={data.steps} />
 
         <section id="placement" class="workbench-section">
-          <header class="workbench-section-heading"><span>04</span><div><h2>Placement guide</h2><p>Use the open-eye view as your working map.</p></div></header>
+          <header class="workbench-section-heading"><span>Map</span><div><h2>Placement guide</h2><p>Use the open-eye view as your working map.</p></div></header>
           <p>The diagram is a map, not an anatomical template. Use the open-eye adjustments below when your eye shape changes what remains visible.</p>
           <PlacementGuide palette={data.palette} notes={data.placementNotes} title={data.title} />
         </section>
@@ -164,7 +200,7 @@ const schema = [
         </section>
 
         <section id="adaptations" class="workbench-section">
-          <header class="workbench-section-heading"><span>05</span><div><h2>Make it work for you</h2><p>Change placement, depth, or texture without losing the look.</p></div></header>
+          <header class="workbench-section-heading"><span>04</span><div><h2>Make it work for you</h2><p>Change placement, depth, or texture without losing the look.</p></div></header>
           <div class="adaptation-grid">
             {data.adjustments.map((item) => (
               <article class="adaptation"><h3>{item.for}</h3><p><strong>Change:</strong> {item.change}</p><p><strong>Why:</strong> {item.why}</p></article>
@@ -173,7 +209,7 @@ const schema = [
         </section>
 
         <section id="mistakes" class="workbench-section">
-          <header class="workbench-section-heading"><span>06</span><div><h2>Common mistakes and fixes</h2><p>Correct the result before adding more product.</p></div></header>
+          <header class="workbench-section-heading"><span>05</span><div><h2>Common mistakes and fixes</h2><p>Correct the result before adding more product.</p></div></header>
           <div class="mistake-list">
             {data.commonMistakes.map((item) => (
               <article class="mistake"><h3>{item.problem}</h3><p><strong>Likely cause:</strong> {item.cause}</p><p><strong>Fix:</strong> {item.fix}</p></article>
@@ -182,15 +218,11 @@ const schema = [
         </section>
 
         <section id="faq" class="workbench-section faq-section">
-          <header class="workbench-section-heading"><span>07</span><div><h2>Questions before you try it</h2><p>Short answers to the decisions and failure points most likely to change this result.</p></div></header>
+          <header class="workbench-section-heading"><span>FAQ</span><div><h2>Questions before you try it</h2><p>Short answers to the decisions and failure points most likely to change this result.</p></div></header>
           <div class="faq-list">
             {data.faq.map((item) => <article><h3>{item.question}</h3><p>{item.answer}</p></article>)}
           </div>
         </section>
-
-        <div id="products" class="workbench-section">
-          <ProductSuggestions products={data.suggestedProducts} />
-        </div>
 
         <EditorialReview
           publishedAt={data.publishedAt}
@@ -202,7 +234,7 @@ const schema = [
         />
 
         <section id="related" class="workbench-section related-section">
-          <header class="workbench-section-heading"><span>08</span><div><h2>Related recipes</h2><p>Continue with a nearby occasion, placement goal, or color decision.</p></div></header>
+          <header class="workbench-section-heading"><span>More</span><div><h2>Related recipes</h2><p>Continue with a nearby occasion, placement goal, or color decision.</p></div></header>
           <div class="related-grid">{related.map((entry) => <RecipeCard recipe={entry} />)}</div>
         </section>
       </div>

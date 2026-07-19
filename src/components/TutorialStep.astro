@@ -45,23 +45,49 @@ const titleId = `tutorial-step-${stepNumber}-title`;
 const image = getTutorialStepImage(step.image);
 
 const formatDuration = (seconds: number) => {
-  if (seconds < 60) return `${seconds} seconds`;
+  if (seconds < 60) return `${seconds} sec`;
 
-  const minutes = Math.floor(seconds / 60);
-  const remainder = seconds % 60;
-  const minuteLabel = `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
-  return remainder === 0 ? minuteLabel : `${minuteLabel} ${remainder} seconds`;
+  const minutes = Math.round((seconds / 60) * 2) / 2;
+  return `${minutes} min`;
 };
+
+const focusLabels: Record<TutorialStepData['visualFocus'], string> = {
+  'full-face': 'Full face',
+  complexion: 'Complexion',
+  brows: 'Brows',
+  'both-eyes': 'Both eyes',
+  lid: 'Lids',
+  'upper-lash': 'Lash line',
+  'lower-lash': 'Lower lash',
+  cheeks: 'Cheeks',
+  lips: 'Lips',
+  final: 'Full look'
+};
+
+const firstSentence = (value: string) => value.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() ?? value;
+const isPrepStep = /^Prepare for\b/i.test(step.title);
+const displayTitle = isPrepStep ? 'Prep & settle' : step.title;
+const displayAction = isPrepStep
+  ? 'Let skincare settle, then blot only where skin still feels slippery.'
+  : firstSentence(step.action);
+const displayCheckpoint = isPrepStep ? 'Skin feels hydrated, not slick.' : step.completeWhen;
+const compactTool = step.tool
+  .replace(/^Clean fingertips\b.*$/i, 'Clean fingers')
+  .replace(/^Small complexion sponge\b.*$/i, 'Small sponge')
+  .replace(/^Fine brow tool\b.*$/i, 'Brow tool')
+  .replace(/^Clean fingertip\b.*$/i, 'Fingertip')
+  .replace(/^Small tapered blending brush\b.*$/i, 'Blending brush')
+  .replace(/^Small flat shader brush\b.*$/i, 'Shader brush')
+  .replace(/^Short dense liner brush\b.*$/i, 'Liner brush')
+  .replace(/^Lash curler\b.*$/i, 'Lash curler')
+  .replace(/^Small cream brush\b.*$/i, 'Cream brush')
+  .replace(/^Clean short detail brush\b.*$/i, 'Detail brush')
+  .replace(/^Clean blending brush\b.*$/i, 'Blending brush')
+  .replace(/^Clean sponge\b.*$/i, 'Small sponge');
 ---
 
 <li class="tutorial-step">
   <article class="step-article" aria-labelledby={titleId}>
-    <header class="step-header">
-      <p class="step-position">Step {stepNumber} of {total}</p>
-      <h3 id={titleId}>{step.title}</h3>
-      <p class="step-outcome"><strong>Target result:</strong> {step.outcome}</p>
-    </header>
-
     <figure class="step-media" data-visual-focus={step.visualFocus}>
       <div class="step-image-frame">
         <RecipeImage
@@ -69,59 +95,85 @@ const formatDuration = (seconds: number) => {
           alt={step.imageAlt}
           class="tutorial-step-picture"
           widths={[360, 640, 960, 1280]}
-          sizes="(max-width: 47.99rem) calc(100vw - 3rem), (max-width: 80rem) 42vw, 25rem"
+          sizes="(max-width: 47.99rem) 36vw, (max-width: 80rem) 34vw, 31rem"
         />
       </div>
-      <figcaption>
-        <span>{step.imageCaption}</span>
-        <a href={image.src} target="_blank" rel="noopener" aria-label={`Open the full-size image for step ${stepNumber}`}>
-          View full-size image
-        </a>
-      </figcaption>
+      <figcaption class="sr-only">{step.imageCaption}</figcaption>
     </figure>
 
     <div class="step-instructions">
-      <p class="step-action">{step.action}</p>
-
-      <div class="completion-check">
-        <p><strong>Complete when:</strong> {step.completeWhen}</p>
-        <p><strong>If it looks wrong:</strong> {step.ifWrong}</p>
-      </div>
-
-      <dl class="technique-facts">
+      <header class="step-header">
+        <span class="step-number" aria-hidden="true">{stepNumber}</span>
         <div>
-          <dt>Tool</dt>
-          <dd>{step.tool}</dd>
+          <p class="step-position">Step {stepNumber} of {total}</p>
+          <h3 id={titleId}>{displayTitle}</h3>
         </div>
-        <div>
-          <dt>Product role</dt>
-          <dd>{step.productRole}</dd>
-        </div>
-        <div>
-          <dt>Placement</dt>
-          <dd>{step.placement}</dd>
-        </div>
-        <div>
-          <dt>Motion</dt>
-          <dd>{step.motion}</dd>
-        </div>
-        <div>
-          <dt>Amount</dt>
-          <dd>{step.amount}</dd>
-        </div>
-        <div>
-          <dt>Working time</dt>
-          <dd><time datetime={`PT${step.durationSeconds}S`}>{formatDuration(step.durationSeconds)}</time></dd>
-        </div>
-      </dl>
-
-      <p class="why-it-works"><strong>Why this works:</strong> {step.whyItWorks}</p>
-
-      <aside class="step-guidance" aria-label={`Guidance for step ${stepNumber}`}>
-        <p><strong>Pro tip:</strong> {step.proTip}</p>
-        <p><strong>Avoid:</strong> {step.avoid}</p>
-      </aside>
+      </header>
+      <p class="step-action">{displayAction}</p>
+      <ul class="step-quick-facts" aria-label="Step essentials">
+        <li>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M5.5 21c.5-5 2.6-7.5 6.5-7.5s6 2.5 6.5 7.5"></path>
+          </svg>
+          {focusLabels[step.visualFocus]}
+        </li>
+        <li>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 7v5l3 2"></path>
+          </svg>
+          <time datetime={`PT${step.durationSeconds}S`}>{formatDuration(step.durationSeconds)}</time>
+        </li>
+        <li>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <path d="M8 20V9.5a1.5 1.5 0 0 1 3 0V13m0-6.5a1.5 1.5 0 0 1 3 0V13m0-5a1.5 1.5 0 0 1 3 0v6m0-3a1.5 1.5 0 0 1 3 0v4.5c0 3-2.5 5.5-5.5 5.5H13c-2.8 0-5-1.5-6.5-4L4 13.5a1.5 1.5 0 0 1 2.4-1.8L8 13"></path>
+          </svg>
+          {compactTool}
+        </li>
+      </ul>
     </div>
+
+    <div class="completion-check">
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="m8 12 2.6 2.6L16.5 9"></path>
+      </svg>
+      <p><strong>Done when:</strong> {displayCheckpoint}</p>
+    </div>
+
+    <details class="step-more">
+      <summary>
+        <span>More tips</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </summary>
+      <div class="step-more-body">
+        <p class="step-outcome"><strong>Target result:</strong> {step.outcome}</p>
+
+        <dl class="technique-facts">
+          <div><dt>Tool</dt><dd>{step.tool}</dd></div>
+          <div><dt>Product role</dt><dd>{step.productRole}</dd></div>
+          <div><dt>Placement</dt><dd>{step.placement}</dd></div>
+          <div><dt>Motion</dt><dd>{step.motion}</dd></div>
+          <div><dt>Amount</dt><dd>{step.amount}</dd></div>
+          <div><dt>Working time</dt><dd><time datetime={`PT${step.durationSeconds}S`}>{formatDuration(step.durationSeconds)}</time></dd></div>
+        </dl>
+
+        <p class="why-it-works"><strong>Why this works:</strong> {step.whyItWorks}</p>
+        <p><strong>If it looks wrong:</strong> {step.ifWrong}</p>
+
+        <aside class="step-guidance" aria-label={`Guidance for step ${stepNumber}`}>
+          <p><strong>Pro tip:</strong> {step.proTip}</p>
+          <p><strong>Avoid:</strong> {step.avoid}</p>
+        </aside>
+
+        <a class="full-size-link" href={image.src} target="_blank" rel="noopener" aria-label={`Open the full-size image for step ${stepNumber}`}>
+          View full-size image
+        </a>
+      </div>
+    </details>
   </article>
 </li>
 
@@ -132,59 +184,33 @@ const formatDuration = (seconds: number) => {
 
   .step-article {
     display: grid;
-    grid-template-areas:
-      'header'
-      'media'
-      'body';
-    gap: 1.5rem;
-    padding-block: clamp(2rem, 5vw, 3.5rem);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .tutorial-step:last-child .step-article {
-    border-bottom: 0;
-  }
-
-  .step-header {
-    grid-area: header;
     min-width: 0;
-  }
-
-  .step-position {
-    margin-bottom: 0.5rem;
-    color: var(--accent);
-    font-size: 0.875rem;
-    font-weight: 720;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .step-header h3 {
-    margin-bottom: 0.75rem;
-    font-size: clamp(1.75rem, 4vw, 2.6rem);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    text-wrap: balance;
-  }
-
-  .step-outcome {
-    max-width: 62ch;
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.55;
-    text-wrap: pretty;
+    grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+    grid-template-areas:
+      'media body'
+      'check check'
+      'more more';
+    column-gap: 0.75rem;
+    padding: 0.6rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 0.625rem;
+    background: var(--surface);
   }
 
   .step-media {
     grid-area: media;
     min-width: 0;
+    min-height: 0;
     margin: 0;
   }
 
   .step-image-frame {
     position: relative;
-    aspect-ratio: 4 / 3;
+    height: 100%;
+    min-height: 7.25rem;
     overflow: hidden;
-    border-radius: var(--radius);
+    border-radius: 0.45rem;
     background: var(--surface-soft);
   }
 
@@ -198,91 +224,213 @@ const formatDuration = (seconds: number) => {
     object-position: var(--focal-x, 50%) var(--focal-y, 50%);
   }
 
-  .step-media figcaption {
-    display: grid;
-    gap: 0.4rem;
-    max-width: 65ch;
-    margin-top: 0.625rem;
-    color: var(--text-muted);
-    font-size: 0.8125rem;
-    line-height: 1.5;
-    text-wrap: pretty;
-  }
-
-  .step-media figcaption a {
-    width: fit-content;
-    color: var(--accent);
-    font-weight: 700;
-    text-underline-offset: 0.18em;
-  }
-
   .step-instructions {
     grid-area: body;
     display: grid;
     min-width: 0;
     align-content: start;
-    gap: 1.25rem;
+    gap: 0.4rem;
+  }
+
+  .step-header {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .step-header > div {
+    min-width: 0;
+  }
+
+  .step-number {
+    flex: 0 0 auto;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 450;
+    line-height: 1;
+  }
+
+  .step-position {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .step-header h3 {
+    margin: 0;
+    font-size: clamp(1.2rem, 5.5vw, 1.5rem);
+    font-weight: 520;
+    line-height: 1.03;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
   .step-action {
-    max-width: 65ch;
     margin: 0;
     color: var(--text);
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 0.78rem;
+    line-height: 1.38;
     text-wrap: pretty;
   }
 
-  .completion-check {
+  .step-quick-facts {
     display: grid;
-    gap: 0.625rem;
-    padding-block: 1rem;
-    border-block: 1px solid var(--border);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-width: 0;
+    margin: auto 0 0;
+    padding: 0.35rem 0 0;
+    list-style: none;
   }
 
-  .completion-check p,
-  .why-it-works,
-  .step-guidance p {
-    max-width: 65ch;
+  .step-quick-facts li {
+    display: flex;
+    min-width: 0;
+    min-height: 1.7rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.35rem;
+    border-right: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.68rem;
+    line-height: 1.2;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .step-quick-facts li:last-child {
+    border-right: 0;
+  }
+
+  .step-quick-facts svg {
+    display: none;
+    flex: 0 0 auto;
+    stroke: currentColor;
+    stroke-width: 1.45;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .completion-check {
+    grid-area: check;
+    display: grid;
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: center;
+    margin-top: 0.6rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+    border-radius: 0.4rem;
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  }
+
+  .completion-check svg {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .completion-check p {
     margin: 0;
+    color: var(--text);
+    font-size: 0.76rem;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
+  .step-more {
+    grid-area: more;
+    min-width: 0;
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .step-more summary {
+    display: flex;
+    min-height: 2.4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.86rem;
+    font-weight: 620;
+    list-style: none;
+  }
+
+  .step-more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .step-more summary::marker {
+    content: '';
+  }
+
+  .step-more summary svg {
+    flex: 0 0 auto;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 180ms ease;
+  }
+
+  .step-more[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+  .step-more-body {
+    display: grid;
+    gap: 1rem;
+    padding: 0.35rem 0 0.5rem;
+  }
+
+  .step-more-body p {
+    margin: 0;
+    font-size: 0.875rem;
     line-height: 1.55;
     text-wrap: pretty;
   }
 
   .technique-facts {
     display: grid;
-    grid-template-columns: 1fr;
     margin: 0;
+    border-top: 1px solid var(--border);
   }
 
   .technique-facts > div {
     display: grid;
-    grid-template-columns: minmax(6.5rem, 0.38fr) minmax(0, 1fr);
-    gap: 1rem;
-    padding-block: 0.75rem;
+    gap: 0.2rem;
+    padding-block: 0.65rem;
     border-bottom: 1px solid var(--border);
   }
 
   .technique-facts dt {
     color: var(--text);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 720;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
   .technique-facts dd {
     margin: 0;
     color: var(--text-muted);
+    font-size: 0.84rem;
     line-height: 1.5;
-  }
-
-  .why-it-works {
-    color: var(--text-muted);
   }
 
   .step-guidance {
     display: grid;
     gap: 0.75rem;
-    padding-top: 1.125rem;
+    padding-top: 1rem;
     border-top: 1px solid var(--border);
   }
 
@@ -290,31 +438,99 @@ const formatDuration = (seconds: number) => {
     color: var(--danger);
   }
 
+  .full-size-link {
+    width: fit-content;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent);
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+
   @media (min-width: 48rem) {
     .step-article {
-      grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+      grid-template-columns: minmax(17rem, 0.43fr) minmax(0, 0.57fr);
       grid-template-areas:
-        'media header'
-        'media body';
-      column-gap: clamp(2rem, 4vw, 3.5rem);
-      row-gap: 1.5rem;
-      align-items: start;
+        'media body'
+        'media check'
+        'media more';
+      column-gap: clamp(1.5rem, 3vw, 2.25rem);
+      padding: 0.75rem;
     }
 
     .step-image-frame {
-      aspect-ratio: 4 / 3;
+      min-height: 13.5rem;
+    }
+
+    .step-number {
+      display: none;
+    }
+
+    .step-header h3 {
+      font-size: clamp(1.75rem, 2.5vw, 2.2rem);
+    }
+
+    .step-action {
+      max-width: 62ch;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .step-quick-facts {
+      display: flex;
+      gap: 0;
+      width: fit-content;
+      padding-top: 0.8rem;
+    }
+
+    .step-quick-facts li {
+      justify-content: flex-start;
+      gap: 0.55rem;
+      min-width: max-content;
+      padding-inline: 1.1rem;
+      font-size: 0.8rem;
+      text-align: left;
+      overflow-wrap: normal;
+    }
+
+    .step-quick-facts li:first-child {
+      padding-left: 0;
+    }
+
+    .step-quick-facts svg {
+      display: block;
+    }
+
+    .completion-check {
+      margin-top: 0.8rem;
+    }
+
+    .technique-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.5rem;
     }
   }
 
-  @media (max-width: 30rem) {
-    .technique-facts > div {
+  @media (max-width: 23rem) {
+    .step-article {
       grid-template-columns: 1fr;
-      gap: 0.25rem;
+      grid-template-areas:
+        'media'
+        'body'
+        'check'
+        'more';
+      row-gap: 0.9rem;
+    }
+
+    .step-image-frame {
+      aspect-ratio: 16 / 10;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .step-image-frame :global(.tutorial-step-picture) {
+    .step-more summary svg {
       transition: none;
     }
   }
