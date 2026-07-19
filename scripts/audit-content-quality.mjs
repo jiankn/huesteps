@@ -297,9 +297,46 @@ for (const recipe of recipes) {
   if (!Array.isArray(recipe.steps) || recipe.steps.length < 6 || recipe.steps.length > 10) {
     fail.push(`${slug}.steps must contain 6 to 10 complete steps.`);
   } else {
+    const stepInstructionText = normalizeText(recipe.steps.flatMap((step) => [
+      step?.title,
+      step?.outcome,
+      step?.productRole,
+      step?.action,
+      step?.placement,
+      step?.completeWhen
+    ]).filter(Boolean).join(' '));
+    if (!Array.isArray(recipe.palette) || !recipe.palette.length) {
+      fail.push(`${slug}.palette must contain at least one named makeup color.`);
+    } else {
+      recipe.palette.forEach((color, index) => {
+        const name = normalizeText(color?.name ?? '');
+        if (!name || !stepInstructionText.includes(name)) {
+          fail.push(`${slug}.palette[${index}] (${color?.name ?? 'unnamed'}) is never introduced in the tutorial steps.`);
+        }
+      });
+    }
+
     const stepFive = recipe.steps[4];
     if (recipe.hub !== 'eye-shape-makeup' && stepFive?.visualFocus !== 'upper-lash') {
       fail.push(`${slug}.steps[4] must target upper-lash definition in the full-face sequence.`);
+    }
+    if (recipe.hub !== 'eye-shape-makeup') {
+      const cheekStepIndex = recipe.steps.findIndex((step) => step?.visualFocus === 'cheeks');
+      const lipStepIndex = recipe.steps.findIndex((step) => step?.visualFocus === 'lips');
+      const cheekStep = recipe.steps[cheekStepIndex];
+      if (!cheekStep) {
+        fail.push(`${slug} must contain a dedicated cheeks step before the lips step.`);
+      } else {
+        if (lipStepIndex === -1 || cheekStepIndex >= lipStepIndex) {
+          fail.push(`${slug} must place its dedicated cheeks step before its dedicated lips step.`);
+        }
+        if (!/\blips?\s+remain(?:s)?\s+unchanged\b/i.test(cheekStep.outcome ?? '')) {
+          fail.push(`${slug} cheeks step must explicitly keep the lips unchanged until the dedicated lips step.`);
+        }
+        if (!/\bdo not add\b.*\blips?\b.*\byet\b/i.test(cheekStep.action ?? '')) {
+          fail.push(`${slug} cheeks step action must explicitly defer lip color.`);
+        }
+      }
     }
     if (slug === 'elongated-eye-makeup-round-eyes') {
       const stepFiveText = ['title', 'outcome', 'productRole', 'action', 'placement']

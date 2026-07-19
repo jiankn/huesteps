@@ -207,12 +207,8 @@ for (const recipe of recipes) {
   }
 
   const currentHero = recipe.heroImage.replace(/\.png$/i, '.webp');
-  const heroCandidates = [
-    path.join(root, 'src', 'assets', 'recipes-v4', currentHero),
-    path.join(root, 'src', 'assets', 'recipes-v3', currentHero),
-    path.join(root, 'src', 'assets', 'recipes-v2', recipe.heroImage),
-  ];
-  if (!heroCandidates.some((file) => existsSync(file))) fail.push(`Missing hero image asset for ${recipe.slug}: ${recipe.heroImage}`);
+  const heroFile = path.join(root, 'src', 'assets', 'recipes-v5', currentHero);
+  if (!existsSync(heroFile)) fail.push(`Missing production hero image asset for ${recipe.slug}: recipes-v5/${currentHero}`);
 }
 
 if (!existsSync(path.join(root, 'public', 'social', 'huesteps-default.png'))) fail.push('Missing default social image.');

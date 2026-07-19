@@ -18,7 +18,7 @@ const notesFileArg = valueFor('--notes-file');
 if (!recipeSlug || !reviewer || !reviewedAtArg || !notesFileArg) {
   throw new Error('Usage: node scripts/set-step-image-review.mjs --recipe <slug> --reviewer <name> --reviewed-at <ISO date> --notes-file <json>');
 }
-if (reviewer.length < 2) throw new Error('--reviewer must identify a human reviewer.');
+if (reviewer.length < 2) throw new Error('--reviewer must identify the reviewer or review process.');
 if (Number.isNaN(Date.parse(reviewedAtArg))) throw new Error('--reviewed-at must be a valid ISO date or timestamp.');
 
 const reviewedAt = new Date(reviewedAtArg).toISOString();

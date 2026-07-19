@@ -1,0 +1,683 @@
+{
+  "version": 1,
+  "identityRegistryVersion": 1,
+  "records": [
+    {
+      "slug": "soft-glam-wedding-guest-makeup",
+      "modelId": "HS-M001",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/",
+      "heroSource": "soft-glam-wedding-guest-makeup.webp",
+      "stepSources": [
+        "soft-glam-wedding-guest-makeup/step-01-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-02-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-03-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-04-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-05-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-06-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-07-curated.webp",
+        "soft-glam-wedding-guest-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/soft-glam-wedding-guest-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/soft-glam-wedding-guest-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "easy-date-night-makeup",
+      "modelId": "HS-M002",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/",
+      "heroSource": "easy-date-night-makeup.webp",
+      "stepSources": [
+        "easy-date-night-makeup/step-01-curated.webp",
+        "easy-date-night-makeup/step-02-curated.webp",
+        "easy-date-night-makeup/step-03-curated.webp",
+        "easy-date-night-makeup/step-04-curated.webp",
+        "easy-date-night-makeup/step-05-curated.webp",
+        "easy-date-night-makeup/step-06-curated.webp",
+        "easy-date-night-makeup/step-07-curated.webp",
+        "easy-date-night-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/easy-date-night-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/easy-date-night-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "polished-office-makeup-10-minutes",
+      "modelId": "HS-M003",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/",
+      "heroSource": "polished-office-makeup-10-minutes.webp",
+      "stepSources": [
+        "polished-office-makeup-10-minutes/step-01-curated.webp",
+        "polished-office-makeup-10-minutes/step-02-curated.webp",
+        "polished-office-makeup-10-minutes/step-03-curated.webp",
+        "polished-office-makeup-10-minutes/step-04-curated.webp",
+        "polished-office-makeup-10-minutes/step-05-curated.webp",
+        "polished-office-makeup-10-minutes/step-06-curated.webp",
+        "polished-office-makeup-10-minutes/step-07-curated.webp",
+        "polished-office-makeup-10-minutes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/polished-office-makeup-10-minutes-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/polished-office-makeup-10-minutes-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "fresh-brunch-makeup",
+      "modelId": "HS-M004",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/",
+      "heroSource": "fresh-brunch-makeup.webp",
+      "stepSources": [
+        "fresh-brunch-makeup/step-01-curated.webp",
+        "fresh-brunch-makeup/step-02-curated.webp",
+        "fresh-brunch-makeup/step-03-curated.webp",
+        "fresh-brunch-makeup/step-04-curated.webp",
+        "fresh-brunch-makeup/step-05-curated.webp",
+        "fresh-brunch-makeup/step-06-curated.webp",
+        "fresh-brunch-makeup/step-07-curated.webp",
+        "fresh-brunch-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/fresh-brunch-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/fresh-brunch-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "holiday-party-shimmer-makeup",
+      "modelId": "HS-M005",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/",
+      "heroSource": "holiday-party-shimmer-makeup.webp",
+      "stepSources": [
+        "holiday-party-shimmer-makeup/step-01-curated.webp",
+        "holiday-party-shimmer-makeup/step-02-curated.webp",
+        "holiday-party-shimmer-makeup/step-03-curated.webp",
+        "holiday-party-shimmer-makeup/step-04-curated.webp",
+        "holiday-party-shimmer-makeup/step-05-curated.webp",
+        "holiday-party-shimmer-makeup/step-06-curated.webp",
+        "holiday-party-shimmer-makeup/step-07-curated.webp",
+        "holiday-party-shimmer-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/holiday-party-shimmer-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/holiday-party-shimmer-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "easy-vacation-makeup",
+      "modelId": "HS-M006",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/",
+      "heroSource": "easy-vacation-makeup.webp",
+      "stepSources": [
+        "easy-vacation-makeup/step-01-curated.webp",
+        "easy-vacation-makeup/step-02-curated.webp",
+        "easy-vacation-makeup/step-03-curated.webp",
+        "easy-vacation-makeup/step-04-curated.webp",
+        "easy-vacation-makeup/step-05-curated.webp",
+        "easy-vacation-makeup/step-06-curated.webp",
+        "easy-vacation-makeup/step-07-curated.webp",
+        "easy-vacation-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/easy-vacation-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/easy-vacation-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "elegant-dinner-party-makeup",
+      "modelId": "HS-M007",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/",
+      "heroSource": "elegant-dinner-party-makeup.webp",
+      "stepSources": [
+        "elegant-dinner-party-makeup/step-01-curated.webp",
+        "elegant-dinner-party-makeup/step-02-curated.webp",
+        "elegant-dinner-party-makeup/step-03-curated.webp",
+        "elegant-dinner-party-makeup/step-04-curated.webp",
+        "elegant-dinner-party-makeup/step-05-curated.webp",
+        "elegant-dinner-party-makeup/step-06-curated.webp",
+        "elegant-dinner-party-makeup/step-07-curated.webp",
+        "elegant-dinner-party-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/elegant-dinner-party-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/elegant-dinner-party-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "natural-job-interview-makeup",
+      "modelId": "HS-M008",
+      "tutorialUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/",
+      "heroSource": "natural-job-interview-makeup.webp",
+      "stepSources": [
+        "natural-job-interview-makeup/step-01-curated.webp",
+        "natural-job-interview-makeup/step-02-curated.webp",
+        "natural-job-interview-makeup/step-03-curated.webp",
+        "natural-job-interview-makeup/step-04-curated.webp",
+        "natural-job-interview-makeup/step-05-curated.webp",
+        "natural-job-interview-makeup/step-06-curated.webp",
+        "natural-job-interview-makeup/step-07-curated.webp",
+        "natural-job-interview-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/natural-job-interview-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/natural-job-interview-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "soft-glam-hooded-eyes",
+      "modelId": "HS-M009",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/",
+      "heroSource": "soft-glam-hooded-eyes.webp",
+      "stepSources": [
+        "soft-glam-hooded-eyes/step-01-curated.webp",
+        "soft-glam-hooded-eyes/step-02-curated.webp",
+        "soft-glam-hooded-eyes/step-03-curated.webp",
+        "soft-glam-hooded-eyes/step-04-curated.webp",
+        "soft-glam-hooded-eyes/step-05-curated.webp",
+        "soft-glam-hooded-eyes/step-06-curated.webp",
+        "soft-glam-hooded-eyes/step-07-curated.webp",
+        "soft-glam-hooded-eyes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/soft-glam-hooded-eyes-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/soft-glam-hooded-eyes-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "everyday-makeup-deep-set-eyes",
+      "modelId": "HS-M010",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/",
+      "heroSource": "everyday-makeup-deep-set-eyes.webp",
+      "stepSources": [
+        "everyday-makeup-deep-set-eyes/step-01-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-02-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-03-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-04-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-05-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-06-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-07-curated.webp",
+        "everyday-makeup-deep-set-eyes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/everyday-makeup-deep-set-eyes-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/everyday-makeup-deep-set-eyes-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "elongated-eye-makeup-round-eyes",
+      "modelId": "HS-M011",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/",
+      "heroSource": "elongated-eye-makeup-round-eyes.webp",
+      "stepSources": [
+        "elongated-eye-makeup-round-eyes/step-01-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-02-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-03-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-04-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-05-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-06-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-07-curated.webp",
+        "elongated-eye-makeup-round-eyes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/elongated-eye-makeup-round-eyes-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/elongated-eye-makeup-round-eyes-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "soft-shimmer-makeup-monolids",
+      "modelId": "HS-M012",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/",
+      "heroSource": "soft-shimmer-makeup-monolids.webp",
+      "stepSources": [
+        "soft-shimmer-makeup-monolids/step-01-curated.webp",
+        "soft-shimmer-makeup-monolids/step-02-curated.webp",
+        "soft-shimmer-makeup-monolids/step-03-curated.webp",
+        "soft-shimmer-makeup-monolids/step-04-curated.webp",
+        "soft-shimmer-makeup-monolids/step-05-curated.webp",
+        "soft-shimmer-makeup-monolids/step-06-curated.webp",
+        "soft-shimmer-makeup-monolids/step-07-curated.webp",
+        "soft-shimmer-makeup-monolids/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/soft-shimmer-makeup-monolids-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/soft-shimmer-makeup-monolids-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "lifted-makeup-downturned-eyes",
+      "modelId": "HS-M013",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/",
+      "heroSource": "lifted-makeup-downturned-eyes.webp",
+      "stepSources": [
+        "lifted-makeup-downturned-eyes/step-01-curated.webp",
+        "lifted-makeup-downturned-eyes/step-02-curated.webp",
+        "lifted-makeup-downturned-eyes/step-03-curated.webp",
+        "lifted-makeup-downturned-eyes/step-04-curated.webp",
+        "lifted-makeup-downturned-eyes/step-05-curated.webp",
+        "lifted-makeup-downturned-eyes/step-06-curated.webp",
+        "lifted-makeup-downturned-eyes/step-07-curated.webp",
+        "lifted-makeup-downturned-eyes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/lifted-makeup-downturned-eyes-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/lifted-makeup-downturned-eyes-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "balanced-eye-makeup-close-set-eyes",
+      "modelId": "HS-M014",
+      "tutorialUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/",
+      "heroSource": "balanced-eye-makeup-close-set-eyes.webp",
+      "stepSources": [
+        "balanced-eye-makeup-close-set-eyes/step-01-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-02-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-03-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-04-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-05-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-06-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-07-curated.webp",
+        "balanced-eye-makeup-close-set-eyes/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/balanced-eye-makeup-close-set-eyes-final.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/balanced-eye-makeup-close-set-eyes-steps.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "cool-rosy-makeup-fair-skin",
+      "modelId": "HS-M015",
+      "tutorialUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/",
+      "heroSource": "cool-rosy-makeup-fair-skin.webp",
+      "stepSources": [
+        "cool-rosy-makeup-fair-skin/step-01-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-02-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-03-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-04-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-05-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-06-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-07-curated.webp",
+        "cool-rosy-makeup-fair-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/cool-rosy-makeup-fair-skin-final.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/cool-rosy-makeup-fair-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "warm-peach-makeup-fair-skin",
+      "modelId": "HS-M016",
+      "tutorialUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/",
+      "heroSource": "warm-peach-makeup-fair-skin.webp",
+      "stepSources": [
+        "warm-peach-makeup-fair-skin/step-01-curated.webp",
+        "warm-peach-makeup-fair-skin/step-02-curated.webp",
+        "warm-peach-makeup-fair-skin/step-03-curated.webp",
+        "warm-peach-makeup-fair-skin/step-04-curated.webp",
+        "warm-peach-makeup-fair-skin/step-05-curated.webp",
+        "warm-peach-makeup-fair-skin/step-06-curated.webp",
+        "warm-peach-makeup-fair-skin/step-07-curated.webp",
+        "warm-peach-makeup-fair-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/warm-peach-makeup-fair-skin-final.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/warm-peach-makeup-fair-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "neutral-soft-glam-olive-skin",
+      "modelId": "HS-M017",
+      "tutorialUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/",
+      "heroSource": "neutral-soft-glam-olive-skin.webp",
+      "stepSources": [
+        "neutral-soft-glam-olive-skin/step-01-curated.webp",
+        "neutral-soft-glam-olive-skin/step-02-curated.webp",
+        "neutral-soft-glam-olive-skin/step-03-curated.webp",
+        "neutral-soft-glam-olive-skin/step-04-curated.webp",
+        "neutral-soft-glam-olive-skin/step-05-curated.webp",
+        "neutral-soft-glam-olive-skin/step-06-curated.webp",
+        "neutral-soft-glam-olive-skin/step-07-curated.webp",
+        "neutral-soft-glam-olive-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/neutral-soft-glam-olive-skin-final.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/neutral-soft-glam-olive-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "warm-bronze-makeup-medium-skin",
+      "modelId": "HS-M018",
+      "tutorialUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/",
+      "heroSource": "warm-bronze-makeup-medium-skin.webp",
+      "stepSources": [
+        "warm-bronze-makeup-medium-skin/step-01-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-02-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-03-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-04-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-05-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-06-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-07-curated.webp",
+        "warm-bronze-makeup-medium-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/warm-bronze-makeup-medium-skin-final.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/warm-bronze-makeup-medium-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "rich-berry-gold-makeup-deep-skin",
+      "modelId": "HS-M019",
+      "tutorialUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/",
+      "heroSource": "rich-berry-gold-makeup-deep-skin.webp",
+      "stepSources": [
+        "rich-berry-gold-makeup-deep-skin/step-01-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-02-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-03-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-04-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-05-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-06-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-07-curated.webp",
+        "rich-berry-gold-makeup-deep-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/rich-berry-gold-makeup-deep-skin-final.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/rich-berry-gold-makeup-deep-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "5-minute-everyday-makeup",
+      "modelId": "HS-M020",
+      "tutorialUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/",
+      "heroSource": "5-minute-everyday-makeup.webp",
+      "stepSources": [
+        "5-minute-everyday-makeup/step-01-curated.webp",
+        "5-minute-everyday-makeup/step-02-curated.webp",
+        "5-minute-everyday-makeup/step-03-curated.webp",
+        "5-minute-everyday-makeup/step-04-curated.webp",
+        "5-minute-everyday-makeup/step-05-curated.webp",
+        "5-minute-everyday-makeup/step-06-curated.webp",
+        "5-minute-everyday-makeup/step-07-curated.webp",
+        "5-minute-everyday-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/5-minute-everyday-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/5-minute-everyday-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "natural-no-makeup-makeup",
+      "modelId": "HS-M021",
+      "tutorialUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/",
+      "heroSource": "natural-no-makeup-makeup.webp",
+      "stepSources": [
+        "natural-no-makeup-makeup/step-01-curated.webp",
+        "natural-no-makeup-makeup/step-02-curated.webp",
+        "natural-no-makeup-makeup/step-03-curated.webp",
+        "natural-no-makeup-makeup/step-04-curated.webp",
+        "natural-no-makeup-makeup/step-05-curated.webp",
+        "natural-no-makeup-makeup/step-06-curated.webp",
+        "natural-no-makeup-makeup/step-07-curated.webp",
+        "natural-no-makeup-makeup/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/natural-no-makeup-makeup-final.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/natural-no-makeup-makeup-steps.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=steps"
+        },
+        {
+          "kind": "before-after",
+          "file": "/pins/natural-no-makeup-makeup-before-after.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=before-after"
+        }
+      ]
+    },
+    {
+      "slug": "easy-everyday-soft-glam",
+      "modelId": "HS-M022",
+      "tutorialUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/",
+      "heroSource": "easy-everyday-soft-glam.webp",
+      "stepSources": [
+        "easy-everyday-soft-glam/step-01-curated.webp",
+        "easy-everyday-soft-glam/step-02-curated.webp",
+        "easy-everyday-soft-glam/step-03-curated.webp",
+        "easy-everyday-soft-glam/step-04-curated.webp",
+        "easy-everyday-soft-glam/step-05-curated.webp",
+        "easy-everyday-soft-glam/step-06-curated.webp",
+        "easy-everyday-soft-glam/step-07-curated.webp",
+        "easy-everyday-soft-glam/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/easy-everyday-soft-glam-final.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/easy-everyday-soft-glam-steps.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "wearable-clean-makeup-look",
+      "modelId": "HS-M023",
+      "tutorialUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/",
+      "heroSource": "wearable-clean-makeup-look.webp",
+      "stepSources": [
+        "wearable-clean-makeup-look/step-01-curated.webp",
+        "wearable-clean-makeup-look/step-02-curated.webp",
+        "wearable-clean-makeup-look/step-03-curated.webp",
+        "wearable-clean-makeup-look/step-04-curated.webp",
+        "wearable-clean-makeup-look/step-05-curated.webp",
+        "wearable-clean-makeup-look/step-06-curated.webp",
+        "wearable-clean-makeup-look/step-07-curated.webp",
+        "wearable-clean-makeup-look/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/wearable-clean-makeup-look-final.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/wearable-clean-makeup-look-steps.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=steps"
+        }
+      ]
+    },
+    {
+      "slug": "natural-makeup-mature-skin",
+      "modelId": "HS-M024",
+      "tutorialUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/",
+      "heroSource": "natural-makeup-mature-skin.webp",
+      "stepSources": [
+        "natural-makeup-mature-skin/step-01-curated.webp",
+        "natural-makeup-mature-skin/step-02-curated.webp",
+        "natural-makeup-mature-skin/step-03-curated.webp",
+        "natural-makeup-mature-skin/step-04-curated.webp",
+        "natural-makeup-mature-skin/step-05-curated.webp",
+        "natural-makeup-mature-skin/step-06-curated.webp",
+        "natural-makeup-mature-skin/step-07-curated.webp",
+        "natural-makeup-mature-skin/step-08-curated.webp"
+      ],
+      "variants": [
+        {
+          "kind": "final",
+          "file": "/pins/natural-makeup-mature-skin-final.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=final"
+        },
+        {
+          "kind": "steps",
+          "file": "/pins/natural-makeup-mature-skin-steps.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=steps"
+        }
+      ]
+    }
+  ]
+}

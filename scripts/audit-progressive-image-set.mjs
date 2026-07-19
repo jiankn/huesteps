@@ -298,4 +298,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Progressive image audit passed for ${rows.length} images. Human makeup-sequence and skin-texture review remains required.`);
+console.log(`Progressive image audit passed for ${rows.length} images. Full-resolution makeup-sequence and skin-texture review remains required.`);

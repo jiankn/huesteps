@@ -412,7 +412,20 @@ const lowerFirst = (value) => value.charAt(0).toLowerCase() + value.slice(1);
 const normalizeSentence = (value) => /[.!?]$/.test(value) ? value : value + '.';
 const clipText = (value, maximum) => {
   if (value.length <= maximum) return value;
-  const clipped = value.slice(0, maximum - 1).replace(/\s+\S*$/, '').replace(/[,:;]$/, '');
+  const completeSentences = value.match(/[^.!?]+[.!?]+/g) ?? [];
+  let complete = '';
+  for (const sentence of completeSentences) {
+    const candidate = `${complete}${sentence}`.trim();
+    if (candidate.length > maximum) break;
+    complete = `${complete}${sentence}`;
+  }
+  if (complete.trim()) return complete.trim();
+
+  const danglingWords = new Set(['a', 'an', 'and', 'at', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'while', 'with', 'without']);
+  let clipped = value.slice(0, maximum - 1).replace(/\s+\S*$/, '').replace(/[,:;]$/, '');
+  while (danglingWords.has(clipped.split(/\s+/).at(-1)?.toLowerCase())) {
+    clipped = clipped.replace(/\s+\S+$/, '').replace(/[,:;]$/, '');
+  }
   return clipped + '.';
 };
 
@@ -715,7 +728,7 @@ const makeDetailedStep = (seed, index, step) => {
 };
 
 const makeEyeDetailedSteps = (seed) => {
-  const transition = findPalette(seed, /transition|structure|crease|outer|matte|wash/i, 0);
+  const transition = findPalette(seed, /gradient|transition|crease|structure|outer|wash|edge/i, 0);
   const focal = findPalette(seed, /focal|lid|light|shimmer|satin|metal/i, 1, transition);
   const liner = findPalette(seed, /lash|liner|definition|micro-wing/i, 2);
   const steps = [
@@ -822,8 +835,20 @@ const makeEyeDetailedSteps = (seed) => {
 
 const makeFaceDetailedSteps = (seed) => {
   const eye = findPalette(seed, /eye|lid|crease|transition|shadow|structure|wash/i, 0);
+  const eyeFocal = seed.palette.find((item) => (
+    item !== eye
+    && /eye|lid|crease|shadow|shimmer|metallic/i.test(item[2] + ' ' + item[3])
+  ));
   const liner = findPalette(seed, /lash|liner|definition|tightline/i, seed.palette.indexOf(eye));
-  const color = findPalette(seed, /cheek|blush|lip|multi-use|complexion|skin/i, 1);
+  const color = findPalette(seed, /cheek|blush|multi-use/i, 1);
+  const lipColor = seed.palette.find((item) => (
+    item !== color
+    && /lip/i.test(item[2] + ' ' + item[3])
+  )) ?? color;
+  const cheekPlacement = color[3]
+    .split(/\s+(?:and|&)\s+/i)
+    .find((part) => /cheek/i.test(part))
+    ?? color[3];
   const steps = [
     {
       title: 'Prepare for the ' + seed.finish + ' finish',
@@ -862,14 +887,30 @@ const makeFaceDetailedSteps = (seed) => {
       visualFocus: 'brows'
     },
     {
-      title: 'Shape the eyes with ' + lowerFirst(eye[0]),
-      outcome: eye[0] + ' establishes the eye direction at ' + eye[3] + ' without a hard outer edge',
-      tool: 'Small tapered blending brush',
-      productRole: paletteText(eye),
-      action: 'Place ' + lowerFirst(eye[0]) + ' at ' + eye[3] + ' and build from the intended endpoint inward. Keep the first pass translucent enough to correct.',
-      placement: eye[3] + ', checked with both eyes open before the color is deepened',
-      motion: 'Short controlled strokes with small circles only along the edge that needs diffusion',
-      amount: 'One light pickup of ' + eye[0] + ', tapped off before the open-eye check',
+      title: eyeFocal
+        ? 'Shape the eyes and place ' + lowerFirst(eyeFocal[0])
+        : 'Shape the eyes with ' + lowerFirst(eye[0]),
+      outcome: eyeFocal
+        ? eye[0] + ' creates soft eye structure, while ' + eyeFocal[0] + ' remains visible at the ' + eyeFocal[3] + ' without covering it'
+        : eye[0] + ' creates soft eye structure without a hard outer edge',
+      tool: eyeFocal
+        ? 'Small tapered blending brush and flat shader brush'
+        : 'Small tapered blending brush',
+      productRole: eyeFocal
+        ? paletteText(eye) + '; ' + paletteText(eyeFocal)
+        : paletteText(eye),
+      action: eyeFocal
+        ? 'Build ' + lowerFirst(eye[0]) + ' in the planned structure zone: ' + eye[3] + '. Work from the intended endpoint inward, then press ' + lowerFirst(eyeFocal[0]) + ' onto ' + eyeFocal[3] + ' and soften only the meeting edge.'
+        : 'Build ' + lowerFirst(eye[0]) + ' in the planned structure zone: ' + eye[3] + '. Work from the intended endpoint inward and keep the first pass translucent enough to correct.',
+      placement: eyeFocal
+        ? eye[3] + ' for structure and ' + eyeFocal[3] + ' for the focal shade, checked with both eyes open'
+        : eye[3] + ', checked with both eyes open before the color is deepened',
+      motion: eyeFocal
+        ? 'Use short controlled strokes for the structure, then press the focal shade in place without sweeping it over the transition'
+        : 'Short controlled strokes with small circles only along the edge that needs diffusion',
+      amount: eyeFocal
+        ? 'One light pickup of ' + eye[0] + ' and one thin pressed layer of ' + eyeFocal[0]
+        : 'One light pickup of ' + eye[0] + ', tapped off before the open-eye check',
       durationSeconds: durationFor(seed, 0.15),
       visualFocus: 'both-eyes'
     },
@@ -887,11 +928,11 @@ const makeFaceDetailedSteps = (seed) => {
     },
     {
       title: 'Place the complexion color',
-      outcome: color[0] + ' is visible at ' + color[3] + ' while natural skin still shows through the edges',
+      outcome: color[0] + ' is visible at ' + cheekPlacement + ' while the lips remain unchanged and natural skin still shows through the cheek edges',
       tool: 'Small cream brush, sponge, or clean fingertip',
-      productRole: paletteText(color),
-      action: 'Place ' + lowerFirst(color[0]) + ' first at ' + color[3] + ', then tap the edge outward. Keep the strongest color inside the planned zone.',
-      placement: color[3] + ', with a clean gap around nearby eye or lip edges when needed',
+      productRole: color[0] + ': ' + color[2] + ' used only at ' + cheekPlacement + ' in this step',
+      action: 'Place ' + lowerFirst(color[0]) + ' first at ' + cheekPlacement + ', then tap the edge outward. Keep the strongest color inside the planned cheek zone and do not add it to the lips yet.',
+      placement: cheekPlacement + ', with a clean gap around the under-eye and lip edges',
       motion: 'Tap to deposit, then press the perimeter with the cleaner side of the tool',
       amount: 'One small dot or light pickup of ' + color[0] + ' per side before reassessing',
       durationSeconds: durationFor(seed, 0.12),
@@ -899,13 +940,13 @@ const makeFaceDetailedSteps = (seed) => {
     },
     {
       title: 'Connect the lip to the palette',
-      outcome: 'The lip supports ' + color[0] + ' and the ' + seed.finish + ' finish without becoming the only focal point',
+      outcome: 'The lip shows ' + lipColor[0] + ' in harmony with ' + color[0] + ' and the ' + seed.finish + ' finish without becoming the only focal point',
       tool: 'Clean fingertip or precise lip brush',
-      productRole: color[2] + ' adapted for the lips',
-      action: seed.finishStep + ' Use the remaining product only where the lip needs harmony, then blot before deciding on another layer.',
+      productRole: paletteText(lipColor),
+      action: 'Use ' + lowerFirst(lipColor[0]) + ' in one thin layer across the lips. ' + seed.finishStep + ' Blot before deciding on another layer.',
       placement: 'Across the lips, with the cleanest edge at the cupid bow and a softer edge where the recipe calls for diffusion',
       motion: 'Press from the center outward, then refine the perimeter with a nearly clean tool',
-      amount: 'One thin lip layer related to ' + color[0] + ', blotted before any second pass',
+      amount: 'One thin lip layer of ' + lipColor[0] + ', blotted before any second pass',
       durationSeconds: durationFor(seed, 0.1),
       visualFocus: 'lips'
     },

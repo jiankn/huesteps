@@ -1,18 +1,17 @@
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 
 const root = process.cwd();
 const recipesPath = path.join(root, 'src', 'data', 'recipes.json');
-const latestRecipeImageDir = path.join(root, 'src', 'assets', 'recipes-v4');
-const recipeImageDir = path.join(root, 'src', 'assets', 'recipes-v3');
-const fallbackRecipeImageDir = path.join(root, 'src', 'assets', 'recipes-v2');
-const legacyRecipeImageDir = path.join(root, 'src', 'assets', 'recipes');
+const identityRegistryPath = path.join(root, 'src', 'data', 'model-identity-registry.json');
+const rebuildRecipeImageDir = path.join(root, 'src', 'assets', 'recipes-v5');
 const tutorialStepImageDir = path.join(root, 'src', 'assets', 'tutorial-steps');
 const pinsDir = path.join(root, 'public', 'pins');
 const socialDir = path.join(root, 'public', 'social');
 const DAY_ONE_SLUG = 'natural-no-makeup-makeup';
+const SITE_URL = (process.env.SITE_URL ?? 'https://huesteps.com').replace(/\/+$/, '');
 
 const W = 1000;
 const H = 1500;
@@ -27,12 +26,11 @@ const COLORS = {
 };
 
 const getRecipeImagePath = (filename) => {
-  const latest = path.join(latestRecipeImageDir, filename.replace(/\.png$/, '.webp'));
-  if (existsSync(latest)) return latest;
-  const current = path.join(recipeImageDir, filename.replace(/\.png$/, '.webp'));
-  if (existsSync(current)) return current;
-  const fallback = path.join(fallbackRecipeImageDir, filename);
-  return existsSync(fallback) ? fallback : path.join(legacyRecipeImageDir, filename);
+  const rebuild = path.join(rebuildRecipeImageDir, filename.replace(/\.png$/, '.webp'));
+  if (!existsSync(rebuild)) {
+    throw new Error(`Missing production recipe hero: ${path.relative(root, rebuild)}`);
+  }
+  return rebuild;
 };
 
 const getStepImagePath = (recipe, index) => path.join(
@@ -258,6 +256,7 @@ const makeSocialImage = async (recipe) => {
 };
 
 const recipes = JSON.parse(await readFile(recipesPath, 'utf8'));
+const identityRegistry = JSON.parse(await readFile(identityRegistryPath, 'utf8'));
 await mkdir(pinsDir, { recursive: true });
 await mkdir(socialDir, { recursive: true });
 
@@ -276,4 +275,50 @@ for (const recipe of recipes) {
 }
 
 await makeSocialImage(recipes.find((recipe) => recipe.featured) ?? recipes[0]);
-console.log(`Generated ${generatedPins} Pin images and 1 social preview image.`);
+
+const pinManifest = {
+  version: 1,
+  identityRegistryVersion: identityRegistry.version,
+  records: recipes.map((recipe) => {
+    const model = identityRegistry.models[recipe.slug];
+    if (!model) throw new Error(`Missing model identity for Pin manifest: ${recipe.slug}`);
+
+    const destinationBase = `${SITE_URL}/${recipe.hub}/${recipe.slug}/`;
+    const variants = [
+      {
+        kind: 'final',
+        file: `/pins/${recipe.slug}-final.png`,
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=final`
+      },
+      {
+        kind: 'steps',
+        file: `/pins/${recipe.slug}-steps.png`,
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=steps`
+      }
+    ];
+    if (recipe.slug === DAY_ONE_SLUG) {
+      variants.push({
+        kind: 'before-after',
+        file: `/pins/${recipe.slug}-before-after.png`,
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=before-after`
+      });
+    }
+
+    return {
+      slug: recipe.slug,
+      modelId: model.modelId,
+      tutorialUrl: destinationBase,
+      heroSource: recipe.heroImage.replace(/\.png$/, '.webp'),
+      stepSources: recipe.steps.map((step) => step.image),
+      variants
+    };
+  })
+};
+
+await writeFile(
+  path.join(pinsDir, 'manifest.json'),
+  `${JSON.stringify(pinManifest, null, 2)}\n`,
+  'utf8'
+);
+
+console.log(`Generated ${generatedPins} Pin images, 1 social preview image, and the Pin identity manifest.`);

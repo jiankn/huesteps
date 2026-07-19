@@ -1,16 +1,27 @@
 # HueSteps image generation system
 
+## Pinterest-to-page visual trust contract
+
+Pinterest creative is the visual promise made before a user clicks. The destination must visibly fulfill that exact promise.
+
+- Assign one distinct, original, non-celebrity model identity to each recipe slug. Never reuse that identity in another tutorial, including tutorials in the same look family.
+- Treat the Pin, social image, website card, tutorial hero/final image, and all eight tutorial steps as one recipe-owned identity chain.
+- Every asset in that chain must show the same person and the same advertised makeup look. A “similar” face, lookalike replacement, face swap, or unrelated regenerated portrait is not acceptable.
+- The eight tutorial images must show the same person progressing cumulatively toward the result shown in the hero and Pin.
+- Review the Pin image, destination URL, hero, and eight steps together before publishing. Any identity or makeup mismatch is a hard failure because it breaks user trust.
+
 ## HueSteps image hard rules V1
 
 These rules are mandatory for every new HueSteps tutorial, hero image, and Pinterest Pin.
 
 - Treat every image as credible makeup evidence, not as a generic attractive AI portrait.
-- Lock one original, non-celebrity identity per tutorial. The face, apparent age, skin depth and undertone, eye color, hairline, ears, expression, wardrobe, camera, crop, lighting, exposure, white balance, and background must remain consistent from Step 1 through the final Pin.
+- Lock one unique original, non-celebrity identity per tutorial and never reuse it in another tutorial. The face, apparent age, skin depth and undertone, eye color, hairline, ears, expression, wardrobe, camera, crop, lighting, exposure, white balance, and background must remain consistent across the hero, all eight steps, and every Pin for that tutorial.
 - Preserve real human variation: irregular pores, peach fuzz, fine lines, lip grooves, individual brow hairs, small color variation, and ordinary facial asymmetry. Reject plastic skin, poreless blur, HDR texture, etched or repeated AI micro-patterns, doll eyes, duplicated lashes, and anatomy errors.
 - Make the sequence cumulative. Each step changes only the named makeup area; later makeup must never appear early.
+- Follow the current recipe step specification rather than a generic face routine. In an eye-shape tutorial, non-eye makeup stays constant from Step 1 through Step 8; in a full-face tutorial, cheeks, lips, and other regions change only in their explicitly named steps.
 - Keep before-and-after comparisons honest. Makeup may change; facial structure, age, skin color, expression, camera angle, crop, and lighting may not.
 - Use an eye-level 70–105mm-equivalent portrait perspective, soft neutral 5000–5500K light, and a clean backdrop. Everyday tutorials use a calm direct gaze, simple pulled-back hair, a matte solid top, and no distracting jewelry or logos.
-- Produce tutorial sources at 4:3 and at least 1280x960. Produce Pinterest Pins at 1000x1500 (2:3). Add all typography in deterministic post-production, never in the image model.
+- Produce tutorial step sources at 4:3 and at least 1280x960. A vertical tutorial hero must use a master of at least 1440x2560, and every other hero master must provide at least twice its intended rendered dimensions; 720px must never be the maximum hero source. Produce Pinterest Pins at 1000x1500 (2:3) or larger. Add all typography in deterministic post-production, never in the image model.
 - Derive the website hero and every Pin from the approved tutorial identity chain. Never regenerate an unrelated “similar” model for social creative.
 - Mark the work as AI-assisted on Pinterest and disclose AI-generated visualization on the tutorial page. Never present the model as a real client or claim first-hand wear testing.
 - Reject a set for identity drift, skin-tone drift, altered eye color, anatomical errors, synthetic skin texture, mismatched makeup/text, misleading before-and-after framing, or Pin-to-page visual mismatch.
@@ -36,10 +47,13 @@ No celebrity likeness, cloned reference identity, off-center subject, cropped ch
 Use this gate for every `progressive-high-detail-v2` tutorial step set, including future recipes.
 
 - Generate independent step-state images, not a Pinterest composite, not crops from one finished look, and not the old focus-guide graphics.
+- Build Step 1 once as the clean, fixed 4:3 base. Generate every later cumulative state independently from that unchanged Step 1 plus the approved hero/final reference; never propagate pixels from a failed or degraded intermediate image.
 - Each recipe needs eight comparable 4:3 assets at 1280 x 960 or larger before review: `step-01` through `step-08`.
 - Every image in a recipe must keep the same face and preserve skin depth, undertone, camera distance, lighting, crop, white balance and retouching strength.
 - Makeup must be cumulative and visible: each image should show what changed after that step. Reject sets where the only difference is a tiny brightness, warmth or smoothing shift.
 - Preserve real skin texture: visible pores, eyelid folds, fine lines, small hairs and natural product texture. Reject wax skin, heavy blur, over-sharpening, plastic pore erasure or flat AI complexion.
+- A low-contrast repeated generator micro-pattern may be treated only with the deterministic edge-preserving normalizer in `scripts/normalize-ai-image-texture.mjs`, followed by full-resolution visual review. The correction must preserve real lines, freckles, eye/lip detail and makeup placement; it may not be used to conceal anatomy errors, strong spiral artifacts, identity drift or an incorrect step state.
+- Start with the normalizer's conservative defaults. If full-resolution review still shows repeated fingerprint or etched texture, use the reviewed stronger tier (`--radius 3 --sigma-space 1.6 --sigma-color 18 --noise 0.65`, or up to color 22 / space 1.8 for severe low-contrast residue), then review again for waxy smoothing. A clean but plastic face still fails.
 - Reject any burned-in teaching overlay: step numbers, captions, arrows, dots, makeup maps, dotted guidelines, ruler marks, split-screen separators or text. Also reject fake lash-count tick marks, eyeliner ruler strokes, brow-measuring lines, drawn crease guides and any black helper line that looks added on top of the photo. The webpage supplies all instructional text in HTML.
 - Reject horizontal artifacts even if the face is otherwise attractive: gray lines across the eyes or cheeks, banding across the face, pressure-mark seams, accidental crop seams and generated guide lines are not acceptable.
 - Eye-shape recipes should usually be eye macro or half-face close-up; full-face crops are allowed only if the eye technique is still clear at article-card size.
@@ -48,11 +62,12 @@ Use this gate for every `progressive-high-detail-v2` tutorial step set, includin
 
 Production flow:
 
-1. Put candidate sources under `tmp/progressive-all-v3/<recipe>/sources/step-01.png` through `step-08.png`.
-2. Run `node scripts/prepare-progressive-step-images.mjs --recipe <recipe> --source-dir tmp/progressive-all-v3/<recipe>/sources` only after a human pass thinks the source set is viable.
-3. Run `node scripts/audit-progressive-image-set.mjs --source-dir src/assets/tutorial-steps/<recipe> --suffix -curated --output-dir tmp/progressive-all-v3/<recipe>/final-audit`.
-4. Open the contact sheet and reject if makeup progression, anatomy, texture, crop or overlay rules fail.
-5. Only after approval, remove the slug from `src/data/tutorial-visual-migrations.json`, add `visualReviewedAt` in `scripts/build-content.mjs`, rebuild content and run `pnpm.cmd run audit:content`.
+1. Put unmodified generator outputs under `tmp/model-rebuild/<recipe>/raw/step-01.png` through `step-08.png`.
+2. If the full-resolution review finds only the allowed low-contrast repeated micro-pattern, run `node scripts/normalize-progressive-step-sources.mjs --source-dir tmp/model-rebuild/<recipe>/raw --output-dir tmp/model-rebuild/<recipe>/sources`; otherwise copy clean accepted outputs into `sources` without normalization.
+3. Run `node scripts/prepare-progressive-step-images.mjs --recipe <recipe> --source-dir tmp/model-rebuild/<recipe>/sources` only after the corrected source set passes visual review.
+4. Run `node scripts/audit-progressive-image-set.mjs --source-dir src/assets/tutorial-steps/<recipe> --suffix -curated --output-dir tmp/model-rebuild/<recipe>/final-audit`.
+5. Open the contact sheet and reject if makeup progression, anatomy, texture, crop or overlay rules fail.
+6. Only after approval, remove the slug from `src/data/tutorial-visual-migrations.json`, add `visualReviewedAt` in `scripts/build-content.mjs`, rebuild content and run `pnpm.cmd run audit:content`.
 
 ## Geometry
 
@@ -66,11 +81,11 @@ Production flow:
 - Eye Shape: `src/assets/golden/eye-shape-golden-v1.webp`
 - Skin Tone: `src/assets/golden/skin-tone-golden-v1.webp`
 
-Anchors are style and geometry references only. Every recipe uses a distinct original identity unless a deliberate look family requires the same person.
+Anchors are style and geometry references only. Every recipe uses a distinct original identity with no cross-recipe exception.
 
 ## Eye Shape batch
 
-All outputs: 16:9, 1280x720-class, brow-to-upper-cheek macro, same neutral ivory-to-cocoa light and sharpness as the approved Eye anchor.
+Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 2560x1440 production export. Keep the complete head-and-shoulders identity available for the tutorial hero while making the specified eye anatomy clearly readable. Step assets remain independent 4:3 instructional states at 1280x960 or larger.
 
 | Slug | Anatomy and makeup direction |
 |---|---|
@@ -83,7 +98,7 @@ All outputs: 16:9, 1280x720-class, brow-to-upper-cheek macro, same neutral ivory
 
 ## Skin Tone batch
 
-All outputs: vertical 720x1280-class, same neutral 5000K light, chroma-neutral light-gray backdrop, straight-on expression, head size and retouching as the approved Skin anchor. Distinct original identities. Do not let wardrobe, hair or background alter the perceived complexion.
+Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 2560x1440 production export, with the same neutral 5000K light, chroma-neutral light-gray backdrop, straight-on expression, head size and retouching as the approved Skin anchor. Distinct original identities. Do not let wardrobe, hair or background alter the perceived complexion. Step assets remain independent 4:3 states at 1280x960 or larger.
 
 | Slug | Complexion and makeup direction |
 |---|---|
@@ -95,7 +110,9 @@ All outputs: vertical 720x1280-class, same neutral 5000K light, chroma-neutral l
 
 ## Occasion batch
 
-All outputs: 16:9 1280x720-class head-and-shoulders beauty portrait; face centered for card-safe crops; makeup idea visible at thumbnail size.
+Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 2560x1440 production export; face centered for website, card and Pin-safe crops; makeup idea visible at thumbnail size. Step assets remain independent 4:3 states at 1280x960 or larger.
+
+After visual approval, copy the exact selected source to `tmp/model-rebuild/<slug>/hero-master-approved.<ext>`. Automatic hero preparation accepts only this explicit approved master; rejected, `strong`, `normalized`, and generic working candidates are never selected by filename fallback. `--master-file` remains available for one explicitly selected recipe.
 
 | Slug | Direction |
 |---|---|
@@ -110,7 +127,7 @@ All outputs: 16:9 1280x720-class head-and-shoulders beauty portrait; face center
 
 ## Everyday batch
 
-All outputs: 16:9 1280x720-class centered head-and-shoulders portrait, modern daylight or soft studio light, real skin and visible but repeatable makeup.
+Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 2560x1440 production export, centered head-and-shoulders portrait, modern daylight or soft studio light, real skin and visible but repeatable makeup. Step assets remain independent 4:3 states at 1280x960 or larger.
 
 | Slug | Direction |
 |---|---|

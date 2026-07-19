@@ -11,6 +11,7 @@ interface Props {
   sizes?: string;
   focal?: ImageFocalPoint;
   widths?: number[];
+  quality?: number;
 }
 const {
   src,
@@ -19,7 +20,8 @@ const {
   class: className,
   sizes = '(max-width: 767px) 100vw, 50vw',
   focal = { x: 50, y: 40, mobileX: 50, mobileY: 40 },
-  widths = [480, 720, 960, 1280]
+  widths = [480, 720, 960, 1280],
+  quality = 86
 } = Astro.props;
 ---
 
@@ -29,6 +31,7 @@ const {
   formats={['avif', 'webp']}
   fallbackFormat="webp"
   widths={widths}
+  quality={quality}
   sizes={sizes}
   loading={priority ? 'eager' : 'lazy'}
   fetchpriority={priority ? 'high' : 'auto'}

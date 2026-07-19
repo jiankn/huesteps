@@ -4,7 +4,7 @@
 
 - Asset: eight separate instructional beauty photographs for the web tutorial, not a contact sheet.
 - Subject: hooded lids, brown eyes, dark natural brows, light-medium neutral-warm beige skin.
-- Identity: the same person is preferred but not required. Skin depth and undertone are mandatory invariants across all eight images.
+- Identity: the same person is mandatory across the Pinterest Pin, website hero/final, and all eight images. Face shape, features, apparent age, skin depth and undertone, eye color, and hairline are invariants.
 - Comparison view: straight-on relaxed open eyes, compact crop from the lower forehead to just above the nose tip, both eyes visible, 4:3 landscape.
 - Light and color: soft even daylight, neutral background, accurate white balance, no warm/cool color drift.
 - Detail: high depth of field; natural pores, eyelid lines, fine facial hair, slight under-eye texture, real powder and satin pigment visible.

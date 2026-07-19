@@ -86,7 +86,15 @@ const schema = [
         <div class="hero-media-wrap">
           <div class="hero-media">
             <span class="final-look-badge">Final look</span>
-            <RecipeImage src={image} alt={data.heroAlt} focal={getRecipeFocal(data.heroImage, data.hub === 'eye-shape-makeup' ? 'eye' : 'hero')} priority sizes="(max-width: 820px) 100vw, 58vw" />
+            <RecipeImage
+              src={image}
+              alt={data.heroAlt}
+              focal={getRecipeFocal(data.heroImage, data.hub === 'eye-shape-makeup' ? 'eye' : 'hero')}
+              priority
+              quality={92}
+              widths={[480, 720, 960, 1280, 1600, 1920]}
+              sizes="(max-width: 820px) 100vw, 58vw"
+            />
           </div>
           {data.aiGenerated && <p class="image-disclosure">AI-generated makeup visualization. It is not a claim of first-hand product use or wear testing.</p>}
         </div>
