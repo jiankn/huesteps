@@ -65,9 +65,7 @@ const wrapText = (text, maxChars, maxLines = 4) => {
 
   if (current) lines.push(current);
   if (lines.length <= maxLines) return lines;
-  const clipped = lines.slice(0, maxLines);
-  clipped[maxLines - 1] = `${clipped[maxLines - 1].replace(/[.,;:]?$/, '')}...`;
-  return clipped;
+  throw new Error(`Pin copy does not fit without truncation: ${text}`);
 };
 
 const textBlock = ({ text, x, y, size, lineHeight, color = COLORS.ink, weight = 400, family = 'Arial Narrow, Arial', maxChars, maxLines, anchor = 'start' }) => {
@@ -82,6 +80,29 @@ const makeHero = async (imagePath, width, height) => sharp(imagePath)
   .png()
   .toBuffer();
 
+const writePng = async (pipeline, destination, quality = 90) => {
+  const output = await pipeline.png({ compressionLevel: 9, quality }).toBuffer();
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      await writeFile(destination, output);
+      return;
+    } catch (error) {
+      if (attempt === 7) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 120 * (attempt + 1)));
+    }
+  }
+};
+
+const pinPromise = (recipe) => {
+  const promises = {
+    'eye-shape-makeup': 'Open-eye placement with every change shown.',
+    'skin-tone-undertone': 'Depth-aware color with every change shown.',
+    'occasion-makeup': 'A wearable finish built in eight visible steps.',
+    'everyday-makeup': 'A repeatable routine built in eight visible steps.'
+  };
+  return promises[recipe.hub] ?? 'The complete look in eight visible steps.';
+};
+
 const makeFinalPin = async (recipe) => {
   const imagePath = getRecipeImagePath(recipe.heroImage);
   const hero = await makeHero(imagePath, W, 960);
@@ -91,80 +112,73 @@ const makeFinalPin = async (recipe) => {
     <rect x="0" y="960" width="${W}" height="540" fill="${COLORS.paper}" />
     <text x="70" y="1045" fill="${COLORS.accent}" font-family="Arial" font-size="28" font-weight="700" letter-spacing="0">HUESTEPS MAKEUP RECIPE</text>
     ${textBlock({ text: recipe.title, x: 70, y: 1125, size: 70, lineHeight: 78, weight: 700, maxChars: 19, maxLines: 3 })}
-    ${textBlock({ text: recipe.directAnswer, x: 72, y: 1335, size: 28, lineHeight: 36, color: COLORS.muted, family: 'Arial', maxChars: 50, maxLines: 2 })}
+    ${textBlock({ text: pinPromise(recipe), x: 72, y: 1335, size: 28, lineHeight: 36, color: COLORS.muted, family: 'Arial', maxChars: 50, maxLines: 2 })}
     <g transform="translate(70 1452)">
       ${palette.map((color, index) => `<circle cx="${index * 42}" cy="0" r="15" fill="${escapeXml(color.hex)}" stroke="${COLORS.deep}" stroke-width="2" />`).join('')}
       <text x="158" y="8" fill="${COLORS.ink}" font-family="Arial" font-size="25" font-weight="700" letter-spacing="0">${recipe.timeMinutes} min | ${escapeXml(recipe.finish)}</text>
     </g>
+    <text x="930" y="1482" fill="${COLORS.muted}" font-family="Arial" font-size="17" text-anchor="end">AI-assisted visual</text>
   `;
-  return sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
-    .composite([{ input: hero, top: 0, left: 0 }, { input: svg(body), top: 0, left: 0 }])
-    .png({ compressionLevel: 9, quality: 90 })
-    .toFile(path.join(pinsDir, `${recipe.slug}-final.png`));
+  return writePng(
+    sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
+      .composite([{ input: hero, top: 0, left: 0 }, { input: svg(body), top: 0, left: 0 }]),
+    path.join(pinsDir, `${recipe.slug}-final.png`)
+  );
 };
 
 const makeStepsPin = async (recipe) => {
-  const imagePath = getRecipeImagePath(recipe.heroImage);
-  const hero = await makeHero(imagePath, 410, 520);
-  const steps = recipe.steps.slice(3, 6);
-  const palette = recipe.palette.slice(0, 3);
-  const stepCards = steps.map((step, index) => {
-    const y = 760 + index * 185;
-    return `
-      <rect x="70" y="${y}" width="860" height="145" rx="8" fill="${COLORS.white}" stroke="${COLORS.line}" stroke-width="2" />
-      <circle cx="118" cy="${y + 52}" r="27" fill="${COLORS.accent}" />
-      <text x="118" y="${y + 62}" fill="${COLORS.white}" font-family="Arial" font-size="28" font-weight="700" text-anchor="middle">${index + 1}</text>
-      ${textBlock({ text: step.title, x: 162, y: y + 45, size: 34, lineHeight: 40, weight: 700, maxChars: 31, maxLines: 1 })}
-      ${textBlock({ text: step.placement, x: 162, y: y + 92, size: 24, lineHeight: 30, color: COLORS.muted, family: 'Arial', maxChars: 57, maxLines: 2 })}
-    `;
-  }).join('');
-  const swatches = palette.map((color, index) => {
-    const x = 70 + index * 286;
-    return `
-      <rect x="${x}" y="1320" width="248" height="88" rx="8" fill="${COLORS.white}" stroke="${COLORS.line}" />
-      <circle cx="${x + 40}" cy="1364" r="23" fill="${escapeXml(color.hex)}" stroke="${COLORS.deep}" stroke-width="2" />
-      ${textBlock({ text: color.name, x: x + 78, y: 1357, size: 23, lineHeight: 26, color: COLORS.ink, family: 'Arial', weight: 700, maxChars: 13, maxLines: 2 })}
-    `;
-  }).join('');
-  const background = `
-    <rect x="56" y="58" width="888" height="618" rx="8" fill="${COLORS.white}" stroke="${COLORS.line}" stroke-width="2" />
-    <rect x="95" y="97" width="410" height="520" rx="8" fill="${COLORS.line}" />
-  `;
+  const checkpoints = [0, 3, 7];
+  const photos = await Promise.all(checkpoints.map((index) => sharp(getStepImagePath(recipe, index))
+    .resize(890, 310, { fit: 'cover', position: 'centre' })
+    .png()
+    .toBuffer()));
+  const positions = [225, 550, 875];
+  const labels = checkpoints.map((index) => `STEP ${index + 1} · ${recipe.steps[index].title.toUpperCase()}`);
   const foreground = `
-    <text x="555" y="150" fill="${COLORS.accent}" font-family="Arial" font-size="26" font-weight="700" letter-spacing="0">STEP MAP</text>
-    ${textBlock({ text: recipe.title, x: 555, y: 218, size: 54, lineHeight: 62, weight: 700, maxChars: 14, maxLines: 4 })}
-    ${textBlock({ text: `${recipe.difficulty} | ${recipe.timeMinutes} minutes | ${recipe.hub.replaceAll('-', ' ')}`, x: 555, y: 500, size: 24, lineHeight: 31, color: COLORS.muted, family: 'Arial', maxChars: 29, maxLines: 3 })}
-    <rect x="555" y="595" width="200" height="12" fill="${COLORS.accent}" />
-    ${stepCards}
-    ${swatches}
-    <text x="70" y="1468" fill="${COLORS.muted}" font-family="Arial" font-size="24" letter-spacing="0">AI visualization | huesteps.com</text>
+    <text x="55" y="62" fill="${COLORS.accent}" font-family="Arial" font-size="24" font-weight="700">SAME FACE · REAL PROGRESSION</text>
+    ${textBlock({ text: recipe.title, x: 55, y: 126, size: 54, lineHeight: 58, weight: 700, maxChars: 30, maxLines: 2 })}
+    ${positions.map((top, index) => `
+      <rect x="55" y="${top}" width="890" height="310" rx="8" fill="none" stroke="${COLORS.line}" stroke-width="2" />
+      <rect x="55" y="${top}" width="890" height="52" rx="8" fill="${COLORS.deep}" fill-opacity="0.84" />
+      ${textBlock({ text: labels[index], x: 77, y: top + 35, size: 21, lineHeight: 25, color: COLORS.white, family: 'Arial', weight: 700, maxChars: 58, maxLines: 1 })}
+    `).join('')}
+    <rect x="0" y="1210" width="1000" height="290" fill="${COLORS.deep}" />
+    <text x="58" y="1290" fill="#7DA1FF" font-family="Arial" font-size="24" font-weight="700">1 → 4 → 8</text>
+    <text x="58" y="1360" fill="${COLORS.white}" font-family="Arial Narrow, Arial" font-size="54" font-weight="700">SEE EVERY CUMULATIVE STEP</text>
+    <text x="58" y="1424" fill="#C4C8CE" font-family="Arial" font-size="27">${recipe.timeMinutes} minutes · ${escapeXml(recipe.finish)} finish</text>
+    <text x="58" y="1470" fill="#9DA3AA" font-family="Arial" font-size="18">AI-assisted visual · huesteps.com</text>
   `;
-  return sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
-    .composite([{ input: svg(background), top: 0, left: 0 }, { input: hero, top: 97, left: 95 }, { input: svg(foreground), top: 0, left: 0 }])
-    .png({ compressionLevel: 9, quality: 90 })
-    .toFile(path.join(pinsDir, `${recipe.slug}-steps.png`));
+  const photoComposites = photos.map((input, index) => ({ input, top: positions[index], left: 55 }));
+  return writePng(
+    sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
+      .composite([...photoComposites, { input: svg(foreground), top: 0, left: 0 }]),
+    path.join(pinsDir, `${recipe.slug}-steps.png`)
+  );
 };
 
-const makeDayOneFinalPin = async (recipe) => {
-  const finalImage = await sharp(getStepImagePath(recipe, 7))
-    .resize(1000, 1040, { fit: 'cover', position: 'centre' })
+const makeFixPin = async (recipe) => {
+  const checkpoint = await sharp(getStepImagePath(recipe, 4))
+    .resize(1000, 860, { fit: 'cover', position: 'centre' })
     .png()
     .toBuffer();
   const overlay = `
-    <rect x="0" y="1010" width="1000" height="30" fill="${COLORS.accent}" />
-    <rect x="0" y="1040" width="1000" height="460" fill="${COLORS.paper}" />
-    <text x="66" y="1110" fill="${COLORS.accent}" font-family="Arial" font-size="25" font-weight="700" letter-spacing="1.2">15-MINUTE TUTORIAL</text>
-    <text x="66" y="1212" fill="${COLORS.ink}" font-family="Arial Narrow, Arial" font-size="86" font-weight="700">NO-MAKEUP</text>
-    <text x="66" y="1296" fill="${COLORS.ink}" font-family="Arial Narrow, Arial" font-size="86" font-weight="700">MAKEUP</text>
-    <text x="68" y="1365" fill="${COLORS.muted}" font-family="Arial" font-size="29">Real skin. Quiet definition. Eight honest steps.</text>
-    <text x="68" y="1435" fill="${COLORS.ink}" font-family="Arial" font-size="27" font-weight="700">SEE THE FULL TUTORIAL</text>
-    <text x="934" y="1435" fill="${COLORS.accent}" font-family="Arial" font-size="27" font-weight="700" text-anchor="end">HUESTEPS.COM</text>
-    <text x="68" y="1478" fill="${COLORS.muted}" font-family="Arial" font-size="18">AI-assisted visual</text>
+    <rect x="0" y="0" width="1000" height="78" fill="${COLORS.deep}" fill-opacity="0.84" />
+    <text x="52" y="51" fill="${COLORS.white}" font-family="Arial" font-size="24" font-weight="700">WHEN THIS LOOK FEELS OFF</text>
+    <rect x="0" y="830" width="1000" height="670" fill="${COLORS.paper}" />
+    <text x="58" y="920" fill="${COLORS.accent}" font-family="Arial" font-size="24" font-weight="700">CORRECT BEFORE YOU ADD MORE</text>
+    ${textBlock({ text: recipe.title, x: 58, y: 1000, size: 60, lineHeight: 66, weight: 700, maxChars: 27, maxLines: 3 })}
+    ${textBlock({ text: 'Fix placement first. Then reassess in front-facing light.', x: 60, y: 1225, size: 30, lineHeight: 37, weight: 700, maxChars: 48, maxLines: 2 })}
+    ${textBlock({ text: 'The tutorial includes the likely cause and exact correction.', x: 60, y: 1310, size: 27, lineHeight: 34, color: COLORS.muted, family: 'Arial', maxChars: 58, maxLines: 2 })}
+    <rect x="58" y="1362" width="360" height="62" rx="6" fill="${COLORS.accent}" />
+    <text x="238" y="1403" fill="${COLORS.white}" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle">OPEN THE 8-STEP FIX</text>
+    <text x="60" y="1470" fill="${COLORS.muted}" font-family="Arial" font-size="18">AI-assisted visual · huesteps.com</text>
   `;
-  return sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
-    .composite([{ input: finalImage, top: 0, left: 0 }, { input: svg(overlay), top: 0, left: 0 }])
-    .png({ compressionLevel: 9, quality: 92 })
-    .toFile(path.join(pinsDir, `${recipe.slug}-final.png`));
+  return writePng(
+    sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
+      .composite([{ input: checkpoint, top: 0, left: 0 }, { input: svg(overlay), top: 0, left: 0 }]),
+    path.join(pinsDir, `${recipe.slug}-fix.png`),
+    92
+  );
 };
 
 const makeDayOneBeforeAfterPin = async (recipe) => {
@@ -187,53 +201,16 @@ const makeDayOneBeforeAfterPin = async (recipe) => {
     <text x="934" y="1442" fill="${COLORS.accent}" font-family="Arial" font-size="27" font-weight="700" text-anchor="end">HUESTEPS.COM</text>
     <text x="68" y="1480" fill="${COLORS.muted}" font-family="Arial" font-size="18">AI-assisted visual</text>
   `;
-  return sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
-    .composite([
-      { input: before, top: 0, left: 0 },
-      { input: after, top: 0, left: 500 },
-      { input: svg(overlay), top: 0, left: 0 }
-    ])
-    .png({ compressionLevel: 9, quality: 92 })
-    .toFile(path.join(pinsDir, `${recipe.slug}-before-after.png`));
-};
-
-const makeDayOneStepsPin = async (recipe) => {
-  const stepIndexes = [1, 3, 5, 7];
-  const photos = await Promise.all(stepIndexes.map((index) => sharp(getStepImagePath(recipe, index))
-    .resize(445, 430, { fit: 'cover', position: 'centre' })
-    .png()
-    .toBuffer()));
-  const labels = ['CORRECT', 'DEFINE', 'FLUSH', 'FINISH'];
-  const positions = [
-    { left: 45, top: 155 },
-    { left: 510, top: 155 },
-    { left: 45, top: 605 },
-    { left: 510, top: 605 }
-  ];
-  const overlay = `
-    <text x="50" y="66" fill="${COLORS.accent}" font-family="Arial" font-size="24" font-weight="700" letter-spacing="1.2">NATURAL NO-MAKEUP MAKEUP</text>
-    <text x="50" y="126" fill="${COLORS.ink}" font-family="Arial Narrow, Arial" font-size="54" font-weight="700">4 VISUAL CHECKPOINTS</text>
-    ${positions.map((position, index) => `
-      <rect x="${position.left}" y="${position.top}" width="445" height="430" rx="8" fill="none" stroke="${COLORS.line}" stroke-width="3" />
-      <circle cx="${position.left + 38}" cy="${position.top + 38}" r="25" fill="${COLORS.accent}" />
-      <text x="${position.left + 38}" y="${position.top + 47}" fill="${COLORS.white}" font-family="Arial" font-size="24" font-weight="700" text-anchor="middle">${index + 1}</text>
-      <rect x="${position.left + 75}" y="${position.top + 15}" width="160" height="46" rx="23" fill="${COLORS.deep}" fill-opacity="0.82" />
-      <text x="${position.left + 155}" y="${position.top + 46}" fill="${COLORS.white}" font-family="Arial" font-size="20" font-weight="700" text-anchor="middle">${labels[index]}</text>
-    `).join('')}
-    <rect x="0" y="1055" width="1000" height="445" fill="${COLORS.deep}" />
-    <text x="58" y="1140" fill="#7DA1FF" font-family="Arial" font-size="25" font-weight="700" letter-spacing="1.2">THE 15-MINUTE METHOD</text>
-    <text x="58" y="1235" fill="${COLORS.white}" font-family="Arial Narrow, Arial" font-size="68" font-weight="700">REAL SKIN STAYS</text>
-    <text x="58" y="1305" fill="${COLORS.white}" font-family="Arial Narrow, Arial" font-size="68" font-weight="700">VISIBLE</text>
-    <text x="60" y="1370" fill="#C4C8CE" font-family="Arial" font-size="27">Pinpoint base · soft lashes · sheer color</text>
-    <text x="60" y="1442" fill="${COLORS.white}" font-family="Arial" font-size="26" font-weight="700">FULL 8-STEP TUTORIAL</text>
-    <text x="940" y="1442" fill="#7DA1FF" font-family="Arial" font-size="26" font-weight="700" text-anchor="end">HUESTEPS.COM</text>
-    <text x="60" y="1480" fill="#9DA3AA" font-family="Arial" font-size="18">AI-assisted visual</text>
-  `;
-  const photoComposites = photos.map((input, index) => ({ input, ...positions[index] }));
-  return sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
-    .composite([...photoComposites, { input: svg(overlay), top: 0, left: 0 }])
-    .png({ compressionLevel: 9, quality: 92 })
-    .toFile(path.join(pinsDir, `${recipe.slug}-steps.png`));
+  return writePng(
+    sharp({ create: { width: W, height: H, channels: 4, background: COLORS.paper } })
+      .composite([
+        { input: before, top: 0, left: 0 },
+        { input: after, top: 0, left: 500 },
+        { input: svg(overlay), top: 0, left: 0 }
+      ]),
+    path.join(pinsDir, `${recipe.slug}-before-after.png`),
+    92
+  );
 };
 
 const makeSocialImage = async (recipe) => {
@@ -249,10 +226,11 @@ const makeSocialImage = async (recipe) => {
     <text x="58" y="432" fill="#C4C8CE" font-family="Arial" font-size="27">eye shape, and skin tone.</text>
     <path d="M58 520h128v4H58z" fill="${COLORS.accent}" />
   `;
-  return sharp({ create: { width: 1200, height: 630, channels: 4, background: COLORS.paper } })
-    .composite([{ input: hero, top: 0, left: 480 }, { input: Buffer.from(`<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">${body}</svg>`), top: 0, left: 0 }])
-    .png({ compressionLevel: 9, quality: 90 })
-    .toFile(path.join(socialDir, 'huesteps-default.png'));
+  return writePng(
+    sharp({ create: { width: 1200, height: 630, channels: 4, background: COLORS.paper } })
+      .composite([{ input: hero, top: 0, left: 480 }, { input: Buffer.from(`<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">${body}</svg>`), top: 0, left: 0 }]),
+    path.join(socialDir, 'huesteps-default.png')
+  );
 };
 
 const recipes = JSON.parse(await readFile(recipesPath, 'utf8'));
@@ -262,22 +240,20 @@ await mkdir(socialDir, { recursive: true });
 
 let generatedPins = 0;
 for (const recipe of recipes) {
+  await makeFinalPin(recipe);
+  await makeStepsPin(recipe);
+  await makeFixPin(recipe);
+  generatedPins += 3;
   if (recipe.slug === DAY_ONE_SLUG) {
-    await makeDayOneFinalPin(recipe);
     await makeDayOneBeforeAfterPin(recipe);
-    await makeDayOneStepsPin(recipe);
-    generatedPins += 3;
-  } else {
-    await makeFinalPin(recipe);
-    await makeStepsPin(recipe);
-    generatedPins += 2;
+    generatedPins += 1;
   }
 }
 
 await makeSocialImage(recipes.find((recipe) => recipe.featured) ?? recipes[0]);
 
 const pinManifest = {
-  version: 1,
+  version: 2,
   identityRegistryVersion: identityRegistry.version,
   records: recipes.map((recipe) => {
     const model = identityRegistry.models[recipe.slug];
@@ -286,21 +262,34 @@ const pinManifest = {
     const destinationBase = `${SITE_URL}/${recipe.hub}/${recipe.slug}/`;
     const variants = [
       {
-        kind: 'final',
+        kind: 'result',
         file: `/pins/${recipe.slug}-final.png`,
-        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=final`
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=result-v2`,
+        pinTitle: recipe.title,
+        pinDescription: `${recipe.directAnswer} Follow the same model through all eight cumulative steps.`
       },
       {
-        kind: 'steps',
+        kind: 'progress',
         file: `/pins/${recipe.slug}-steps.png`,
-        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=steps`
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=progress-148-v2`,
+        pinTitle: `${recipe.title}: steps 1, 4 and 8`,
+        pinDescription: `See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial.`
+      },
+      {
+        kind: 'fix',
+        file: `/pins/${recipe.slug}-fix.png`,
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=fix-placement-v2`,
+        pinTitle: `${recipe.title}: how to fix the most common mistake`,
+        pinDescription: `${recipe.commonMistakes[0].problem} Likely cause: ${recipe.commonMistakes[0].cause} Fix: ${recipe.commonMistakes[0].fix}`
       }
     ];
     if (recipe.slug === DAY_ONE_SLUG) {
       variants.push({
         kind: 'before-after',
         file: `/pins/${recipe.slug}-before-after.png`,
-        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=before-after`
+        destinationUrl: `${destinationBase}?utm_source=pinterest&utm_medium=social&utm_campaign=${recipe.slug}&utm_content=before-after-v2`,
+        pinTitle: 'Natural no-makeup makeup: honest before and after',
+        pinDescription: 'The same face, light, crop and expression before and after a cumulative eight-step no-makeup makeup tutorial.'
       });
     }
 

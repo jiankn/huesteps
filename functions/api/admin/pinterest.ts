@@ -1,5 +1,6 @@
 import {
   constantTimeEqual,
+  ensurePinterestEngagementSchema,
   errorResponse,
   jsonResponse,
   type AnalyticsEnv,
@@ -30,6 +31,11 @@ interface TrendRow {
 interface BreakdownRow {
   value?: string;
   unique_ips?: number;
+  sessions?: number;
+}
+
+interface EngagementRow {
+  event_name?: string;
   sessions?: number;
 }
 
@@ -161,6 +167,13 @@ export const onRequestGet: PagesHandler<AnalyticsEnv> = async ({ request, env })
   const comparisonEnd = range === 'year' ? period.currentEnd : period.previousEnd;
   const scanStart = range === 'year' ? period.currentStart : period.previousStart;
 
+  try {
+    await ensurePinterestEngagementSchema(env.ANALYTICS_DB);
+  } catch (error) {
+    console.error('Pinterest engagement schema initialization failed.', error);
+    return errorResponse('analytics_unavailable', 'Pinterest analytics is temporarily unavailable.', 503, true);
+  }
+
   const metricsStatement = env.ANALYTICS_DB.prepare(
     `SELECT
        COUNT(DISTINCT CASE WHEN occurred_at >= ? AND occurred_at < ? THEN visitor_hash END) AS unique_ips,
@@ -216,6 +229,13 @@ export const onRequestGet: PagesHandler<AnalyticsEnv> = async ({ request, env })
      WHERE occurred_at >= ? AND occurred_at < ?`,
   ).bind(monthPeriod.currentStart, monthPeriod.currentEnd);
 
+  const engagementStatement = env.ANALYTICS_DB.prepare(
+    `SELECT event_name, COUNT(DISTINCT session_hash) AS sessions
+     FROM pinterest_engagement_events
+     WHERE occurred_at >= ? AND occurred_at < ?
+     GROUP BY event_name`,
+  ).bind(period.currentStart, period.currentEnd);
+
   try {
     const results = await env.ANALYTICS_DB.batch([
       metricsStatement,
@@ -226,18 +246,28 @@ export const onRequestGet: PagesHandler<AnalyticsEnv> = async ({ request, env })
       breakdown('country'),
       breakdown('device'),
       monthStatement,
+      engagementStatement,
     ]);
 
     const metrics = (results[0].results?.[0] ?? {}) as CountRow;
     const realtime = (results[1].results?.[0] ?? {}) as Record<string, unknown>;
     const trendRows = (results[2].results ?? []) as unknown as TrendRow[];
     const month = (results[7].results?.[0] ?? {}) as CountRow;
+    const engagementRows = (results[8].results ?? []) as unknown as EngagementRow[];
     const uniqueIps = numberValue(metrics.unique_ips);
     // Pseudonymous event identifiers are retained for 400 days. That is enough for
     // every matched comparison except year over year, so do not expose a partial
     // prior-year count as if it were comparable.
     const previousUniqueIps = range === 'year' ? 0 : numberValue(metrics.previous_unique_ips);
     const sessions = numberValue(metrics.sessions);
+    const engagementCounts = new Map(
+      engagementRows.map((row) => [String(row.event_name ?? ''), numberValue(row.sessions)]),
+    );
+    const tutorialStarts = engagementCounts.get('tutorial_started') ?? 0;
+    const step4Reached = engagementCounts.get('step_4_reached') ?? 0;
+    const completions = engagementCounts.get('tutorial_completed') ?? 0;
+    const percent = (value: number, denominator: number): number | null =>
+      denominator > 0 ? (value / denominator) * 100 : null;
     const currentMonth = numberValue(month.unique_ips);
     const changePct = previousUniqueIps > 0 ? ((uniqueIps - previousUniqueIps) / previousUniqueIps) * 100 : null;
 
@@ -278,6 +308,18 @@ export const onRequestGet: PagesHandler<AnalyticsEnv> = async ({ request, env })
           last5: numberValue(realtime.last5),
           last15: numberValue(realtime.last15),
           last60: numberValue(realtime.last60),
+        },
+        engagement: {
+          landings: sessions,
+          tutorialStarts,
+          step4Reached,
+          completions,
+          fixesOpened: engagementCounts.get('fix_opened') ?? 0,
+          relatedClicks: engagementCounts.get('related_recipe_clicked') ?? 0,
+          resumes: engagementCounts.get('progress_resumed') ?? 0,
+          startRate: percent(tutorialStarts, sessions),
+          midpointRate: percent(step4Reached, tutorialStarts),
+          completionRate: percent(completions, tutorialStarts),
         },
         trend: trendRows.map((row) => ({
           bucket: String(row.bucket ?? ''),

@@ -35,21 +35,203 @@ interface TutorialStepData {
 interface Props {
   steps: TutorialStepData[];
   title?: string;
+  recipeSlug: string;
 }
 
-const { steps, title = 'Follow the steps' } = Astro.props;
+const { steps, recipeSlug, title = 'Follow the steps' } = Astro.props;
 ---
 
-<section id="steps" class="tutorial-section" tabindex="-1" aria-labelledby="tutorial-steps-title">
+<section id="steps" class="tutorial-section" tabindex="-1" aria-labelledby="tutorial-steps-title" data-tutorial-root data-recipe-slug={recipeSlug} data-step-total={steps.length}>
   <header class="tutorial-heading">
-    <h2 id="tutorial-steps-title">{title}</h2>
-    <p>Step 1 of {steps.length}</p>
+    <div class="tutorial-heading-row">
+      <h2 id="tutorial-steps-title">{title}</h2>
+      <p data-progress-copy aria-live="polite">0 of {steps.length} complete</p>
+    </div>
+    <div class="tutorial-progress-track" role="progressbar" aria-label="Tutorial completion" aria-valuemin="0" aria-valuemax={steps.length} aria-valuenow="0">
+      <span data-progress-bar></span>
+    </div>
+    <button class="resume-tutorial" type="button" data-resume-tutorial hidden>
+      Continue from step <span data-resume-step>1</span>
+    </button>
   </header>
 
   <ol class="tutorial-list" aria-label={`${title}: ${steps.length} steps`}>
     {steps.map((step, index) => <TutorialStep step={step} index={index} total={steps.length} />)}
   </ol>
 </section>
+
+<script>
+  const ROOT_SELECTOR = '[data-tutorial-root]';
+  const ACTIVE_ATTRIBUTION_KEY = 'huesteps:pinterest:active';
+
+  interface PinterestAttribution {
+    sessionId?: string;
+    landingPath?: string;
+    utmContent?: string;
+    startedAt?: number;
+  }
+
+  const readAttribution = (): PinterestAttribution | null => {
+    try {
+      const raw = sessionStorage.getItem(ACTIVE_ATTRIBUTION_KEY);
+      if (!raw) return null;
+      const value = JSON.parse(raw) as PinterestAttribution;
+      if (!value.sessionId || !/^[A-Za-z0-9_-]{16,128}$/.test(value.sessionId)) return null;
+      if (value.startedAt && Date.now() - value.startedAt > 6 * 60 * 60 * 1000) return null;
+      return value;
+    } catch {
+      return null;
+    }
+  };
+
+  const trackEngagement = (eventName: string, recipeSlug: string, stepNumber?: number) => {
+    const attribution = readAttribution();
+    if (!attribution?.sessionId) return;
+
+    const eventKey = `huesteps:pinterest:event:${attribution.sessionId}:${recipeSlug}:${eventName}:${stepNumber ?? 0}`;
+    try {
+      if (sessionStorage.getItem(eventKey)) return;
+      sessionStorage.setItem(eventKey, '1');
+    } catch {
+      // Measurement remains optional when storage is unavailable.
+    }
+
+    const body = JSON.stringify({
+      eventName,
+      recipeSlug,
+      stepNumber,
+      sessionId: attribution.sessionId,
+      landingPath: attribution.landingPath,
+      currentPath: window.location.pathname,
+      utmContent: attribution.utmContent
+    });
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/pinterest/engage', new Blob([body], { type: 'application/json' }));
+      return;
+    }
+    void fetch('/api/pinterest/engage', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body,
+      keepalive: true,
+      credentials: 'same-origin'
+    }).catch(() => {});
+  };
+
+  document.querySelectorAll<HTMLElement>(ROOT_SELECTOR).forEach((root) => {
+    const recipeSlug = root.dataset.recipeSlug ?? '';
+    const total = Number(root.dataset.stepTotal ?? 0);
+    if (!recipeSlug || !Number.isInteger(total) || total < 1) return;
+
+    const storageKey = `huesteps:tutorial:${recipeSlug}`;
+    const stepItems = [...root.querySelectorAll<HTMLElement>('[data-tutorial-step]')];
+    const progressCopy = root.querySelector<HTMLElement>('[data-progress-copy]');
+    const progressBar = root.querySelector<HTMLElement>('[data-progress-bar]');
+    const progressTrack = root.querySelector<HTMLElement>('[role="progressbar"]');
+    const resumeButton = root.querySelector<HTMLButtonElement>('[data-resume-tutorial]');
+    const resumeStepCopy = root.querySelector<HTMLElement>('[data-resume-step]');
+    const completed = new Set<number>();
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
+      if (Array.isArray(saved)) {
+        saved.forEach((value) => {
+          const step = Number(value);
+          if (Number.isInteger(step) && step >= 1 && step <= total) completed.add(step);
+        });
+      }
+    } catch {
+      // Corrupt or blocked local storage should not affect the tutorial.
+    }
+
+    const nextIncomplete = () => stepItems.find((item) => !completed.has(Number(item.dataset.stepNumber)));
+
+    const render = () => {
+      stepItems.forEach((item) => {
+        const step = Number(item.dataset.stepNumber);
+        const isComplete = completed.has(step);
+        item.classList.toggle('is-complete', isComplete);
+        const button = item.querySelector<HTMLButtonElement>('[data-step-complete]');
+        if (button) {
+          button.setAttribute('aria-pressed', String(isComplete));
+          const label = button.querySelector('span');
+          if (label) label.textContent = isComplete ? 'Completed' : 'Mark complete';
+        }
+      });
+
+      const count = completed.size;
+      if (progressCopy) progressCopy.textContent = count === total ? 'Tutorial complete' : `${count} of ${total} complete`;
+      if (progressBar) progressBar.style.width = `${Math.round((count / total) * 100)}%`;
+      progressTrack?.setAttribute('aria-valuenow', String(count));
+
+      const next = nextIncomplete();
+      if (resumeButton && resumeStepCopy) {
+        resumeButton.hidden = count === 0 || !next;
+        if (next) resumeStepCopy.textContent = next.dataset.stepNumber ?? '1';
+      }
+    };
+
+    if (completed.size > 0 && completed.size < total) trackEngagement('progress_resumed', recipeSlug);
+    render();
+
+    try {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        trackEngagement('tutorial_started', recipeSlug);
+        observer.disconnect();
+      }, { threshold: 0.18 });
+      observer.observe(root);
+    } catch {
+      // The tutorial remains fully usable without IntersectionObserver.
+    }
+
+    resumeButton?.addEventListener('click', () => {
+      const next = nextIncomplete();
+      next?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+      next?.querySelector<HTMLButtonElement>('[data-step-complete]')?.focus({ preventScroll: true });
+    });
+
+    stepItems.forEach((item) => {
+      const step = Number(item.dataset.stepNumber);
+      const completeButton = item.querySelector<HTMLButtonElement>('[data-step-complete]');
+      const fixButton = item.querySelector<HTMLButtonElement>('[data-step-fix]');
+      const details = item.querySelector<HTMLDetailsElement>('[data-step-details]');
+      const fixTarget = item.querySelector<HTMLElement>('[data-fix-target]');
+
+      completeButton?.addEventListener('click', () => {
+        if (completed.has(step)) completed.delete(step);
+        else {
+          completed.add(step);
+          trackEngagement('step_completed', recipeSlug, step);
+          if (step === 4) trackEngagement('step_4_reached', recipeSlug, step);
+          if (completed.size === total) trackEngagement('tutorial_completed', recipeSlug, step);
+        }
+        try {
+          localStorage.setItem(storageKey, JSON.stringify([...completed].sort((a, b) => a - b)));
+        } catch {
+          // Progress still works for this page view when storage is unavailable.
+        }
+        render();
+      });
+
+      fixButton?.addEventListener('click', () => {
+        if (details) details.open = true;
+        fixButton.setAttribute('aria-expanded', 'true');
+        trackEngagement('fix_opened', recipeSlug, step);
+        requestAnimationFrame(() => fixTarget?.focus({ preventScroll: false }));
+      });
+
+      details?.addEventListener('toggle', () => {
+        fixButton?.setAttribute('aria-expanded', String(details.open));
+      });
+    });
+
+    document.querySelectorAll<HTMLAnchorElement>('#related a[href]').forEach((link) => {
+      link.addEventListener('click', () => trackEngagement('related_recipe_clicked', recipeSlug));
+    });
+  });
+</script>
 
 <style>
   .tutorial-section {
@@ -59,13 +241,18 @@ const { steps, title = 'Follow the steps' } = Astro.props;
   }
 
   .tutorial-heading {
+    display: grid;
+    gap: 0.65rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tutorial-heading-row {
     display: flex;
     align-items: end;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.65rem;
-    border-bottom: 1px solid var(--border);
   }
 
   .tutorial-heading h2 {
@@ -75,12 +262,52 @@ const { steps, title = 'Follow the steps' } = Astro.props;
     text-wrap: balance;
   }
 
-  .tutorial-heading p {
+  .tutorial-heading-row p {
     flex: 0 0 auto;
     margin: 0;
     color: var(--text);
     font-size: 0.85rem;
     font-variant-numeric: tabular-nums;
+  }
+
+  .tutorial-progress-track {
+    height: 0.3rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--surface-strong);
+  }
+
+  .tutorial-progress-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .resume-tutorial {
+    width: fit-content;
+    min-height: 2.55rem;
+    padding-inline: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.3rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 670;
+    cursor: pointer;
+  }
+
+  .resume-tutorial:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .resume-tutorial:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--focus) 42%, transparent);
+    outline-offset: 2px;
   }
 
   .tutorial-list {
@@ -93,15 +320,20 @@ const { steps, title = 'Follow the steps' } = Astro.props;
   }
 
   @media (max-width: 47.99rem) {
-    .tutorial-heading {
+    .tutorial-heading-row {
       display: grid;
       gap: 0.25rem;
       align-items: start;
-      margin-bottom: 1rem;
     }
 
     .tutorial-heading h2 {
       font-size: clamp(2rem, 10vw, 2.65rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tutorial-progress-track span {
+      transition: none;
     }
   }
 </style>

@@ -113,8 +113,10 @@ const enablePinterestTracking = !noindex && !deployPreview;
           }
           const sessionKey = `huesteps:pinterest:${(landingHash >>> 0).toString(36)}`;
           let sessionId;
+          let isNewLanding = true;
           try {
-            if (sessionStorage.getItem(sessionKey)) return;
+            sessionId = sessionStorage.getItem(sessionKey) ?? undefined;
+            isNewLanding = !sessionId;
           } catch {
             // Browsers may disable sessionStorage; tracking can still proceed once for this load.
           }
@@ -127,9 +129,27 @@ const enablePinterestTracking = !noindex && !deployPreview;
 
           try {
             sessionStorage.setItem(sessionKey, sessionId);
+            const existingRaw = sessionStorage.getItem('huesteps:pinterest:active');
+            let existingStartedAt;
+            try {
+              const existing = existingRaw ? JSON.parse(existingRaw) : undefined;
+              if (existing?.sessionId === sessionId && Number.isFinite(existing.startedAt)) existingStartedAt = existing.startedAt;
+            } catch {
+              existingStartedAt = undefined;
+            }
+            sessionStorage.setItem('huesteps:pinterest:active', JSON.stringify({
+              sessionId,
+              landingPath: path,
+              utmCampaign,
+              utmContent,
+              pinId,
+              startedAt: existingStartedAt ?? Date.now()
+            }));
           } catch {
             // The server still receives a valid ephemeral session ID when storage is unavailable.
           }
+
+          if (!isNewLanding) return;
 
           const payload = JSON.stringify({
             path,

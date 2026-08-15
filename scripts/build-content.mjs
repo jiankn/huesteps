@@ -367,6 +367,69 @@ const seeds = [
   }
 ];
 
+const FLAGSHIP_WHY_IT_WORKS = {
+  'soft-glam-wedding-guest-makeup': [
+    'A settled, non-slippery base keeps thin satin layers from separating through a long event.',
+    'Correcting only uneven zones preserves dimension, so flash photography does not flatten the face.',
+    'A lighter brow front frames the eyes without adding another hard feature beside the rose-taupe shadow.',
+    'Taupe supplies structure while muted rose catches light below it, keeping the eye polished rather than smoky.',
+    'Definition at the lash roots reads clearly in photos without turning into a visible wing.',
+    'High, rearward berry placement balances the lifted outer eye and keeps color away from the under-eye.',
+    'Repeating berry on the lips connects the face palette without competing with the satin lid.',
+    'Selective setting controls transfer while leaving enough reflection for the intended soft-satin finish.'
+  ],
+  'holiday-party-shimmer-makeup': [
+    'A tacky lid base grips reflective particles, which is more effective against fallout than adding extra powder later.',
+    'Completing and cleaning the eyes first prevents loose gold shimmer from becoming trapped under complexion layers.',
+    'A defined but soft brow tail gives the cranberry outer eye a clear endpoint without boxing in the brow front.',
+    'Matte cranberry creates depth around the gold, so the shimmer looks dimensional instead of covering the entire eye.',
+    'Espresso between the lashes separates the cranberry from the eye itself and prevents a sore-looking red rim.',
+    'Sheer berry high on the cheek repeats the color story without making the whole face equally intense.',
+    'Blotting the berry lip preserves its depth while lowering opacity enough to share focus with the gold eye.',
+    'The final cleanup removes stray reflection first; adding more shimmer would only widen the focal area.'
+  ],
+  'soft-glam-hooded-eyes': [
+    'A thin, dry base keeps the fold from transferring product while leaving the true open-eye landmarks visible.',
+    'Mapping transition color slightly above the fold creates a visible gradient when the mobile lid is hidden.',
+    'Depth placed from the outer lash line upward builds lift without filling the limited visible lid space.',
+    'Pressing the focal shade below the mapped transition preserves both light and structure with the eye open.',
+    'A narrow root-level line thickens the lashes without consuming the visible lid area.',
+    'A softer outer-lower echo connects the upper shape while keeping the inner eye open.',
+    'Separated lashes reveal the gradient behind them; a heavy coat would cover the small visible color zones.',
+    'The straight-ahead check tests the hooded-eye result in its real resting position, not only with the lid raised.'
+  ],
+  'rich-berry-gold-makeup-deep-skin': [
+    'A smooth, settled surface lets saturated berry and gold remain clear instead of mixing into excess base slip.',
+    'Thin complexion correction preserves natural depth variation, which keeps the rich colors connected to the skin.',
+    'Defined gaps and a soft brow front support the stronger palette without making the upper face visually heavy.',
+    'Deep berry supplies contrast around the eye while warm gold reflects light without turning pale or ashy.',
+    'Root-level depth gives the saturated shadow a clean anchor and keeps the eye shape readable.',
+    'Berry placed high and sheer repeats the eye color while allowing the complexion to retain dimension.',
+    'A controlled berry lip completes the color family; blotting prevents it from overwhelming the gold focal point.',
+    'Checking for ashiness and overloaded edges protects color clarity better than adding another saturated layer.'
+  ],
+  'natural-no-makeup-makeup': [
+    'Removing surface slip only where needed lets later correction fuse with skin instead of skating over skincare.',
+    'Pinpoint concealing evens the signals the eye notices first while freckles and perimeter skin preserve believable variation.',
+    'Sparse hairlike strokes strengthen the brow frame without replacing its natural density pattern.',
+    'A translucent taupe veil adds quiet socket structure while remaining too soft to read as obvious eye shadow.',
+    'Color between the lash roots increases apparent density without leaving the visible stripe that would break the no-makeup effect.',
+    'Sheer color placed where the face naturally flushes looks integrated because clean skin remains visible around every edge.',
+    'Center-weighted lip tint evens tone while natural grooves and the true lip boundary remain visible.',
+    'A conversational-distance review catches any product that reads separately, which is the correct stopping test for this look.'
+  ],
+  'natural-makeup-mature-skin': [
+    'Allowing thin moisturizer layers to settle reduces movement, so flexible makeup can sit over texture instead of collecting in it.',
+    'Pressing coverage only onto uneven areas limits the product available to settle into expression lines.',
+    'Fine strokes restore missing brow structure while soft gel keeps the hairs flexible rather than lacquered.',
+    'Taupe above the fold and smooth satin at the center create dimension without relying on coarse sparkle or a dark crease.',
+    'Definition between the upper lashes strengthens the eye while avoiding a thick line that can look heavy on textured lids.',
+    'Cream color above the natural hollow brings life back to the face without emphasizing a dry powder edge.',
+    'A thin rose layer ties lips to cheeks while preserving comfortable movement and natural lip texture.',
+    'Targeted powder controls transfer at crease-prone points without removing the flexible satin finish elsewhere.'
+  ]
+};
+
 // These are the existing v1 target-area guides. Keep this list explicit so a
 // newly added recipe cannot silently ship generated crops as finished step art.
 // Semantic approval of progressive assets is tracked separately in
@@ -718,7 +781,7 @@ const makeDetailedStep = (seed, index, step) => {
     motion: step.motion,
     amount: step.amount,
     durationSeconds: step.durationSeconds,
-    whyItWorks: normalizeSentence(step.whyItWorks ?? ('Keeping ' + lowerFirst(step.productRole) + ' at ' + step.placement + ' directly supports this tutorial goal: ' + lowerFirst(seed.intent))),
+    whyItWorks: normalizeSentence(step.whyItWorks ?? guidance.whyItWorks ?? FLAGSHIP_WHY_IT_WORKS[seed.id]?.[index] ?? ('Keeping ' + lowerFirst(step.productRole) + ' at ' + step.placement + ' directly supports this tutorial goal: ' + lowerFirst(seed.intent))),
     completeWhen: normalizeSentence(step.completeWhen ?? outcome),
     ifWrong: normalizeSentence(step.ifWrong ?? guidance.ifWrong ?? mistake[2]),
     proTip: normalizeSentence(step.proTip ?? guidance.proTip ?? (adjustment[0] + ': ' + adjustment[1])),

@@ -106,6 +106,23 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
           <article class="realtime-metric"><p>Active IPs · 60 min</p><strong id="active-60">...</strong><span>Rolling window</span></article>
         </section>
 
+        <section class="engagement-panel" aria-labelledby="engagement-title">
+          <div class="section-heading">
+            <div><h2 id="engagement-title">Tutorial funnel</h2><p>Distinct Pinterest sessions reaching each follow-along milestone</p></div>
+          </div>
+          <ol class="funnel-list">
+            <li><span>Landing</span><strong id="funnel-landings">...</strong><small>100%</small></li>
+            <li><span>Started</span><strong id="funnel-started">...</strong><small id="funnel-start-rate">...</small></li>
+            <li><span>Step 4</span><strong id="funnel-midpoint">...</strong><small id="funnel-midpoint-rate">...</small></li>
+            <li><span>Completed</span><strong id="funnel-completed">...</strong><small id="funnel-completion-rate">...</small></li>
+          </ol>
+          <div class="engagement-signals">
+            <span><b id="fixes-opened">...</b> used a step fix</span>
+            <span><b id="progress-resumed">...</b> resumed progress</span>
+            <span><b id="related-clicks">...</b> opened a related recipe</span>
+          </div>
+        </section>
+
         <section class="trend-panel" aria-labelledby="trend-title">
           <div class="section-heading">
             <div><h2 id="trend-title">Traffic trend</h2><p id="trend-caption">Deduplicated within each bucket; bucket values must not be summed.</p></div>
@@ -214,6 +231,7 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
             metrics: { uniqueIps, previousUniqueIps: Math.round(uniqueIps / 1.184), changePct: 18.4, sessions: Math.round(uniqueIps * 1.19) },
             goal: { target: 100000, current: 68420, progressPct: 68.42, remaining: 31580, requiredDaily: 1755, forecast: 93400 },
             realtime: { last5: 72, last15: 184, last60: 718 }, trend,
+            engagement: { landings: Math.round(uniqueIps * 1.19), tutorialStarts: Math.round(uniqueIps * .71), step4Reached: Math.round(uniqueIps * .39), completions: Math.round(uniqueIps * .18), fixesOpened: Math.round(uniqueIps * .14), relatedClicks: Math.round(uniqueIps * .09), resumes: Math.round(uniqueIps * .12), startRate: 59.7, midpointRate: 54.9, completionRate: 25.4 },
             breakdowns: {
               landingPages: rows([['/everyday-makeup/5-minute-everyday-makeup/', .29], ['/eye-shape-makeup/soft-glam-hooded-eyes/', .22], ['/skin-tone-undertone/warm-peach-fair-skin/', .17], ['/occasion-makeup/date-night/', .12], ['Other pages', .2]]),
               contents: rows([['soft-glam-closeup-v3', .31], ['everyday-routine-checklist', .24], ['hooded-eyes-before-after', .18], ['warm-peach-step-guide', .14], ['Other / untagged', .13]]),
@@ -302,6 +320,19 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
           $('#active-15').textContent = formatNumber.format(data.realtime?.last15);
           $('#active-60').textContent = formatNumber.format(data.realtime?.last60);
 
+          const engagement = data.engagement || {};
+          const formatRate = (value) => Number.isFinite(Number(value)) ? `${Number(value).toFixed(1)}%` : 'No data';
+          $('#funnel-landings').textContent = formatNumber.format(engagement.landings);
+          $('#funnel-started').textContent = formatNumber.format(engagement.tutorialStarts);
+          $('#funnel-midpoint').textContent = formatNumber.format(engagement.step4Reached);
+          $('#funnel-completed').textContent = formatNumber.format(engagement.completions);
+          $('#funnel-start-rate').textContent = formatRate(engagement.startRate);
+          $('#funnel-midpoint-rate').textContent = formatRate(engagement.midpointRate);
+          $('#funnel-completion-rate').textContent = formatRate(engagement.completionRate);
+          $('#fixes-opened').textContent = formatNumber.format(engagement.fixesOpened);
+          $('#progress-resumed').textContent = formatNumber.format(engagement.resumes);
+          $('#related-clicks').textContent = formatNumber.format(engagement.relatedClicks);
+
           renderTrend(data.trend || []);
           $$('.breakdown-panel').forEach((panel) => renderBreakdown($('.breakdown-table', panel), data.breakdowns?.[panel.dataset.key] || []));
         }
@@ -387,7 +418,7 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
       body { min-width: 320px; margin: 0; background: var(--canvas); font-family: inherit; line-height: 1.45; }
       button, input { font: inherit; }
       button { color: inherit; }
-      button:focus-visible, input:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 32%, transparent); outline-offset: 2px; }
+      button:focus-visible, input:focus-visible, .skip-link:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 32%, transparent); outline-offset: 2px; }
       [hidden] { display: none !important; }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
       .skip-link { position: fixed; z-index: 20; top: 8px; left: 8px; padding: 8px 12px; background: var(--ink); color: #fff; transform: translateY(-140%); }
@@ -467,6 +498,16 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
       .metric-strip .metric-change.up { color: var(--green); }
       .metric-strip .metric-change.down { color: var(--red); }
       .info-dot { display: inline-grid; width: 17px; height: 17px; padding: 0; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--muted); font-size: .63rem; cursor: help; }
+      .engagement-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+      .funnel-list { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0 22px 18px; list-style: none; }
+      .funnel-list li { position: relative; display: grid; min-width: 0; gap: 5px; padding: 17px 22px; border-top: 3px solid var(--blue); background: var(--blue-soft); }
+      .funnel-list li + li { margin-left: 7px; }
+      .funnel-list li + li::before { position: absolute; left: -7px; top: 50%; width: 7px; height: 1px; background: var(--blue); content: ''; }
+      .funnel-list span { color: var(--muted); font-size: .7rem; }
+      .funnel-list strong { font-size: 1.35rem; line-height: 1; letter-spacing: -.03em; }
+      .funnel-list small { color: var(--blue-dark); font-size: .68rem; font-weight: 650; }
+      .engagement-signals { display: flex; flex-wrap: wrap; gap: 8px 24px; padding: 14px 22px; border-top: 1px solid var(--line-soft); color: var(--muted); font-size: .72rem; }
+      .engagement-signals b { color: var(--ink); }
       .trend-panel, .breakdown-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
       .section-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding: 20px 22px 14px; }
       .section-heading h2 { margin: 0 0 3px; }
@@ -515,6 +556,9 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
         .goal-forecast { border-top: 1px solid #35445e; border-left: 0; }
         .metric-strip { grid-template-columns: 1fr 1fr repeat(3, .75fr); }
         .metric-strip article { padding-inline: 16px; }
+        .funnel-list { grid-template-columns: 1fr 1fr; gap: 7px; }
+        .funnel-list li + li { margin-left: 0; }
+        .funnel-list li + li::before { display: none; }
         .breakdowns { grid-template-columns: 1fr; }
       }
       @media (max-width: 720px) {
@@ -532,6 +576,7 @@ const description = 'Private HueSteps dashboard for monitoring Pinterest-attribu
         .metric-strip article:nth-child(-n+2) { border-bottom: 1px solid var(--line-soft); }
         .realtime-metric { padding-block: 17px !important; }
         .metric-strip .realtime-metric:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line-soft); }
+        .funnel-list { padding-inline: 15px; }
         .chart-wrap { height: 235px; padding-inline: 10px; }
         .table-head, .table-row { grid-template-columns: minmax(0, 1fr) 76px 70px; gap: 8px; }
         .method-note { display: grid; gap: 5px; }

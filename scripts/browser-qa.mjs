@@ -120,7 +120,19 @@ const cases = [
     reducedMotion: false,
     selector: '#steps',
   },
+  {
+    name: 'tutorial-interaction-375-light',
+    path: '/eye-shape-makeup/soft-glam-hooded-eyes/',
+    width: 375,
+    height: 812,
+    colorScheme: 'light',
+    reducedMotion: false,
+    selector: '#steps',
+    tutorialInteraction: true,
+  },
   { name: 'trust-375-light', path: '/about/', width: 375, height: 812, colorScheme: 'light', reducedMotion: false },
+  { name: 'admin-demo-375-light', path: '/admin/?demo=1', width: 375, height: 812, colorScheme: 'light', reducedMotion: false },
+  { name: 'admin-demo-1440-light', path: '/admin/?demo=1', width: 1440, height: 900, colorScheme: 'light', reducedMotion: false },
 ];
 
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -281,6 +293,29 @@ try {
       await delay(100);
     }
 
+    let tutorialInteraction = null;
+    if (testCase.tutorialInteraction) {
+      const interaction = await session.send('Runtime.evaluate', {
+        returnByValue: true,
+        expression: `(() => {
+          const root = document.querySelector('[data-tutorial-root]');
+          const firstStep = root?.querySelector('[data-tutorial-step]');
+          const complete = firstStep?.querySelector('[data-step-complete]');
+          const fix = firstStep?.querySelector('[data-step-fix]');
+          complete?.click();
+          fix?.click();
+          const saved = JSON.parse(localStorage.getItem('huesteps:tutorial:soft-glam-hooded-eyes') || '[]');
+          return {
+            progress: root?.querySelector('[data-progress-copy]')?.textContent?.trim(),
+            completed: firstStep?.classList.contains('is-complete') || false,
+            fixOpen: firstStep?.querySelector('[data-step-details]')?.open || false,
+            saved: Array.isArray(saved) && saved.includes(1),
+          };
+        })()`,
+      });
+      tutorialInteraction = interaction.result.value;
+    }
+
     const evaluation = await session.send('Runtime.evaluate', {
       returnByValue: true,
       expression: `(() => {
@@ -359,6 +394,7 @@ try {
     results.push({
       ...testCase,
       ...evaluation.result.value,
+      tutorialInteraction,
       firstTabFocus: focus.result.value,
     });
 
@@ -377,6 +413,12 @@ try {
       result.cls > 0.1 ||
       result.colorSchemeDark !== (result.colorScheme === 'dark') ||
       result.reducedMotionMatches !== result.reducedMotion ||
+      (result.tutorialInteraction && (
+        result.tutorialInteraction.progress !== '1 of 8 complete'
+        || !result.tutorialInteraction.completed
+        || !result.tutorialInteraction.fixOpen
+        || !result.tutorialInteraction.saved
+      )) ||
       Number.parseFloat(result.firstTabFocus.outlineWidth) < 2 ||
       result.firstTabFocus.outlineStyle === 'none',
   );

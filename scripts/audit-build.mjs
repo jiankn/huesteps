@@ -195,11 +195,11 @@ const pinFiles = (await walk(pinsDir)).filter((file) => file.endsWith('.png'));
 const additionalPinVariants = {
   'natural-no-makeup-makeup': ['before-after'],
 };
-const expectedPinCount = recipes.length * 2
+const expectedPinCount = recipes.length * 3
   + Object.values(additionalPinVariants).reduce((total, variants) => total + variants.length, 0);
 if (pinFiles.length !== expectedPinCount) fail.push(`Expected ${expectedPinCount} Pin images for ${recipes.length} recipes, found ${pinFiles.length}.`);
 for (const recipe of recipes) {
-  const variants = ['final', 'steps', ...(additionalPinVariants[recipe.slug] ?? [])];
+  const variants = ['final', 'steps', 'fix', ...(additionalPinVariants[recipe.slug] ?? [])];
   for (const variant of variants) {
     const file = path.join(pinsDir, `${recipe.slug}-${variant}.png`);
     if (!existsSync(file)) fail.push(`Missing Pin image ${recipe.slug}-${variant}.png.`);

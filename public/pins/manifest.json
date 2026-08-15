@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "identityRegistryVersion": 1,
   "records": [
     {
@@ -19,14 +19,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/soft-glam-wedding-guest-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=result-v2",
+          "pinTitle": "Soft Glam Wedding Guest Makeup",
+          "pinDescription": "Choose softly reflective rose on the lid, a diffused taupe crease, and a satin complexion so the look stays polished in daylight and evening photos. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/soft-glam-wedding-guest-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Soft Glam Wedding Guest Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/soft-glam-wedding-guest-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/soft-glam-wedding-guest-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-wedding-guest-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Soft Glam Wedding Guest Makeup: how to fix the most common mistake",
+          "pinDescription": "Shimmer reaches the brow bone Likely cause: The satin shade was blended too high. Fix: Cover the upper edge with matte taupe and keep reflection on the mobile lid."
         }
       ]
     },
@@ -47,14 +58,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/easy-date-night-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=result-v2",
+          "pinTitle": "Easy Date Night Makeup",
+          "pinDescription": "Use cocoa shadow close to the lashes, a rose cream on cheeks and lips, and pinpoint glow rather than a full layer of shimmer. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/easy-date-night-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Easy Date Night Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/easy-date-night-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-date-night-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-date-night-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Easy Date Night Makeup: how to fix the most common mistake",
+          "pinDescription": "The liner looks harsh Likely cause: The pencil set before it was softened. Fix: Work one eye at a time and smudge immediately with a short dense brush."
         }
       ]
     },
@@ -75,14 +97,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/polished-office-makeup-10-minutes-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=result-v2",
+          "pinTitle": "Polished Office Makeup in 10 Minutes",
+          "pinDescription": "Prioritize evenness around the eyes and nose, one matte taupe wash, curled lashes, and a muted cream color shared by cheeks and lips. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/polished-office-makeup-10-minutes-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=progress-148-v2",
+          "pinTitle": "Polished Office Makeup in 10 Minutes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/polished-office-makeup-10-minutes-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/polished-office-makeup-10-minutes/?utm_source=pinterest&utm_medium=social&utm_campaign=polished-office-makeup-10-minutes&utm_content=fix-placement-v2",
+          "pinTitle": "Polished Office Makeup in 10 Minutes: how to fix the most common mistake",
+          "pinDescription": "The base looks patchy Likely cause: Concealer was blended after it dried. Fix: Apply and blend one small zone at a time with a damp sponge."
         }
       ]
     },
@@ -103,14 +136,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/fresh-brunch-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=result-v2",
+          "pinTitle": "Fresh Brunch Makeup",
+          "pinDescription": "Use sheer apricot on cheeks and lips, champagne only at the inner lid, and spot coverage so natural daylight still shows skin texture. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/fresh-brunch-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Fresh Brunch Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/fresh-brunch-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/fresh-brunch-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=fresh-brunch-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Fresh Brunch Makeup: how to fix the most common mistake",
+          "pinDescription": "The complexion looks greasy Likely cause: Dewy product was layered across the T-zone. Fix: Blot the center and keep glow on cheekbones and outer forehead."
         }
       ]
     },
@@ -131,14 +175,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/holiday-party-shimmer-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=result-v2",
+          "pinTitle": "Holiday Party Shimmer Makeup",
+          "pinDescription": "Anchor antique-gold shimmer with a cream base, frame it with matte cranberry, and keep the lower edge clean for an evening look that remains wearable. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/holiday-party-shimmer-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Holiday Party Shimmer Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/holiday-party-shimmer-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/holiday-party-shimmer-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=holiday-party-shimmer-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Holiday Party Shimmer Makeup: how to fix the most common mistake",
+          "pinDescription": "Shimmer falls onto the cheeks Likely cause: A fluffy brush or dry lid was used. Fix: Pick up shimmer with a fingertip and press it over a tacky base before complexion."
         }
       ]
     },
@@ -159,14 +214,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/easy-vacation-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=result-v2",
+          "pinTitle": "Easy Vacation Makeup",
+          "pinDescription": "Use a sheer bronze cream around the eye, coral on cheeks and lips, and spot coverage so the routine stays quick and easy to pack. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/easy-vacation-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Easy Vacation Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/easy-vacation-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/easy-vacation-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-vacation-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Easy Vacation Makeup: how to fix the most common mistake",
+          "pinDescription": "Sunscreen pills under makeup Likely cause: The base was rubbed before sunscreen set. Fix: Wait several minutes, then press makeup on with fingers or a sponge."
         }
       ]
     },
@@ -187,14 +253,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/elegant-dinner-party-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=result-v2",
+          "pinTitle": "Elegant Dinner Party Makeup",
+          "pinDescription": "Build plum depth at the outer lash line, use pewter satin sparingly on the lid, and repeat muted wine on cheeks and lips for a unified result. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/elegant-dinner-party-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Elegant Dinner Party Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/elegant-dinner-party-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/elegant-dinner-party-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=elegant-dinner-party-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Elegant Dinner Party Makeup: how to fix the most common mistake",
+          "pinDescription": "Plum looks bruised Likely cause: It was blended too low without lash definition. Fix: Clean the lower edge and add espresso tightly between upper lashes."
         }
       ]
     },
@@ -215,14 +292,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/natural-job-interview-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=result-v2",
+          "pinTitle": "Natural Job Interview Makeup",
+          "pinDescription": "Even only the areas that need it, define lashes with soft brown, groom brows, and use a muted rose-beige lip that can be reapplied easily. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/natural-job-interview-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Natural Job Interview Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/natural-job-interview-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/occasion-makeup/natural-job-interview-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-job-interview-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Natural Job Interview Makeup: how to fix the most common mistake",
+          "pinDescription": "The base looks mask-like Likely cause: Coverage was carried evenly over the entire face. Fix: Sheer the perimeter with a damp sponge until natural skin shows."
         }
       ]
     },
@@ -243,14 +331,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/soft-glam-hooded-eyes-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=result-v2",
+          "pinTitle": "Soft Glam for Hooded Eyes",
+          "pinDescription": "Map the transition with eyes open, keep shimmer on the visible center lid, and build depth at the outer lash line instead of inside the fold. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/soft-glam-hooded-eyes-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=progress-148-v2",
+          "pinTitle": "Soft Glam for Hooded Eyes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/soft-glam-hooded-eyes-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-glam-hooded-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-glam-hooded-eyes&utm_content=fix-placement-v2",
+          "pinTitle": "Soft Glam for Hooded Eyes: how to fix the most common mistake",
+          "pinDescription": "The gradient disappears Likely cause: All shadow was placed inside the closed-eye crease. Fix: Re-map the transition while looking straight ahead."
         }
       ]
     },
@@ -271,14 +370,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/everyday-makeup-deep-set-eyes-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=result-v2",
+          "pinTitle": "Everyday Makeup for Deep-Set Eyes",
+          "pinDescription": "Use a light satin across the mobile lid, keep medium shadow above rather than inside the socket, and concentrate liner between the lashes. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/everyday-makeup-deep-set-eyes-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=progress-148-v2",
+          "pinTitle": "Everyday Makeup for Deep-Set Eyes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/everyday-makeup-deep-set-eyes-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/everyday-makeup-deep-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=everyday-makeup-deep-set-eyes&utm_content=fix-placement-v2",
+          "pinTitle": "Everyday Makeup for Deep-Set Eyes: how to fix the most common mistake",
+          "pinDescription": "Eyes look more recessed Likely cause: Dark shadow was packed into the socket. Fix: Remove depth with a base-colored matte and brighten the lid."
         }
       ]
     },
@@ -299,14 +409,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/elongated-eye-makeup-round-eyes-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=result-v2",
+          "pinTitle": "Elongated Eye Makeup for Round Eyes",
+          "pinDescription": "Pull mid-tone shadow outward from the outer iris, keep the inner lid bright, and place mascara toward the outer lashes to create length. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/elongated-eye-makeup-round-eyes-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=progress-148-v2",
+          "pinTitle": "Elongated Eye Makeup for Round Eyes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/elongated-eye-makeup-round-eyes-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/elongated-eye-makeup-round-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=elongated-eye-makeup-round-eyes&utm_content=fix-placement-v2",
+          "pinTitle": "Elongated Eye Makeup for Round Eyes: how to fix the most common mistake",
+          "pinDescription": "The eye looks rounder Likely cause: Dark color circles the entire lash line. Fix: Remove inner lower shadow and focus definition from the outer iris outward."
         }
       ]
     },
@@ -327,14 +448,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/soft-shimmer-makeup-monolids-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=result-v2",
+          "pinTitle": "Soft Shimmer Makeup for Monolids",
+          "pinDescription": "Blend depth upward from the lash roots, press shimmer at the center of the visible lid, and keep the upper edge softly diffused. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/soft-shimmer-makeup-monolids-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=progress-148-v2",
+          "pinTitle": "Soft Shimmer Makeup for Monolids: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/soft-shimmer-makeup-monolids-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/soft-shimmer-makeup-monolids/?utm_source=pinterest&utm_medium=social&utm_campaign=soft-shimmer-makeup-monolids&utm_content=fix-placement-v2",
+          "pinTitle": "Soft Shimmer Makeup for Monolids: how to fix the most common mistake",
+          "pinDescription": "Shimmer disappears Likely cause: It was placed only on the hidden lower lid. Fix: Look forward and press shimmer onto the visible center."
         }
       ]
     },
@@ -355,14 +487,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/lifted-makeup-downturned-eyes-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=result-v2",
+          "pinTitle": "Lifted Makeup for Downturned Eyes",
+          "pinDescription": "Stop shadow before the natural corner drops, lift the endpoint toward the brow tail, and keep the outer lower lash line mostly clean. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/lifted-makeup-downturned-eyes-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=progress-148-v2",
+          "pinTitle": "Lifted Makeup for Downturned Eyes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/lifted-makeup-downturned-eyes-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/lifted-makeup-downturned-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=lifted-makeup-downturned-eyes&utm_content=fix-placement-v2",
+          "pinTitle": "Lifted Makeup for Downturned Eyes: how to fix the most common mistake",
+          "pinDescription": "The wing follows the downturn Likely cause: The line was drawn along the last lashes to their lowest point. Fix: End earlier and place the endpoint with eyes open."
         }
       ]
     },
@@ -383,14 +526,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/balanced-eye-makeup-close-set-eyes-final.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=final"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=result-v2",
+          "pinTitle": "Balanced Eye Makeup for Close-Set Eyes",
+          "pinDescription": "Keep the inner third bright and clean, begin deeper shadow after the pupil, and direct liner and mascara toward the outer half. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/balanced-eye-makeup-close-set-eyes-steps.png",
-          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=progress-148-v2",
+          "pinTitle": "Balanced Eye Makeup for Close-Set Eyes: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/balanced-eye-makeup-close-set-eyes-fix.png",
+          "destinationUrl": "https://huesteps.com/eye-shape-makeup/balanced-eye-makeup-close-set-eyes/?utm_source=pinterest&utm_medium=social&utm_campaign=balanced-eye-makeup-close-set-eyes&utm_content=fix-placement-v2",
+          "pinTitle": "Balanced Eye Makeup for Close-Set Eyes: how to fix the most common mistake",
+          "pinDescription": "Eyes look closer together Likely cause: Dark shadow reaches the inner corner or nose bridge. Fix: Remove inner depth with a clean brush and add skin-tone satin."
         }
       ]
     },
@@ -411,14 +565,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/cool-rosy-makeup-fair-skin-final.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=result-v2",
+          "pinTitle": "Cool Rosy Makeup for Fair Skin",
+          "pinDescription": "Pair a muted cool rose with mushroom taupe, keep blush away from existing facial redness, and choose satin instead of icy shimmer. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/cool-rosy-makeup-fair-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=progress-148-v2",
+          "pinTitle": "Cool Rosy Makeup for Fair Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/cool-rosy-makeup-fair-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/cool-rosy-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=cool-rosy-makeup-fair-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Cool Rosy Makeup for Fair Skin: how to fix the most common mistake",
+          "pinDescription": "Rose looks like irritation Likely cause: Blush sits low and close to the nose. Fix: Lift placement toward the outer upper cheek and soften the inner edge."
         }
       ]
     },
@@ -439,14 +604,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/warm-peach-makeup-fair-skin-final.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=result-v2",
+          "pinTitle": "Warm Peach Makeup for Fair Skin",
+          "pinDescription": "Choose a translucent pink-peach, ground it with light caramel taupe, and apply in thin layers so the warmth never becomes an opaque orange block. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/warm-peach-makeup-fair-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=progress-148-v2",
+          "pinTitle": "Warm Peach Makeup for Fair Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/warm-peach-makeup-fair-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-peach-makeup-fair-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-peach-makeup-fair-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Warm Peach Makeup for Fair Skin: how to fix the most common mistake",
+          "pinDescription": "Peach turns orange Likely cause: The formula is opaque or too yellow. Fix: Sheer it with base and switch to pink-peach."
         }
       ]
     },
@@ -467,14 +643,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/neutral-soft-glam-olive-skin-final.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=result-v2",
+          "pinTitle": "Neutral Soft Glam for Olive Skin",
+          "pinDescription": "Use balanced taupe and muted mauve-brown rather than strongly orange bronze, then add antique beige satin for dimension without ashiness. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/neutral-soft-glam-olive-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=progress-148-v2",
+          "pinTitle": "Neutral Soft Glam for Olive Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/neutral-soft-glam-olive-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/neutral-soft-glam-olive-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=neutral-soft-glam-olive-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Neutral Soft Glam for Olive Skin: how to fix the most common mistake",
+          "pinDescription": "Bronze turns orange Likely cause: The transition has a strong terracotta base. Fix: Neutralize with taupe and use a balanced brown at the lashes."
         }
       ]
     },
@@ -495,14 +682,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/warm-bronze-makeup-medium-skin-final.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=result-v2",
+          "pinTitle": "Warm Bronze Makeup for Medium Skin",
+          "pinDescription": "Layer caramel and copper instead of one flat bronze, keep espresso at the lash roots, and use terracotta-rose to balance warmth across the face. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/warm-bronze-makeup-medium-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=progress-148-v2",
+          "pinTitle": "Warm Bronze Makeup for Medium Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/warm-bronze-makeup-medium-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/warm-bronze-makeup-medium-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=warm-bronze-makeup-medium-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Warm Bronze Makeup for Medium Skin: how to fix the most common mistake",
+          "pinDescription": "The eye looks flat Likely cause: One bronze shade covers every zone. Fix: Restore caramel at the edge, copper at the center, and espresso at the roots."
         }
       ]
     },
@@ -523,14 +721,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/rich-berry-gold-makeup-deep-skin-final.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=result-v2",
+          "pinTitle": "Rich Berry and Gold Makeup for Deep Skin",
+          "pinDescription": "Use saturated wine over a compatible base, choose warm old gold rather than pale champagne, and keep deep brown at the lash line for structure. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/rich-berry-gold-makeup-deep-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=progress-148-v2",
+          "pinTitle": "Rich Berry and Gold Makeup for Deep Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/rich-berry-gold-makeup-deep-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/skin-tone-undertone/rich-berry-gold-makeup-deep-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=rich-berry-gold-makeup-deep-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Rich Berry and Gold Makeup for Deep Skin: how to fix the most common mistake",
+          "pinDescription": "The edge looks ashy Likely cause: A pale transition powder was used to blend wine. Fix: Use a medium warm brown or skin-depth powder at the edge."
         }
       ]
     },
@@ -551,14 +760,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/5-minute-everyday-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=result-v2",
+          "pinTitle": "5-Minute Everyday Makeup",
+          "pinDescription": "Spend time on the center of the face, brows, curled lashes, and one cheek-lip cream instead of attempting a full complexion and detailed eye. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/5-minute-everyday-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=progress-148-v2",
+          "pinTitle": "5-Minute Everyday Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/5-minute-everyday-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/5-minute-everyday-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=5-minute-everyday-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "5-Minute Everyday Makeup: how to fix the most common mistake",
+          "pinDescription": "Five minutes becomes fifteen Likely cause: Too many optional products are open. Fix: Preselect one base, one brow product, mascara, and one cream color."
         }
       ]
     },
@@ -579,19 +799,32 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/natural-no-makeup-makeup-final.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=final"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=result-v2",
+          "pinTitle": "Natural No-Makeup Makeup",
+          "pinDescription": "Correct only the areas that interrupt evenness, keep freckles and perimeter skin uncovered, then add airy brows, soft-brown lash depth, sheer rose cheeks, and a transparent lip tint. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/natural-no-makeup-makeup-steps.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=progress-148-v2",
+          "pinTitle": "Natural No-Makeup Makeup: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/natural-no-makeup-makeup-fix.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=fix-placement-v2",
+          "pinTitle": "Natural No-Makeup Makeup: how to fix the most common mistake",
+          "pinDescription": "The base is obvious Likely cause: Tint covers the entire face at one opacity. Fix: Lift product from the perimeter and reintroduce natural skin variation."
         },
         {
           "kind": "before-after",
           "file": "/pins/natural-no-makeup-makeup-before-after.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=before-after"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-no-makeup-makeup/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-no-makeup-makeup&utm_content=before-after-v2",
+          "pinTitle": "Natural no-makeup makeup: honest before and after",
+          "pinDescription": "The same face, light, crop and expression before and after a cumulative eight-step no-makeup makeup tutorial."
         }
       ]
     },
@@ -612,14 +845,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/easy-everyday-soft-glam-final.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=final"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=result-v2",
+          "pinTitle": "Easy Everyday Soft Glam",
+          "pinDescription": "Use one taupe from sheer to deep, add satin only at the lid center, and soften liner so the result has polish without evening-level intensity. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/easy-everyday-soft-glam-steps.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=progress-148-v2",
+          "pinTitle": "Easy Everyday Soft Glam: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/easy-everyday-soft-glam-fix.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/easy-everyday-soft-glam/?utm_source=pinterest&utm_medium=social&utm_campaign=easy-everyday-soft-glam&utm_content=fix-placement-v2",
+          "pinTitle": "Easy Everyday Soft Glam: how to fix the most common mistake",
+          "pinDescription": "The look becomes smoky Likely cause: Deep taupe covers the full crease. Fix: Lift excess and keep strong pigment at the lash roots only."
         }
       ]
     },
@@ -640,14 +884,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/wearable-clean-makeup-look-final.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=final"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=result-v2",
+          "pinTitle": "Wearable Clean Makeup Look",
+          "pinDescription": "Keep brows flexible, place glow only on high points, define the upper lashes, and use a lifted translucent blush rather than coating the face in shine. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/wearable-clean-makeup-look-steps.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=progress-148-v2",
+          "pinTitle": "Wearable Clean Makeup Look: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/wearable-clean-makeup-look-fix.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/wearable-clean-makeup-look/?utm_source=pinterest&utm_medium=social&utm_campaign=wearable-clean-makeup-look&utm_content=fix-placement-v2",
+          "pinTitle": "Wearable Clean Makeup Look: how to fix the most common mistake",
+          "pinDescription": "Brows feel stiff Likely cause: Too much strong-hold gel was layered. Fix: Comb through with a clean spoolie before the product fully sets."
         }
       ]
     },
@@ -668,14 +923,25 @@
       ],
       "variants": [
         {
-          "kind": "final",
+          "kind": "result",
           "file": "/pins/natural-makeup-mature-skin-final.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=final"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=result-v2",
+          "pinTitle": "Natural Makeup for Mature Skin",
+          "pinDescription": "Use flexible thin layers, keep shimmer smooth and localized, place definition at the lashes, and powder only where makeup creases or transfers. Follow the same model through all eight cumulative steps."
         },
         {
-          "kind": "steps",
+          "kind": "progress",
           "file": "/pins/natural-makeup-mature-skin-steps.png",
-          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=steps"
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=progress-148-v2",
+          "pinTitle": "Natural Makeup for Mature Skin: steps 1, 4 and 8",
+          "pinDescription": "See the same face and makeup look progress at steps 1, 4 and 8, then follow the complete tutorial."
+        },
+        {
+          "kind": "fix",
+          "file": "/pins/natural-makeup-mature-skin-fix.png",
+          "destinationUrl": "https://huesteps.com/everyday-makeup/natural-makeup-mature-skin/?utm_source=pinterest&utm_medium=social&utm_campaign=natural-makeup-mature-skin&utm_content=fix-placement-v2",
+          "pinTitle": "Natural Makeup for Mature Skin: how to fix the most common mistake",
+          "pinDescription": "Base settles into lines Likely cause: Too much product or powder was layered. Fix: Press with a clean damp sponge and remove excess before setting."
         }
       ]
     }

@@ -86,7 +86,7 @@ const compactTool = step.tool
   .replace(/^Clean sponge\b.*$/i, 'Small sponge');
 ---
 
-<li class="tutorial-step">
+<li class="tutorial-step" data-tutorial-step data-step-number={stepNumber}>
   <article class="step-article" aria-labelledby={titleId}>
     <figure class="step-media" data-visual-focus={step.visualFocus}>
       <div class="step-image-frame">
@@ -142,7 +142,20 @@ const compactTool = step.tool
       <p><strong>Done when:</strong> {displayCheckpoint}</p>
     </div>
 
-    <details class="step-more">
+    <div class="step-actions" aria-label={`Actions for step ${stepNumber}`}>
+      <button class="step-complete-button" type="button" data-step-complete aria-pressed="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="m8 12 2.6 2.6L16.5 9"></path>
+        </svg>
+        <span>Mark complete</span>
+      </button>
+      <button class="step-fix-button" type="button" data-step-fix aria-expanded="false">
+        Looks wrong? Fix it
+      </button>
+    </div>
+
+    <details class="step-more" data-step-details>
       <summary>
         <span>More tips</span>
         <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
@@ -162,7 +175,7 @@ const compactTool = step.tool
         </dl>
 
         <p class="why-it-works"><strong>Why this works:</strong> {step.whyItWorks}</p>
-        <p><strong>If it looks wrong:</strong> {step.ifWrong}</p>
+        <p data-fix-target tabindex="-1"><strong>If it looks wrong:</strong> {step.ifWrong}</p>
 
         <aside class="step-guidance" aria-label={`Guidance for step ${stepNumber}`}>
           <p><strong>Pro tip:</strong> {step.proTip}</p>
@@ -189,6 +202,7 @@ const compactTool = step.tool
     grid-template-areas:
       'media body'
       'check check'
+      'actions actions'
       'more more';
     column-gap: 0.75rem;
     padding: 0.6rem;
@@ -345,6 +359,66 @@ const compactTool = step.tool
     text-wrap: pretty;
   }
 
+  .step-actions {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .step-actions button {
+    display: inline-flex;
+    min-height: 2.55rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding-inline: 0.85rem;
+    border-radius: 0.3rem;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 680;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .step-complete-button {
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .step-complete-button svg {
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .step-complete-button[aria-pressed='true'] {
+    background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    color: var(--accent);
+  }
+
+  .step-fix-button {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+  }
+
+  .step-actions button:hover {
+    border-color: var(--accent-hover);
+  }
+
+  .step-actions button:focus-visible,
+  [data-fix-target]:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--focus) 42%, transparent);
+    outline-offset: 2px;
+  }
+
+  .tutorial-step.is-complete .step-article {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  }
+
   .step-more {
     grid-area: more;
     min-width: 0;
@@ -455,6 +529,7 @@ const compactTool = step.tool
       grid-template-areas:
         'media body'
         'media check'
+        'media actions'
         'media more';
       column-gap: clamp(1.5rem, 3vw, 2.25rem);
       padding: 0.75rem;
@@ -520,6 +595,7 @@ const compactTool = step.tool
         'media'
         'body'
         'check'
+        'actions'
         'more';
       row-gap: 0.9rem;
     }
@@ -530,7 +606,8 @@ const compactTool = step.tool
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .step-more summary svg {
+    .step-more summary svg,
+    .step-actions button {
       transition: none;
     }
   }
