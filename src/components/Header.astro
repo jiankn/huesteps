@@ -5,18 +5,6 @@ import BrandLogo from './BrandLogo.astro';
 interface Props { currentPath: string }
 const { currentPath } = Astro.props;
 const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
-const pathSegments = currentPath.split('/').filter(Boolean);
-const isRecipePage = pathSegments.length === 2 && Object.keys(HUBS).includes(pathSegments[0] ?? '');
-const recipeNavigation = [
-  { href: '/everyday-makeup/', label: 'Everyday Makeup' },
-  { href: '/everyday-makeup/easy-everyday-soft-glam/', label: 'Soft Glam' },
-  { href: '/occasion-makeup/', label: 'Evening' },
-  { href: '/skin-tone-undertone/', label: 'Skin Tone' },
-  { href: '/eye-shape-makeup/', label: 'Eye Shape' }
-];
-const exactRecipeNavigationItem = recipeNavigation.find((item) => currentPath === item.href);
-const activeRecipeNavigationHref = exactRecipeNavigationItem?.href
-  ?? recipeNavigation.find((item) => currentPath.startsWith(item.href))?.href;
 ---
 
 <header class="site-header">
@@ -26,43 +14,11 @@ const activeRecipeNavigationHref = exactRecipeNavigationItem?.href
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {isRecipePage ? (
-        recipeNavigation.map((item) => (
-          <a href={item.href} aria-current={activeRecipeNavigationHref === item.href ? 'page' : undefined}>{item.label}</a>
-        ))
-      ) : (
-        <>
-          {Object.entries(HUBS).map(([slug, hub]) => (
-            <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.title}</a>
-          ))}
-          <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
-        </>
-      )}
+      {Object.entries(HUBS).map(([slug, hub]) => (
+        <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.nav}</a>
+      ))}
+      <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
     </nav>
-
-    {isRecipePage && (
-      <div class="recipe-header-actions">
-        <a class="recipe-search-link" href="/#choose-your-look" aria-label="Find another makeup look">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none">
-            <circle cx="10.75" cy="10.75" r="6.75"></circle>
-            <path d="m16 16 4 4"></path>
-          </svg>
-        </a>
-        <details class="desktop-more-nav">
-          <summary aria-label="Open more navigation">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none">
-              <path d="M3 6h18M3 12h18M3 18h18"></path>
-            </svg>
-          </summary>
-          <nav aria-label="More navigation">
-            <a href="/about/">About HueSteps</a>
-            <a href="/editorial-policy/">Editorial policy</a>
-            <a href="/ai-image-content-policy/">AI image policy</a>
-            <a href="/contact-corrections/">Contact & corrections</a>
-          </nav>
-        </details>
-      </div>
-    )}
 
     <details class="mobile-nav">
       <summary>
@@ -75,7 +31,7 @@ const activeRecipeNavigationHref = exactRecipeNavigationItem?.href
         </a>
         <div class="mobile-nav-links">
           <a href="/" aria-current={isActive('/') ? 'page' : undefined}>Home</a>
-          {Object.entries(HUBS).map(([slug, hub]) => <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.title}</a>)}
+          {Object.entries(HUBS).map(([slug, hub]) => <a href={`/${slug}/`} aria-current={isActive(`/${slug}/`) ? 'page' : undefined}>{hub.nav}</a>)}
           <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
         </div>
       </nav>

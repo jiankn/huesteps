@@ -9,6 +9,7 @@ const devtoolsPort = Number(process.env.HUESTEPS_CDP_PORT || 9333);
 const baseUrl = `http://${host}:${previewPort}`;
 const outputDir = path.resolve('.qa');
 const profileDir = path.join(outputDir, 'chrome-profile');
+const expectedPrimaryNavigation = ['Occasion', 'Eye Shape', 'Skin Tone', 'Everyday', 'About'];
 const chromeCandidates = [
   process.env.CHROME_PATH,
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -324,6 +325,10 @@ try {
         const contentWidth = Math.max(root.scrollWidth, body?.scrollWidth || 0);
         const h1s = [...document.querySelectorAll('h1')];
         const images = [...document.querySelectorAll('img')];
+        const siteHeader = document.querySelector('.site-header');
+        const headerInner = siteHeader?.querySelector('.header-inner');
+        const brandIcon = siteHeader?.querySelector('.brand-icon');
+        const brandWordmark = siteHeader?.querySelector('.brand-wordmark');
         const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0;
         return {
           title: document.title,
@@ -340,6 +345,19 @@ try {
           cls: Number((window.__huestepsVitals?.cls || 0).toFixed(4)),
           colorSchemeDark: matchMedia('(prefers-color-scheme: dark)').matches,
           reducedMotionMatches: matchMedia('(prefers-reduced-motion: reduce)').matches,
+          primaryNavigation: siteHeader
+            ? [...siteHeader.querySelectorAll('.desktop-nav a')].map((link) => link.textContent.trim())
+            : null,
+          headerUsesGlobalSkin: siteHeader
+            ? Boolean(
+              brandIcon
+              && getComputedStyle(brandIcon).display !== 'none'
+              && brandWordmark
+              && getComputedStyle(brandWordmark).fontFamily.toLowerCase().includes('allura')
+              && headerInner
+              && Number.parseFloat(getComputedStyle(headerInner).borderRadius) > 100
+            )
+            : null,
         };
       })()`,
     });
@@ -413,6 +431,8 @@ try {
       result.cls > 0.1 ||
       result.colorSchemeDark !== (result.colorScheme === 'dark') ||
       result.reducedMotionMatches !== result.reducedMotion ||
+      (result.primaryNavigation && result.primaryNavigation.join('|') !== expectedPrimaryNavigation.join('|')) ||
+      result.headerUsesGlobalSkin === false ||
       (result.tutorialInteraction && (
         result.tutorialInteraction.progress !== '1 of 8 complete'
         || !result.tutorialInteraction.completed

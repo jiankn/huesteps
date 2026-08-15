@@ -63,6 +63,21 @@ const schema = [
 
 <BaseLayout title={data.title} description={data.description} image={`/pins/${data.slug}-final.png`} type="article" schema={schema} bodyClass="recipe-page">
   <article class="tutorial-recipe">
+    <nav class="recipe-context-nav" aria-label="Tutorial shortcuts">
+      <div class="shell recipe-context-inner">
+        <a class="recipe-context-parent" href={`/${data.hub}/`}>
+          <span aria-hidden="true">←</span>
+          {HUBS[data.hub].nav}
+        </a>
+        <span class="recipe-context-title">{data.title}</span>
+        <div class="recipe-context-links">
+          <a href="/#choose-your-look">Find a look</a>
+          <a href="#steps">Steps</a>
+          <a href="#final-check">Final result</a>
+        </div>
+      </div>
+    </nav>
+
     <header class="recipe-workbench-hero">
       <div class="shell recipe-hero-grid">
         <div class="hero-copy">

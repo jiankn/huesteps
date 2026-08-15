@@ -431,7 +431,24 @@ small { color: var(--text-muted); }
 .editorial-button { gap: 18px; min-height: 48px; padding-inline: 22px 8px; border-radius: 999px; }
 .editorial-button > span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); }
 
-.site-header { min-height: calc(var(--header-height) + 12px); padding-block: 6px; border: 0; background: transparent; backdrop-filter: none; }
+.site-header {
+  --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --surface-soft: #efefec;
+  --surface-strong: #deded9;
+  --text: #121314;
+  --text-muted: #565b61;
+  --accent: #1248d5;
+  --border: #d3d4d2;
+  --focus: #1248d5;
+  --shell: min(100% - 40px, 1280px);
+  --header-height: 60px;
+  min-height: calc(var(--header-height) + 12px);
+  padding-block: 6px;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
 .header-inner { min-height: var(--header-height); padding-inline: clamp(18px, 2.6vw, 34px); border: 1px solid color-mix(in srgb, var(--border) 78%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--surface) 96%, transparent); box-shadow: 0 10px 28px rgb(18 19 20 / 0.08); }
 .brand { display: inline-flex; align-items: center; color: var(--text); text-decoration: none; }
 .brand-lockup { --brand-wordmark-size: 2.14rem; display: inline-flex; align-items: center; gap: 0.75rem; line-height: 1; }
@@ -442,6 +459,17 @@ small { color: var(--text-muted); }
 .brand-wordmark-step-initial { margin-left: 0.06em; }
 
 @media (prefers-color-scheme: dark) {
+  .site-header {
+    --canvas: #171418;
+    --surface: #211c22;
+    --surface-soft: #2a242a;
+    --surface-strong: #3a3238;
+    --text: #f6f3ee;
+    --text-muted: #c4bbc0;
+    --accent: #7da1ff;
+    --border: #4b4148;
+    --focus: #9bb5ff;
+  }
   .brand-wordmark { color: #fff; }
 }
 .desktop-nav { margin-inline: auto; }
@@ -473,7 +501,7 @@ small { color: var(--text-muted); }
 
 @media (min-width: 821px) {
   :root { --header-height: 52px; }
-  .site-header { min-height: calc(var(--header-height) + 8px); padding-block: 4px; }
+  .site-header { --header-height: 52px; min-height: calc(var(--header-height) + 8px); padding-block: 4px; }
   .site-header > .header-inner > .brand .brand-lockup { --brand-wordmark-size: 2rem; gap: 0.625rem; }
   .site-header > .header-inner > .brand .brand-icon { width: 40px; height: 40px; }
   .editorial-hero, .category-hero { margin-top: calc(-1 * (var(--header-height) + 8px)); padding-top: calc(var(--header-height) + 8px); }
