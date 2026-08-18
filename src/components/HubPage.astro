@@ -91,11 +91,11 @@ const techniques = [
 ];
 
 const skinToneCards = [
-  { recipe: bySlug('cool-rosy-makeup-fair-skin'), tone: 'Fair', undertone: 'Cool Rosy', swatch: '#f2d8c2' },
-  { recipe: bySlug('warm-peach-makeup-fair-skin'), tone: 'Fair', undertone: 'Warm Peach', swatch: '#ebd0b9' },
-  { recipe: bySlug('neutral-soft-glam-olive-skin'), tone: 'Olive', undertone: 'Neutral Olive', swatch: '#c79a73' },
-  { recipe: bySlug('warm-bronze-makeup-medium-skin'), tone: 'Medium', undertone: 'Warm Bronze', swatch: '#a96f49' },
-  { recipe: bySlug('rich-berry-gold-makeup-deep-skin'), tone: 'Deep', undertone: 'Rich Berry', swatch: '#5a2e1d' }
+  { recipe: bySlug('cool-rosy-makeup-fair-skin'), label: 'Fair Cool', tone: 'Fair', undertone: 'Cool Rosy', swatch: '#f2d8c2' },
+  { recipe: bySlug('warm-peach-makeup-fair-skin'), label: 'Fair Warm', tone: 'Fair', undertone: 'Warm Peach', swatch: '#ebd0b9' },
+  { recipe: bySlug('neutral-soft-glam-olive-skin'), label: 'Olive', tone: 'Olive', undertone: 'Neutral Olive', swatch: '#c79a73' },
+  { recipe: bySlug('warm-bronze-makeup-medium-skin'), label: 'Medium', tone: 'Medium', undertone: 'Warm Bronze', swatch: '#a96f49' },
+  { recipe: bySlug('rich-berry-gold-makeup-deep-skin'), label: 'Deep', tone: 'Deep', undertone: 'Rich Berry', swatch: '#5a2e1d' }
 ];
 const skinTones = [
   ['Fair', 'Very light to light', '#f2d8c2'],
@@ -165,7 +165,7 @@ const schema = {
         </div>
 
         <nav class="showcase-tone-nav" aria-label="Select skin tone">
-          {skinToneCards.map(({ tone, undertone, swatch }, index) => (
+          {skinToneCards.map(({ label, tone, undertone, swatch }, index) => (
             <button
               type="button"
               class:list={['tone-switcher-pill', index === 0 && 'is-active']}
@@ -174,7 +174,7 @@ const schema = {
               aria-label={`View ${tone} ${undertone} look`}
             >
               <span class="pill-swatch-dot" aria-hidden="true"></span>
-              <span class="pill-text">{tone}</span>
+              <span class="pill-text">{label}</span>
             </button>
           ))}
         </nav>
