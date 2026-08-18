@@ -62,22 +62,22 @@ const pillars = [
 
 const trustPoints = [
   {
-    icon: '🎯',
+    type: 'identity',
     title: 'One Recipe, One Model Identity',
     copy: 'Every look features a distinct, non-celebrity model identity maintained consistently from Pinterest discovery through every tutorial step to the final portrait.'
   },
   {
-    icon: '🔍',
+    type: 'sequence',
     title: 'Strict 8-Step Cumulative Flow',
     copy: 'Every tutorial progresses step-by-step from a clean base to the final look. No skipped techniques, sudden shifts, or hidden shortcuts.'
   },
   {
-    icon: '✨',
+    type: 'texture',
     title: 'Natural Skin Texture Integrity',
     copy: 'We celebrate real human skin. Pores, fine texture, and authentic undertones are preserved with zero waxy smoothing or synthetic plastic filters.'
   },
   {
-    icon: '🛡️',
+    type: 'review',
     title: 'Transparent Editorial Review',
     copy: 'Every visual concept and technique is audited by human beauty editors for feasibility, anatomical accuracy, and color harmony.'
   }
@@ -222,7 +222,36 @@ const hubCards = [
         <div class="about-trust-grid">
           {trustPoints.map((point) => (
             <div class="about-trust-card">
-              <span class="trust-icon" aria-hidden="true">{point.icon}</span>
+              <div class="trust-emblem-badge" aria-hidden="true">
+                {point.type === 'identity' && (
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="4.25" />
+                    <path d="M4.5 20.5c0-4 3.5-6.5 7.5-6.5s7.5 2.5 7.5 6.5" />
+                    <circle cx="12" cy="12" r="9.5" stroke-dasharray="1 2.5" opacity="0.6" />
+                  </svg>
+                )}
+                {point.type === 'sequence' && (
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3.5 19.5h3.5v-3.5h3.5v-3.5h3.5v-3.5h3.5v-3.5h3" />
+                    <circle cx="20.5" cy="5.5" r="1.5" fill="currentColor" />
+                    <circle cx="3.5" cy="19.5" r="1" fill="currentColor" />
+                    <path d="M7 19.5a10 10 0 0 1 10-10" stroke-dasharray="1.5 2" opacity="0.5" />
+                  </svg>
+                )}
+                {point.type === 'texture' && (
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2.5c0 5-4.5 9.5-9.5 9.5 5 0 9.5 4.5 9.5 9.5 0-5 4.5-9.5 9.5-9.5-5 0-9.5-4.5-9.5-9.5z" />
+                    <circle cx="18.5" cy="5.5" r="1.2" fill="currentColor" />
+                    <circle cx="5.5" cy="18.5" r="0.9" fill="currentColor" />
+                  </svg>
+                )}
+                {point.type === 'review' && (
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2.5l7.5 3.5v5.5c0 5-3.5 9.5-7.5 11-4-1.5-7.5-6-7.5-11V6z" />
+                    <path d="M8.5 11.5l2.5 2.5 4.5-4.5" />
+                  </svg>
+                )}
+              </div>
               <h3>{point.title}</h3>
               <p>{point.copy}</p>
             </div>
@@ -634,12 +663,34 @@ const hubCards = [
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: clamp(24px, 3vw, 32px);
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
   }
 
-  .trust-icon {
-    font-size: 1.8rem;
-    display: inline-block;
-    margin-bottom: 14px;
+  .about-trust-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 28px rgb(18 19 20 / 0.05);
+  }
+
+  .trust-emblem-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgb(18 19 20 / 0.04);
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+
+  .about-trust-card:hover .trust-emblem-badge {
+    background: #FAF8F5;
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .about-trust-card h3 {
