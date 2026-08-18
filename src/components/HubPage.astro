@@ -249,7 +249,33 @@ const schema = {
   )}
 
   <section class="cross-editorial">
-    <div class="shell cross-editorial-grid">{otherHubs.slice(0, 3).map(([slug, other], index) => { const image = allRecipes.find((recipe) => recipe.data.hub === slug) ?? allRecipes[0]; return <a href={`/${slug}/`}><div><span>{String(index + 1).padStart(2, '0')}</span><h2>{other.title}</h2><p>{other.description}</p><strong>Explore now →</strong></div><RecipeImage src={getRecipeImage(image.data.heroImage)} alt="" focal={getRecipeFocal(image.data.heroImage, 'cross')} sizes="30vw" /></a>; })}</div>
+    <div class="shell cross-editorial-grid">
+      {otherHubs.slice(0, 3).map(([slug, other], index) => {
+        let heroSlug = 'soft-glam-wedding-guest-makeup';
+        if (slug === 'occasion-makeup') heroSlug = 'soft-glam-wedding-guest-makeup';
+        else if (slug === 'eye-shape-makeup') heroSlug = 'soft-glam-hooded-eyes';
+        else if (slug === 'skin-tone-undertone') heroSlug = 'cool-rosy-makeup-fair-skin';
+        else if (slug === 'everyday-makeup') heroSlug = '5-minute-everyday-makeup';
+
+        const imageRecipe = bySlug(heroSlug);
+        return (
+          <a href={`/${slug}/`}>
+            <div>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h2>{other.title}</h2>
+              <p>{other.description}</p>
+              <strong>Explore now →</strong>
+            </div>
+            <RecipeImage
+              src={getRecipeImage(imageRecipe.data.heroImage)}
+              alt=""
+              focal={getRecipeFocal(imageRecipe.data.heroImage, 'cross')}
+              sizes="30vw"
+            />
+          </a>
+        );
+      })}
+    </div>
   </section>
 
   <TrustStrip />

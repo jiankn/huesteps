@@ -5,19 +5,46 @@ import RecipeImage from '@/components/RecipeImage.astro';
 import EditorialRecipeCard from '@/components/EditorialRecipeCard.astro';
 import TrustStrip from '@/components/TrustStrip.astro';
 import { SITE } from '@/lib/site';
+import { getRecipeImage } from '@/lib/recipe-images';
+import { getRecipeFocal } from '@/lib/recipe-focus';
 import homeOccasionGolden from '@/assets/golden/home-occasion-golden-v3-2k.webp';
-import taskOccasion from '@/assets/home-v4/occasion-editorial-v1.webp';
-import taskEyeShape from '@/assets/home-v4/eye-shape-editorial-v1.webp';
-import taskSkinTone from '@/assets/home-v4/skin-tone-editorial-v1.webp';
-import taskEveryday from '@/assets/home-v4/everyday-editorial-v1.webp';
+import eyeShapeGolden from '@/assets/golden/eye-shape-golden-v1.webp';
 
 const recipes = await getCollection('recipes');
 const featured = recipes.filter((recipe) => recipe.data.featured).slice(0, 6);
 const taskCards = [
-  { number: '01', slug: 'occasion-makeup', title: 'Occasion Makeup', image: taskOccasion, focal: { x: 48, y: 42, mobileX: 48, mobileY: 42 }, size: 'wide' },
-  { number: '02', slug: 'eye-shape-makeup', title: 'Eye Shape Makeup', image: taskEyeShape, focal: { x: 44, y: 42, mobileX: 44, mobileY: 42 }, size: 'tall' },
-  { number: '03', slug: 'skin-tone-undertone', title: 'Skin Tone & Undertone', image: taskSkinTone, focal: { x: 50, y: 42, mobileX: 50, mobileY: 42 }, size: 'small' },
-  { number: '04', slug: 'everyday-makeup', title: 'Everyday Makeup', image: taskEveryday, focal: { x: 50, y: 42, mobileX: 50, mobileY: 42 }, size: 'small' }
+  {
+    number: '01',
+    slug: 'occasion-makeup',
+    title: 'Occasion Makeup',
+    image: getRecipeImage('soft-glam-wedding-guest-makeup'),
+    focal: getRecipeFocal('soft-glam-wedding-guest-makeup', 'card'),
+    size: 'wide'
+  },
+  {
+    number: '02',
+    slug: 'eye-shape-makeup',
+    title: 'Eye Shape Makeup',
+    image: eyeShapeGolden,
+    focal: { x: 50, y: 48, mobileX: 50, mobileY: 48 },
+    size: 'tall'
+  },
+  {
+    number: '03',
+    slug: 'skin-tone-undertone',
+    title: 'Skin Tone & Undertone',
+    image: getRecipeImage('cool-rosy-makeup-fair-skin'),
+    focal: getRecipeFocal('cool-rosy-makeup-fair-skin', 'card'),
+    size: 'small'
+  },
+  {
+    number: '04',
+    slug: 'everyday-makeup',
+    title: 'Everyday Makeup',
+    image: getRecipeImage('5-minute-everyday-makeup'),
+    focal: getRecipeFocal('5-minute-everyday-makeup', 'card'),
+    size: 'small'
+  }
 ];
 const organizationSchema = [
   {
