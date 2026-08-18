@@ -1,4 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import eyeChartImg from '@/assets/guides/eye-architecture-chart.webp';
+import faceChartImg from '@/assets/guides/face-harmony-chart.webp';
+
 interface Palette {
   name: string;
   hex: string;
@@ -26,32 +30,46 @@ function analyzeZone(item: Palette, index: number) {
   const isCheek = text.includes('cheek') || text.includes('blush');
   const isLip = text.includes('lip');
 
-  // Eye SVG pin coordinates (viewBox 0 0 520 340)
-  let eyePin = { x: 260, y: 145, label: 'Mobile Lid' };
+  // Eye Chart Percentage coordinates on eye-architecture-chart.webp (1024x768)
+  let eyePin = { percentX: 50, percentY: 46, label: 'Mobile Lid' };
+  let eyeHotspot = { x: 50, y: 46, type: 'lid' };
+
   if (isLashline && isOuter) {
-    eyePin = { x: 385, y: 172, label: 'Outer Lash Line' };
+    eyePin = { percentX: 68, percentY: 54, label: 'Outer Lash Line' };
+    eyeHotspot = { x: 68, y: 54, type: 'outer-lash' };
   } else if (isLashline) {
-    eyePin = { x: 260, y: 168, label: 'Lash Roots' };
+    eyePin = { percentX: 50, percentY: 50, label: 'Lash Roots' };
+    eyeHotspot = { x: 50, y: 50, type: 'lash' };
   } else if (isInner && !isLid) {
-    eyePin = { x: 130, y: 192, label: 'Tear Duct / Inner Corner' };
+    eyePin = { percentX: 34, percentY: 60, label: 'Tear Duct / Inner Corner' };
+    eyeHotspot = { x: 34, y: 60, type: 'inner' };
   } else if (isCrease) {
-    eyePin = { x: 260, y: 98, label: 'Above Crease' };
+    eyePin = { percentX: 50, percentY: 34, label: 'Above Crease' };
+    eyeHotspot = { x: 50, y: 34, type: 'crease' };
   } else if (isOuter && isLid) {
-    eyePin = { x: 355, y: 148, label: 'Outer Lid' };
+    eyePin = { percentX: 62, percentY: 46, label: 'Outer Lid' };
+    eyeHotspot = { x: 62, y: 46, type: 'outer-lid' };
   } else if (isInner && isLid) {
-    eyePin = { x: 200, y: 148, label: 'Inner Lid' };
+    eyePin = { percentX: 42, percentY: 48, label: 'Inner Lid' };
+    eyeHotspot = { x: 42, y: 48, type: 'inner-lid' };
   } else if (isLid) {
-    eyePin = { x: 260, y: 145, label: 'Lid Center' };
+    eyePin = { percentX: 50, percentY: 46, label: 'Lid Center' };
+    eyeHotspot = { x: 50, y: 46, type: 'lid' };
   }
 
-  // Face SVG pin coordinates (viewBox 0 0 240 280)
-  let facePin: { x: number; y: number; label: string } | null = null;
+  // Face Chart Percentage coordinates on face-harmony-chart.webp (768x1024)
+  let facePin: { percentX: number; percentY: number; label: string } | null = null;
+  let faceHotspot = { x: 50, y: 48, type: 'cheek' };
+
   if (isCheek && isLip) {
-    facePin = { x: 145, y: 118, label: 'Cheek & Lips' };
+    facePin = { percentX: 58, percentY: 55, label: 'Cheek & Lips' };
+    faceHotspot = { x: 58, y: 55, type: 'cheek-lip' };
   } else if (isCheek) {
-    facePin = { x: 155, y: 118, label: 'Upper Cheekbone' };
+    facePin = { percentX: 50, percentY: 48, label: 'Upper Cheekbone' };
+    faceHotspot = { x: 50, y: 48, type: 'cheek' };
   } else if (isLip) {
-    facePin = { x: 120, y: 196, label: 'Lips Center' };
+    facePin = { percentX: 70, percentY: 62, label: 'Lips Center' };
+    faceHotspot = { x: 70, y: 62, type: 'lip' };
   }
 
   return {
@@ -65,7 +83,9 @@ function analyzeZone(item: Palette, index: number) {
     isCheek,
     isLip,
     eyePin,
+    eyeHotspot,
     facePin,
+    faceHotspot,
     hasFaceMapping: isCheek || isLip,
     hasEyeMapping: isCrease || isLashline || isInner || isOuter || isLid || (!isCheek && !isLip)
   };
@@ -82,7 +102,7 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
       <h3 id="placement-heading">{title} Placement Guide</h3>
     </div>
     <p class="placement-instruction">
-      Interactive mapping of color placement, blend boundaries, and facial architecture. Hover or tap any zone to spotlight its application area.
+      Couture face chart mapping of shade placement, blend boundaries, and facial architecture. Hover or tap any card to spotlight its application area.
     </p>
   </header>
 
@@ -93,171 +113,54 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
       <div class="anatomy-card eye-anatomy-card" data-diagram="eye">
         <div class="anatomy-card-header">
           <span class="anatomy-view-badge">👁️ Eye Architecture</span>
-          <span class="anatomy-view-note">Open-eye perspective</span>
+          <span class="anatomy-view-note">Pro face chart analysis</span>
         </div>
         
-        <div class="svg-container eye-svg-wrapper">
-          <svg viewBox="0 0 520 340" class="anatomy-svg eye-svg" role="img" aria-label="Eye anatomy placement diagram">
-            <defs>
-              <!-- Soft blur filters for realistic makeup diffusion -->
-              <filter id="soft-crease-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="16" result="blur" />
-              </filter>
-              <filter id="lid-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="12" result="blur" />
-              </filter>
-              <filter id="liner-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="5" result="blur" />
-              </filter>
-              <filter id="inner-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="8" result="blur" />
-              </filter>
+        <div class="chart-canvas-container eye-canvas">
+          <Image
+            src={eyeChartImg}
+            alt="Editorial eye architecture face chart illustration"
+            class="chart-master-image"
+            widths={[480, 720, 1024]}
+            sizes="(max-width: 768px) 100vw, 520px"
+          />
 
-              <!-- Dynamic gradients for each active zone -->
-              {zones.map((zone) => (
-                <>
-                  <radialGradient id={`zone-grad-lid-${zone.index}`} cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color={zone.hex} stop-opacity="0.85" />
-                    <stop offset="65%" stop-color={zone.hex} stop-opacity="0.45" />
-                    <stop offset="100%" stop-color={zone.hex} stop-opacity="0" />
-                  </radialGradient>
-                  <linearGradient id={`zone-grad-crease-${zone.index}`} x1="0%" y1="100%" x2="0%" y2="0%">
-                    <stop offset="0%" stop-color={zone.hex} stop-opacity="0.75" />
-                    <stop offset="70%" stop-color={zone.hex} stop-opacity="0.3" />
-                    <stop offset="100%" stop-color={zone.hex} stop-opacity="0" />
-                  </linearGradient>
-                  <linearGradient id={`zone-grad-lash-${zone.index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color={zone.hex} stop-opacity="0.4" />
-                    <stop offset="60%" stop-color={zone.hex} stop-opacity="0.85" />
-                    <stop offset="100%" stop-color={zone.hex} stop-opacity="0.95" />
-                  </linearGradient>
-                </>
-              ))}
-            </defs>
+          <!-- Soft Makeup Color Hotspots Layer -->
+          <div class="chart-hotspots-layer" aria-hidden="true">
+            {zones.map((zone) => {
+              if (!zone.hasEyeMapping && zone.hasFaceMapping) return null;
+              return (
+                <div
+                  class={`zone-hotspot eye-hotspot-${zone.eyeHotspot.type} zone-layer zone-layer-${zone.index}`}
+                  data-zone-id={zone.index}
+                  style={`--zone-color: ${zone.hex}; --hotspot-x: ${zone.eyeHotspot.x}%; --hotspot-y: ${zone.eyeHotspot.y}%;`}
+                />
+              );
+            })}
+          </div>
 
-            <!-- Background Skin Canvas -->
-            <rect x="0" y="0" width="520" height="340" class="skin-canvas" rx="16" />
-
-            <!-- Dynamic Makeup Color Layers -->
-            <g class="makeup-layers">
-              {zones.map((zone) => (
-                <g class={`zone-layer zone-layer-${zone.index}`} data-zone-id={zone.index}>
-                  {/* Crease / Transition Layer */}
-                  {zone.isCrease && (
-                    <path
-                      d="M 105,145 C 150,70 340,65 415,135 C 375,95 185,100 105,145 Z"
-                      fill={`url(#zone-grad-crease-${zone.index})`}
-                      filter="url(#soft-crease-glow)"
-                      class="blend-layer crease-blend"
-                    />
-                  )}
-
-                  {/* Mobile Lid Layer */}
-                  {zone.isLid && !zone.isInner && (
-                    <ellipse
-                      cx={zone.isOuter ? 340 : 255}
-                      cy="150"
-                      rx={zone.isOuter ? 75 : 95}
-                      ry="42"
-                      fill={`url(#zone-grad-lid-${zone.index})`}
-                      filter="url(#lid-glow)"
-                      class="blend-layer lid-blend"
-                    />
-                  )}
-
-                  {/* Inner Corner / Tear Duct Layer */}
-                  {zone.isInner && (
-                    <ellipse
-                      cx="145"
-                      cy="185"
-                      rx="45"
-                      ry="30"
-                      fill={`url(#zone-grad-lid-${zone.index})`}
-                      filter="url(#inner-glow)"
-                      class="blend-layer inner-blend"
-                    />
-                  )}
-
-                  {/* Lash Line & Outer V Layer */}
-                  {zone.isLashline && (
-                    <path
-                      d="M 125,188 C 190,145 320,145 408,172 C 430,165 442,154 448,146 C 438,168 412,185 390,192 C 310,210 190,205 125,188 Z"
-                      fill={zone.hex}
-                      opacity="0.8"
-                      filter="url(#liner-glow)"
-                      class="blend-layer lash-blend"
-                    />
-                  )}
-                </g>
-              ))}
-            </g>
-
-            <!-- Anatomical Guide Line Art -->
-            <g class="anatomy-lines">
-              <!-- Eyebrow -->
-              <path
-                d="M 100,56 C 145,40 230,32 320,38 C 385,44 430,70 450,92 C 415,74 360,56 310,54 C 220,52 145,62 100,56 Z"
-                class="line-brow"
-              />
-              
-              <!-- Orbital Socket Crease -->
-              <path
-                d="M 115,142 C 180,82 335,82 410,138"
-                class="line-crease"
-              />
-
-              <!-- Upper Eyelid / Lash Margin -->
-              <path
-                d="M 118,188 C 185,138 325,138 412,174 C 428,168 440,158 446,150"
-                class="line-upper-lash"
-              />
-
-              <!-- Eyeball Contour (Iris & Pupil) -->
-              <g class="iris-assembly">
-                <circle cx="260" cy="176" r="48" class="line-iris-outer" />
-                <circle cx="260" cy="176" r="46" class="iris-fill" />
-                <circle cx="260" cy="176" r="20" class="line-pupil" />
-                <ellipse cx="248" cy="164" rx="7" ry="5" class="iris-catchlight" />
-              </g>
-
-              <!-- Tear Duct (Inner Canthus) -->
-              <path
-                d="M 118,188 C 102,194 106,202 120,204"
-                class="line-canthus"
-              />
-
-              <!-- Lower Lashline / Under-Eye Contour -->
-              <path
-                d="M 120,204 C 195,228 325,226 412,174"
-                class="line-lower-lash"
-              />
-
-              <!-- Eyelashes Accents -->
-              <path d="M 405,170 Q 425,152 438,142" class="lash-accent" />
-              <path d="M 375,152 Q 390,132 400,122" class="lash-accent" />
-              <path d="M 340,142 Q 350,122 355,112" class="lash-accent" />
-              <path d="M 300,138 Q 305,118 305,108" class="lash-accent" />
-            </g>
-
-            <!-- Anatomical Zone Badges & Pointers -->
-            <g class="zone-badges">
-              {zones.map((zone) => {
-                if (!zone.hasEyeMapping && zone.hasFaceMapping) return null;
-                return (
-                  <g class={`pin-group pin-group-${zone.index}`} data-zone-id={zone.index} transform={`translate(${zone.eyePin.x}, ${zone.eyePin.y})`}>
-                    <circle r="22" class="pin-halo" style={`--pin-color:${zone.hex}`} />
-                    <circle r="14" class="pin-base" style={`--pin-color:${zone.hex}`} />
-                    <text text-anchor="middle" dy="4.5" class="pin-text">{zone.index}</text>
-                    <!-- Zone Pin Label Tooltip -->
-                    <g class="pin-label-tag" transform="translate(0, -26)">
-                      <rect x="-44" y="-14" width="88" height="20" rx="10" class="pin-tag-bg" />
-                      <text text-anchor="middle" dy="-0.5" class="pin-tag-text">{zone.eyePin.label}</text>
-                    </g>
-                  </g>
-                );
-              })}
-            </g>
-          </svg>
+          <!-- Interactive Numbered Pins Layer -->
+          <div class="chart-pins-layer">
+            {zones.map((zone) => {
+              if (!zone.hasEyeMapping && zone.hasFaceMapping) return null;
+              return (
+                <div
+                  class={`chart-pin-group pin-group pin-group-${zone.index}`}
+                  data-zone-id={zone.index}
+                  style={`--pin-color: ${zone.hex}; left: ${zone.eyePin.percentX}%; top: ${zone.eyePin.percentY}%;`}
+                  tabindex="0"
+                  role="button"
+                  aria-label={`Zone ${zone.index}: ${zone.name} applied to ${zone.eyePin.label}`}
+                >
+                  <span class="pin-halo"></span>
+                  <span class="pin-base">{zone.index}</span>
+                  <div class="pin-tooltip">
+                    <span class="pin-tooltip-text">{zone.eyePin.label}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -269,87 +172,51 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
             <span class="anatomy-view-note">Facial contour mapping</span>
           </div>
 
-          <div class="svg-container face-svg-wrapper">
-            <svg viewBox="0 0 240 280" class="anatomy-svg face-svg" role="img" aria-label="Cheek and lip placement diagram">
-              <defs>
-                <filter id="cheek-glow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feGaussianBlur stdDeviation="14" result="blur" />
-                </filter>
-                <filter id="lip-glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="6" result="blur" />
-                </filter>
-              </defs>
+          <div class="chart-canvas-container face-canvas">
+            <Image
+              src={faceChartImg}
+              alt="Editorial facial contour and lip balance face chart"
+              class="chart-master-image"
+              widths={[360, 540, 768]}
+              sizes="(max-width: 768px) 100vw, 360px"
+            />
 
-              <!-- Face Canvas Background -->
-              <rect x="0" y="0" width="240" height="280" class="skin-canvas" rx="16" />
+            <!-- Soft Makeup Color Hotspots Layer -->
+            <div class="chart-hotspots-layer" aria-hidden="true">
+              {zones.map((zone) => {
+                if (!zone.hasFaceMapping) return null;
+                return (
+                  <div
+                    class={`zone-hotspot face-hotspot-${zone.faceHotspot?.type} zone-layer zone-layer-${zone.index}`}
+                    data-zone-id={zone.index}
+                    style={`--zone-color: ${zone.hex}; --hotspot-x: ${zone.faceHotspot?.x}%; --hotspot-y: ${zone.faceHotspot?.y}%;`}
+                  />
+                );
+              })}
+            </div>
 
-              <!-- Face Makeup Layers -->
-              <g class="face-makeup-layers">
-                {zones.map((zone) => {
-                  if (!zone.hasFaceMapping) return null;
-                  return (
-                    <g class={`zone-layer zone-layer-${zone.index}`} data-zone-id={zone.index}>
-                      {zone.isCheek && (
-                        <ellipse
-                          cx="155"
-                          cy="118"
-                          rx="46"
-                          ry="26"
-                          transform="rotate(-18 155 118)"
-                          fill={zone.hex}
-                          opacity="0.65"
-                          filter="url(#cheek-glow)"
-                          class="blend-layer cheek-blend"
-                        />
-                      )}
-                      {zone.isLip && (
-                        <path
-                          d="M 88,188 C 100,182 108,184 120,188 C 132,184 140,182 152,188 C 144,198 128,206 120,206 C 112,206 96,198 88,188 Z"
-                          fill={zone.hex}
-                          opacity="0.8"
-                          filter="url(#lip-glow)"
-                          class="blend-layer lip-blend"
-                        />
-                      )}
-                    </g>
-                  );
-                })}
-              </g>
-
-              <!-- Minimalist Editorial Face Line Art -->
-              <g class="face-lines">
-                <!-- Face Oval Contour (Half/3/4 profile) -->
-                <path d="M 60,35 C 130,22 185,45 200,95 C 212,140 195,195 160,235 C 140,256 120,265 105,268" class="line-face-contour" />
-                <!-- Nose Bridge & Tip -->
-                <path d="M 105,80 C 108,115 102,138 95,145 C 103,148 114,146 118,142" class="line-nose" />
-                <!-- Subtle Eye Silhouette for Reference -->
-                <path d="M 130,85 C 145,75 165,78 175,88" class="line-ref-eye" />
-                <path d="M 134,88 C 146,95 165,95 174,88" class="line-ref-eye" />
-                <!-- Cheekbone Uplift Guideline -->
-                <path d="M 125,130 C 145,115 172,105 190,102" class="line-guide-dash" stroke-dasharray="3 3" />
-                <!-- Lip Contour Lines -->
-                <path d="M 94,188 C 104,184 112,185 120,188 C 128,185 136,184 146,188" class="line-lip-cupid" />
-                <path d="M 94,188 C 108,198 132,198 146,188" class="line-lip-lower" />
-              </g>
-
-              <!-- Face Zone Badges -->
-              <g class="face-zone-badges">
-                {zones.map((zone) => {
-                  if (!zone.facePin) return null;
-                  return (
-                    <g class={`pin-group pin-group-${zone.index}`} data-zone-id={zone.index} transform={`translate(${zone.facePin.x}, ${zone.facePin.y})`}>
-                      <circle r="18" class="pin-halo" style={`--pin-color:${zone.hex}`} />
-                      <circle r="12" class="pin-base" style={`--pin-color:${zone.hex}`} />
-                      <text text-anchor="middle" dy="4" class="pin-text">{zone.index}</text>
-                      <g class="pin-label-tag" transform="translate(0, -22)">
-                        <rect x="-38" y="-12" width="76" height="18" rx="9" class="pin-tag-bg" />
-                        <text text-anchor="middle" dy="-0.5" class="pin-tag-text">{zone.facePin.label}</text>
-                      </g>
-                    </g>
-                  );
-                })}
-              </g>
-            </svg>
+            <!-- Interactive Numbered Pins Layer -->
+            <div class="chart-pins-layer">
+              {zones.map((zone) => {
+                if (!zone.hasFaceMapping || !zone.facePin) return null;
+                return (
+                  <div
+                    class={`chart-pin-group pin-group pin-group-${zone.index}`}
+                    data-zone-id={zone.index}
+                    style={`--pin-color: ${zone.hex}; left: ${zone.facePin.percentX}%; top: ${zone.facePin.percentY}%;`}
+                    tabindex="0"
+                    role="button"
+                    aria-label={`Zone ${zone.index}: ${zone.name} applied to ${zone.facePin.label}`}
+                  >
+                    <span class="pin-halo"></span>
+                    <span class="pin-base">{zone.index}</span>
+                    <div class="pin-tooltip">
+                      <span class="pin-tooltip-text">{zone.facePin.label}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
@@ -364,19 +231,21 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
 
       <ol class="placement-cards-list">
         {zones.map((zone) => (
-          <li class={`placement-card zone-card-${zone.index}`} data-zone-id={zone.index} tabindex="0">
+          <li
+            class={`placement-card zone-card-${zone.index}`}
+            data-zone-id={zone.index}
+            tabindex="0"
+          >
             <div class="card-indicator">
               <span class="card-pin" style={`--swatch-color:${zone.hex}`}>
                 {zone.index}
               </span>
             </div>
-            
             <div class="card-main">
               <div class="card-top-row">
                 <h5 class="shade-name">{zone.name}</h5>
                 <span class="role-badge">{zone.role}</span>
               </div>
-
               <div class="card-placement-detail">
                 <span class="placement-target-pin" aria-hidden="true">📍</span>
                 <span class="placement-target-text">{zone.placement}</span>
@@ -466,14 +335,14 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
 
 <style>
   /* ==========================================================================
-     Placement Guide Revamp Styles - Luxury Editorial & Functional Anatomy
+     Placement Guide Revamp Styles - Luxury Editorial Face Charts
      ========================================================================== */
 
   .placement-guide-revamp {
-    margin: 24px 28px 28px !important;
-    padding: 24px;
+    margin: 24px 0 32px !important;
+    padding: clamp(20px, 3vw, 28px);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--surface);
     box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.04);
     display: flex;
@@ -495,25 +364,25 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
     align-items: center;
     width: fit-content;
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 750;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent, #a9676b);
+    color: var(--accent);
     margin-bottom: 0.25rem;
   }
 
   .placement-title-wrap h3 {
     margin: 0;
-    font-family: var(--font-serif, serif);
+    font-family: var(--font-display);
     font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-    font-weight: 600;
+    font-weight: 450;
     color: var(--text);
     line-height: 1.25;
   }
 
   .placement-instruction {
     margin: 0;
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: var(--text-muted);
     line-height: 1.5;
     max-width: 75ch;
@@ -522,7 +391,7 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
   /* Workbench Split Layout */
   .placement-workbench {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     gap: 2rem;
     align-items: start;
   }
@@ -535,18 +404,19 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
   }
 
   .anatomy-card {
-    background: var(--surface-soft, #faf8f5);
+    background: #faf8f5;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .anatomy-card:hover {
-    border-color: color-mix(in srgb, var(--accent, #a9676b) 35%, var(--border));
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
   }
 
   .anatomy-card-header {
@@ -554,222 +424,210 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 1.15rem;
-    background: color-mix(in srgb, var(--surface) 60%, var(--surface-soft));
+    background: color-mix(in srgb, var(--surface) 75%, #faf8f5);
     border-bottom: 1px solid var(--border);
     font-size: 0.8rem;
+    z-index: 2;
   }
 
   .anatomy-view-badge {
-    font-weight: 600;
+    font-weight: 650;
     color: var(--text);
   }
 
   .anatomy-view-note {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     color: var(--text-muted);
   }
 
-  .svg-container {
-    padding: 0.75rem 1rem 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .anatomy-svg {
+  /* Canvas Container */
+  .chart-canvas-container {
+    position: relative;
     width: 100%;
-    height: auto;
-    max-height: 280px;
-    display: block;
+    overflow: hidden;
+    background: #faf8f5;
     user-select: none;
   }
 
-  /* SVG Internal Anatomy Styles */
-  .skin-canvas {
-    fill: color-mix(in srgb, var(--surface-soft) 85%, var(--surface));
+  .eye-canvas {
+    aspect-ratio: 4 / 3;
   }
 
-  :global(.dark) .skin-canvas {
-    fill: #1a1818;
+  .face-canvas {
+    aspect-ratio: 3 / 4;
   }
 
-  .line-brow {
-    fill: var(--text);
-    opacity: 0.65;
-  }
-
-  .line-crease {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.5;
-    stroke-dasharray: 4 3;
-    opacity: 0.55;
-  }
-
-  .line-upper-lash {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 3.2;
-    stroke-linecap: round;
-    opacity: 0.9;
-  }
-
-  .line-iris-outer {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.5;
-    opacity: 0.4;
-  }
-
-  .iris-fill {
-    fill: color-mix(in srgb, var(--text) 25%, var(--surface-soft));
-  }
-
-  .line-pupil {
-    fill: var(--text);
-    opacity: 0.85;
-  }
-
-  .iris-catchlight {
-    fill: #ffffff;
-    opacity: 0.9;
-  }
-
-  .line-canthus {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.8;
-    opacity: 0.7;
-  }
-
-  .line-lower-lash {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    opacity: 0.75;
-  }
-
-  .lash-accent {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.4;
-    stroke-linecap: round;
-    opacity: 0.7;
-  }
-
-  /* Face Lines */
-  .line-face-contour {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.8;
-    opacity: 0.5;
-  }
-
-  .line-nose, .line-ref-eye, .line-lip-cupid, .line-lip-lower {
-    fill: none;
-    stroke: var(--text);
-    stroke-width: 1.5;
-    opacity: 0.6;
-  }
-
-  .line-guide-dash {
-    stroke: var(--accent, #a9676b);
-    stroke-width: 1.2;
-    opacity: 0.45;
-  }
-
-  /* Blend Layers & Lighting */
-  .blend-layer {
+  .chart-master-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     mix-blend-mode: multiply;
-    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  :global(.dark) .blend-layer {
-    mix-blend-mode: screen;
+  /* Glowing Hotspot Layers */
+  .chart-hotspots-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
 
-  .zone-layer {
-    transition: opacity 0.3s ease;
+  .zone-hotspot {
+    position: absolute;
+    left: var(--hotspot-x, 50%);
+    top: var(--hotspot-y, 50%);
+    transform: translate(-50%, -50%);
+    width: 110px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--zone-color) 70%, transparent) 0%,
+      color-mix(in srgb, var(--zone-color) 30%, transparent) 55%,
+      transparent 80%
+    );
+    filter: blur(14px);
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    transition: opacity 280ms cubic-bezier(.22,.61,.36,1), transform 280ms cubic-bezier(.22,.61,.36,1);
   }
 
-  .zone-layer.is-dimmed {
-    opacity: 0.2;
+  .zone-hotspot.is-active {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.25);
   }
 
-  .zone-layer.is-active {
-    opacity: 1;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.15));
+  .zone-hotspot.is-dimmed {
+    opacity: 0.12;
   }
 
-  /* Interactive Pins on SVG */
-  .pin-group {
+  .eye-hotspot-crease {
+    width: 160px;
+    height: 60px;
+    border-radius: 80% 80% 40% 40%;
+  }
+
+  .eye-hotspot-lash, .eye-hotspot-outer-lash {
+    width: 120px;
+    height: 45px;
+    border-radius: 40% 40% 70% 70%;
+  }
+
+  .face-hotspot-cheek, .face-hotspot-cheek-lip {
+    width: 130px;
+    height: 90px;
+    transform: translate(-50%, -50%) rotate(-15deg);
+  }
+
+  .face-hotspot-lip {
+    width: 90px;
+    height: 45px;
+  }
+
+  /* Interactive Numbered Pins */
+  .chart-pins-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: auto;
+  }
+
+  .chart-pin-group {
+    position: absolute;
+    transform: translate(-50%, -50%);
     cursor: pointer;
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: transform 220ms cubic-bezier(.22,.61,.36,1);
   }
 
   .pin-halo {
-    fill: var(--pin-color);
-    opacity: 0.25;
-    transition: r 0.25s ease, opacity 0.25s ease;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--pin-color);
+    opacity: 0.22;
+    transform: scale(0.8);
+    transition: transform 240ms cubic-bezier(.22,.61,.36,1), opacity 240ms ease;
   }
 
   .pin-base {
-    fill: var(--pin-color);
-    stroke: #ffffff;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    position: relative;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--pin-color);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 750;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.24);
+    transition: transform 220ms cubic-bezier(.22,.61,.36,1), box-shadow 220ms ease;
   }
 
-  .pin-text {
-    fill: #ffffff;
-    font-size: 13px;
-    font-weight: 800;
-    font-family: var(--font-body, system-ui, sans-serif);
+  .chart-pin-group:hover,
+  .chart-pin-group.is-active {
+    transform: translate(-50%, -50%) scale(1.18);
   }
 
-  .pin-label-tag {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    transform: translateY(4px);
-  }
-
-  .pin-tag-bg {
-    fill: var(--text);
-    opacity: 0.92;
-  }
-
-  .pin-tag-text {
-    fill: var(--surface);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    font-family: var(--font-body, system-ui, sans-serif);
-  }
-
-  .pin-group:hover .pin-label-tag,
-  .pin-group.is-active .pin-label-tag {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .pin-group:hover .pin-halo,
-  .pin-group.is-active .pin-halo {
-    r: 28;
+  .chart-pin-group:hover .pin-halo,
+  .chart-pin-group.is-active .pin-halo {
+    transform: scale(1.4);
     opacity: 0.45;
   }
 
-  .pin-group.is-dimmed {
+  .chart-pin-group:hover .pin-base,
+  .chart-pin-group.is-active .pin-base {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .chart-pin-group.is-dimmed {
     opacity: 0.35;
   }
 
-  .pin-group.is-active {
-    opacity: 1;
-    transform: scale(1.15);
+  /* Pin Tooltips */
+  .pin-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+    z-index: 10;
   }
 
-  /* Right Column: Palette Cards & Directives */
+  .pin-tooltip-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .chart-pin-group:hover .pin-tooltip,
+  .chart-pin-group.is-active .pin-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Right Column - Step Palette Cards */
   .placement-legend {
     display: flex;
     flex-direction: column;
@@ -779,13 +637,13 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
   .legend-header {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.25rem;
   }
 
   .legend-title {
     margin: 0;
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 650;
     color: var(--text);
   }
 
@@ -794,127 +652,132 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
     color: var(--text-muted);
   }
 
-  /* Cards List */
   .placement-cards-list {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
   .placement-card {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
+    display: flex;
     align-items: center;
-    padding: 0.9rem 1.1rem;
-    background: var(--surface-soft, #faf8f5);
-    border: 1.5px solid var(--border);
+    gap: 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 220ms cubic-bezier(.22,.61,.36,1);
     outline: none;
   }
 
   .placement-card:hover,
-  .placement-card:focus-visible,
-  .placement-card.is-active {
-    background: var(--surface);
-    border-color: var(--text);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  .placement-card:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    background: color-mix(in srgb, var(--surface-soft) 60%, var(--surface));
     transform: translateX(4px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+
+  .placement-card.is-active {
+    border-color: var(--accent);
+    background: var(--surface);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transform: translateX(6px);
   }
 
   .card-indicator {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .card-pin {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--swatch-color);
     color: #ffffff;
-    font-weight: 800;
-    font-size: 0.82rem;
-    display: grid;
-    place-items: center;
+    font-size: 0.78rem;
+    font-weight: 750;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border: 2px solid #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
-  }
-
-  .placement-card:hover .card-pin,
-  .placement-card.is-active .card-pin {
-    transform: scale(1.12);
   }
 
   .card-main {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.25rem;
+    min-width: 0;
   }
 
   .card-top-row {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.6rem;
-    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .shade-name {
     margin: 0;
-    font-size: 0.96rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 650;
     color: var(--text);
   }
 
   .role-badge {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-    background: color-mix(in srgb, var(--border) 60%, var(--surface));
+    font-size: 0.7rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--text-muted);
-    text-transform: capitalize;
+    background: var(--surface-soft);
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
   }
 
   .card-placement-detail {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 0.35rem;
-    font-size: 0.84rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    line-height: 1.4;
   }
 
   .placement-target-pin {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
   }
 
   .placement-target-text {
-    font-weight: 500;
-    color: color-mix(in srgb, var(--text) 85%, var(--text-muted));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Directives Panel */
   .placement-directives-panel {
-    margin-top: 0.5rem;
     padding: 1.15rem;
-    background: color-mix(in srgb, var(--surface-soft) 80%, var(--surface));
-    border: 1px dashed var(--border);
-    border-radius: 8px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .directives-title {
-    margin: 0 0 0.6rem 0;
-    font-size: 0.82rem;
-    font-weight: 700;
+    margin: 0;
+    font-size: 0.84rem;
+    font-weight: 750;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--text);
@@ -926,54 +789,42 @@ const hasAnyFacePlacement = zones.some((z) => z.hasFaceMapping);
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     line-height: 1.45;
   }
 
   .directives-note {
-    margin: 0.85rem 0 0 0;
+    margin: 0;
     font-size: 0.76rem;
     color: var(--text-muted);
-    line-height: 1.45;
-    border-top: 1px solid var(--border);
-    padding-top: 0.65rem;
+    line-height: 1.4;
+    border-top: 1px dashed var(--border);
+    padding-top: 0.6rem;
   }
 
-  /* Responsive Adjustments */
-  @media (max-width: 900px) {
+  /* Responsive Design */
+  @media (max-width: 960px) {
     .placement-workbench {
       grid-template-columns: 1fr;
       gap: 1.75rem;
     }
-
     .placement-guide-revamp {
-      padding: 1.25rem;
-      margin: 1.75rem 0 !important;
-    }
-
-    .anatomy-svg {
-      max-height: 240px;
+      margin: 16px 0 24px !important;
+      padding: 18px;
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
     .placement-card {
-      padding: 0.75rem 0.9rem;
-      gap: 0.75rem;
+      padding: 0.75rem 0.85rem;
     }
-
-    .card-top-row {
-      gap: 0.4rem;
-    }
-
     .shade-name {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
-
     .role-badge {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
+      padding: 2px 6px;
     }
   }
 </style>
-
