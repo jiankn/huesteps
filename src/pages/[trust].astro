@@ -3,7 +3,7 @@ import BaseLayout from '@/components/BaseLayout.astro';
 import { SITE, TRUST_PAGES } from '@/lib/site';
 
 export function getStaticPaths() {
-  return TRUST_PAGES.map(([slug]) => ({ params: { trust: slug } }));
+  return TRUST_PAGES.filter(([slug]) => slug !== 'about').map(([slug]) => ({ params: { trust: slug } }));
 }
 
 type Section = { title: string; paragraphs?: string[]; bullets?: string[]; email?: boolean; note?: string };
