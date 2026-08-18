@@ -90,12 +90,12 @@ const techniques = [
   ['Crease strategy', 'Define above, within, or without a crease.']
 ];
 
-const skinToneFaces = [
-  bySlug('cool-rosy-makeup-fair-skin'),
-  bySlug('warm-peach-makeup-fair-skin'),
-  bySlug('neutral-soft-glam-olive-skin'),
-  bySlug('warm-bronze-makeup-medium-skin'),
-  bySlug('rich-berry-gold-makeup-deep-skin')
+const skinToneCards = [
+  { recipe: bySlug('cool-rosy-makeup-fair-skin'), tone: 'Fair', undertone: 'Cool Rosy', swatch: '#f2d8c2' },
+  { recipe: bySlug('warm-peach-makeup-fair-skin'), tone: 'Fair', undertone: 'Warm Peach', swatch: '#ebd0b9' },
+  { recipe: bySlug('neutral-soft-glam-olive-skin'), tone: 'Olive', undertone: 'Neutral Olive', swatch: '#c79a73' },
+  { recipe: bySlug('warm-bronze-makeup-medium-skin'), tone: 'Medium', undertone: 'Warm Bronze', swatch: '#a96f49' },
+  { recipe: bySlug('rich-berry-gold-makeup-deep-skin'), tone: 'Deep', undertone: 'Rich Berry', swatch: '#5a2e1d' }
 ];
 const skinTones = [
   ['Fair', 'Very light to light', '#f2d8c2'],
@@ -126,7 +126,7 @@ const schema = {
 ---
 
 <BaseLayout title={hub.title} description={hub.description} schema={schema}>
-  <section class:list={['category-hero', `category-${hubSlug}`]}>
+  <section class:list={['category-hero', 'shell', `category-${hubSlug}`]}>
     <div class="category-hero-copy">
       <span class="hero-kicker-tag">{hero.kicker}</span>
       <h1>{hero.headline}</h1>
@@ -136,13 +136,29 @@ const schema = {
     </div>
 
     {hubSlug === 'skin-tone-undertone' ? (
-      <div class="skin-montage" aria-label="A range of skin tones">
-        {skinToneFaces.map((recipe) => <RecipeImage src={getRecipeImage(recipe.data.heroImage)} alt={recipe.data.heroAlt} focal={getRecipeFocal(recipe.data.heroImage, 'montage')} priority sizes="20vw" />)}
+      <div class="skin-palette-stage" aria-label="5 curated skin tones and undertones">
+        {skinToneCards.map(({ recipe, tone, undertone, swatch }) => (
+          <a href={`/${recipe.data.hub}/${recipe.data.slug}/`} class="skin-palette-card" style={`--tone-swatch: ${swatch}`}>
+            <div class="palette-card-media">
+              <RecipeImage
+                src={getRecipeImage(recipe.data.heroImage)}
+                alt={recipe.data.heroAlt}
+                focal={getRecipeFocal(recipe.data.heroImage, 'montage')}
+                priority
+                sizes="(max-width: 640px) 140px, (max-width: 1080px) 18vw, 150px"
+              />
+              <span class="palette-swatch-badge" aria-hidden="true" style={`background-color: ${swatch}`}></span>
+            </div>
+            <div class="palette-card-meta">
+              <span class="palette-tone-label">{tone}</span>
+              <strong class="palette-undertone-label">{undertone}</strong>
+            </div>
+          </a>
+        ))}
       </div>
     ) : (
       <div class="category-hero-image">
-        <RecipeImage src={generatedHero?.src ?? getRecipeImage(hero.image.data.heroImage)} alt={generatedHero?.alt ?? hero.image.data.heroAlt} focal={generatedHero ? { x: 50, y: 48, mobileX: 50, mobileY: 48 } : getRecipeFocal(hero.image.data.heroImage, 'hero')} priority sizes="(max-width: 820px) 100vw, 62vw" />
-        <span class="category-blue-shape" aria-hidden="true"></span>
+        <RecipeImage src={generatedHero?.src ?? getRecipeImage(hero.image.data.heroImage)} alt={generatedHero?.alt ?? hero.image.data.heroAlt} focal={generatedHero ? { x: 50, y: 48, mobileX: 50, mobileY: 48 } : getRecipeFocal(hero.image.data.heroImage, 'hero')} priority sizes="(max-width: 820px) 100vw, 55vw" />
       </div>
     )}
   </section>
