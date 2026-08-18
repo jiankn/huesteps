@@ -8,7 +8,7 @@ import { SITE } from '@/lib/site';
 import { getRecipeImage } from '@/lib/recipe-images';
 import { getRecipeFocal } from '@/lib/recipe-focus';
 import homeOccasionGolden from '@/assets/golden/home-occasion-golden-v3-2k.webp';
-import eyeShapeGolden from '@/assets/golden/eye-shape-golden-v1.webp';
+import taskEyeShape from '@/assets/home-v4/eye-shape-editorial-v1.webp';
 
 const recipes = await getCollection('recipes');
 const featured = recipes.filter((recipe) => recipe.data.featured).slice(0, 6);
@@ -25,8 +25,8 @@ const taskCards = [
     number: '02',
     slug: 'eye-shape-makeup',
     title: 'Eye Shape Makeup',
-    image: eyeShapeGolden,
-    focal: { x: 50, y: 48, mobileX: 50, mobileY: 48 },
+    image: taskEyeShape,
+    focal: { x: 44, y: 42, mobileX: 44, mobileY: 42 },
     size: 'tall'
   },
   {
