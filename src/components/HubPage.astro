@@ -136,25 +136,48 @@ const schema = {
     </div>
 
     {hubSlug === 'skin-tone-undertone' ? (
-      <div class="skin-palette-stage" aria-label="5 curated skin tones and undertones">
-        {skinToneCards.map(({ recipe, tone, undertone, swatch }) => (
-          <a href={`/${recipe.data.hub}/${recipe.data.slug}/`} class="skin-palette-card" style={`--tone-swatch: ${swatch}`}>
-            <div class="palette-card-media">
+      <div class="skin-showcase-stage" aria-label="Interactive skin tone showcase">
+        <div class="showcase-media-stack">
+          {skinToneCards.map(({ recipe, tone, undertone, swatch }, index) => (
+            <div
+              class:list={['showcase-image-layer', index === 0 && 'is-active']}
+              data-tone-layer={index}
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
               <RecipeImage
                 src={getRecipeImage(recipe.data.heroImage)}
                 alt={recipe.data.heroAlt}
-                focal={getRecipeFocal(recipe.data.heroImage, 'montage')}
-                priority
-                sizes="(max-width: 640px) 140px, (max-width: 1080px) 18vw, 150px"
+                focal={getRecipeFocal(recipe.data.heroImage, 'hero')}
+                priority={index === 0}
+                sizes="(max-width: 820px) 100vw, 55vw"
               />
-              <span class="palette-swatch-badge" aria-hidden="true" style={`background-color: ${swatch}`}></span>
+              <div class="showcase-caption-overlay">
+                <span class="showcase-swatch-badge" style={`background-color: ${swatch}`}></span>
+                <div class="showcase-caption-text">
+                  <span class="showcase-tone-tag">{tone} skin · {undertone}</span>
+                  <a href={`/${recipe.data.hub}/${recipe.data.slug}/`} class="showcase-recipe-link">
+                    {recipe.data.title} →
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="palette-card-meta">
-              <span class="palette-tone-label">{tone}</span>
-              <strong class="palette-undertone-label">{undertone}</strong>
-            </div>
-          </a>
-        ))}
+          ))}
+        </div>
+
+        <nav class="showcase-tone-nav" aria-label="Select skin tone">
+          {skinToneCards.map(({ tone, undertone, swatch }, index) => (
+            <button
+              type="button"
+              class:list={['tone-switcher-pill', index === 0 && 'is-active']}
+              data-tone-target={index}
+              style={`--swatch-color: ${swatch}`}
+              aria-label={`View ${tone} ${undertone} look`}
+            >
+              <span class="pill-swatch-dot" aria-hidden="true"></span>
+              <span class="pill-text">{tone}</span>
+            </button>
+          ))}
+        </nav>
       </div>
     ) : (
       <div class="category-hero-image">
@@ -231,3 +254,36 @@ const schema = {
 
   <TrustStrip />
 </BaseLayout>
+
+<script>
+  function setupSkinToneSwitcher() {
+    const stage = document.querySelector('.skin-showcase-stage');
+    if (!stage) return;
+
+    const pills = stage.querySelectorAll<HTMLButtonElement>('.tone-switcher-pill');
+    const layers = stage.querySelectorAll<HTMLElement>('.showcase-image-layer');
+
+    function setActiveTone(targetIndex: number) {
+      pills.forEach((pill, idx) => {
+        pill.classList.toggle('is-active', idx === targetIndex);
+      });
+      layers.forEach((layer, idx) => {
+        const isActive = idx === targetIndex;
+        layer.classList.toggle('is-active', isActive);
+        layer.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    }
+
+    pills.forEach((pill, idx) => {
+      pill.addEventListener('mouseenter', () => setActiveTone(idx));
+      pill.addEventListener('click', () => setActiveTone(idx));
+      pill.addEventListener('focus', () => setActiveTone(idx));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSkinToneSwitcher);
+  } else {
+    setupSkinToneSwitcher();
+  }
+</script>
