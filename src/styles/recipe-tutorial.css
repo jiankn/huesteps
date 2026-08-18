@@ -15,7 +15,7 @@ body.recipe-page {
   --danger: #9a352f;
   --radius: 8px;
   --shadow: none;
-  --shell: min(100% - 64px, 1440px);
+  --shell: min(100% - 40px, 1280px);
   background: var(--canvas);
 }
 
@@ -552,7 +552,7 @@ body.recipe-page {
 
 @media (max-width: 51.25rem) {
   body.recipe-page {
-    --shell: min(100% - 32px, 1440px);
+    --shell: min(100% - 28px, 1280px);
   }
 
   .recipe-page .recipe-context-inner {
@@ -759,7 +759,7 @@ body.recipe-page {
 
 @media (max-width: 25rem) {
   body.recipe-page {
-    --shell: min(100% - 24px, 1440px);
+    --shell: min(100% - 24px, 1280px);
   }
 
   .recipe-page .recipe-workbench-hero h1 {
