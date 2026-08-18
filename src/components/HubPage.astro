@@ -138,7 +138,7 @@ const schema = {
     {hubSlug === 'skin-tone-undertone' ? (
       <div class="skin-showcase-stage" aria-label="Interactive skin tone showcase">
         <div class="showcase-media-stack">
-          {skinToneCards.map(({ recipe, tone, undertone, swatch }, index) => (
+          {skinToneCards.map(({ recipe, undertone, swatch }, index) => (
             <div
               class:list={['showcase-image-layer', index === 0 && 'is-active']}
               data-tone-layer={index}
@@ -151,15 +151,15 @@ const schema = {
                 priority={index === 0}
                 sizes="(max-width: 820px) 100vw, 55vw"
               />
-              <div class="showcase-caption-overlay">
-                <span class="showcase-swatch-badge" style={`background-color: ${swatch}`}></span>
-                <div class="showcase-caption-text">
-                  <span class="showcase-tone-tag">{tone} skin · {undertone}</span>
-                  <a href={`/${recipe.data.hub}/${recipe.data.slug}/`} class="showcase-recipe-link">
-                    {recipe.data.title} →
-                  </a>
-                </div>
-              </div>
+              <a
+                href={`/${recipe.data.hub}/${recipe.data.slug}/`}
+                class="showcase-micro-capsule"
+                aria-label={`Open ${undertone} look tutorial`}
+              >
+                <span class="capsule-swatch-dot" style={`background-color: ${swatch}`} aria-hidden="true"></span>
+                <span class="capsule-label">{undertone} Look</span>
+                <span class="capsule-arrow" aria-hidden="true">↗</span>
+              </a>
             </div>
           ))}
         </div>
