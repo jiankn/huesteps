@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/components/BaseLayout.astro';
+import TrustStrip from '@/components/TrustStrip.astro';
 import { SITE, TRUST_PAGES } from '@/lib/site';
 
 export function getStaticPaths() {
@@ -7,105 +8,698 @@ export function getStaticPaths() {
 }
 
 type Section = { title: string; paragraphs?: string[]; bullets?: string[]; email?: boolean; note?: string };
-type Page = { title: string; description: string; intro: string; sections: Section[] };
+type Page = { title: string; kicker: string; description: string; intro: string; effectiveDate: string; sections: Section[] };
 
 const pages: Record<string, Page> = {
-  about: {
-    title: 'About HueSteps',
-    description: 'What HueSteps publishes, who it is for, and the limits of our makeup education.',
-    intro: 'HueSteps turns makeup inspiration into wearable recipes with exact placement, clear completion cues, and practical adaptations.',
-    sections: [
-      { title: 'What we make', paragraphs: ['We publish English-language makeup education for adults in the United States. Each recipe is designed to help a reader complete a look without purchasing a named product.'], bullets: ['Real-life occasion recipes', 'Eye-shape placement guides', 'Skin-tone and undertone adjustments', 'Mistake diagnosis and recovery steps'] },
-      { title: 'Who publishes HueSteps', paragraphs: ['Content is published by the HueSteps Editorial Team. The public team name describes a brand editorial process, not a claim that every page was tested by a licensed makeup artist.'], note: 'HueSteps does not invent professional credentials, first-hand wear tests, or product-use claims.' },
-      { title: 'What we do not do', bullets: ['Medical or dermatology advice', 'Virtual try-on or photo analysis', 'User accounts or personal photo collection', 'Product rankings presented as independent laboratory testing'] }
-    ]
-  },
   'editorial-policy': {
     title: 'Editorial Policy',
+    kicker: 'Editorial Standards & Process',
     description: 'How HueSteps plans, drafts, reviews, updates, and corrects makeup recipes.',
     intro: 'A HueSteps recipe must solve one makeup task, remain useful without a purchase, and state the limits of its evidence.',
+    effectiveDate: 'July 10, 2026',
     sections: [
-      { title: 'Publication gate', bullets: ['One clear user job and a direct answer near the top', 'Complete product roles, preparation, six to ten steps, placement, adaptations, and fixes', 'Image, color, and step consistency checked together', 'Unique metadata, canonical URL, internal links, and valid structured data', 'Mobile, keyboard, reduced-motion, and no-JavaScript review'] },
-      { title: 'Claims and sources', paragraphs: ['We describe observable placement and technique. We do not call content tested, long-wearing, dermatologist-approved, or professionally reviewed unless documentation supports that exact claim. Product descriptions are written from the role a formula must perform, not copied from a merchant.'] },
-      { title: 'Updates and corrections', paragraphs: ['Recipe content is reviewed on a six-month cycle. Any future product link is checked at least monthly. Material changes update the visible modified date; routine builds do not create fake freshness.'], note: `Send a correction with the page URL and the specific concern to ${SITE.email}.` }
+      {
+        title: 'Publication Gates & Criteria',
+        bullets: [
+          'One clear user job and a direct, verifiable answer near the top',
+          'Complete formula roles, preparation, six to ten sequential steps, exact placement, adaptations, and fixes',
+          'Image, color, and step consistency checked together against the model identity contract',
+          'Unique metadata, canonical URL, internal links, and valid structured data',
+          'Mobile, keyboard, reduced-motion, and no-JavaScript accessibility verification'
+        ]
+      },
+      {
+        title: 'Claims, Sources & Credibility',
+        paragraphs: [
+          'We describe observable placement and technique. We do not call content tested, long-wearing, dermatologist-approved, or professionally reviewed unless documentation supports that exact claim.',
+          'Product descriptions are written from the functional role a formula must perform (e.g. translucent satin wash, matte diffusion), not copied from merchant promotional copy.'
+        ]
+      },
+      {
+        title: 'Updates, Revisions & Corrections',
+        paragraphs: [
+          'Recipe content is reviewed on a six-month cycle. Any future product link is checked at least monthly. Material changes update the visible modified date; routine builds do not create artificial freshness.'
+        ],
+        note: `Send any correction with the page URL and specific concern directly to ${SITE.email}.`
+      }
     ]
   },
   'ai-image-content-policy': {
     title: 'AI Image & Content Policy',
+    kicker: 'Visual Transparency & Integrity',
     description: 'How HueSteps labels generated images and reviews AI-assisted editorial work.',
     intro: 'Generated visuals are concept demonstrations. They are never presented as proof that a person used a product or achieved a measured wear result.',
+    effectiveDate: 'July 10, 2026',
     sections: [
-      { title: 'Image rules', bullets: ['Every generated hero is labeled near the image', 'Prompts exclude celebrities, copied artwork, logos, and misleading before-and-after claims', 'Skin texture and facial proportions remain natural', 'The makeup must match the written color and placement recipe', 'Generated images are not product reviews or evidence of wear time'] },
-      { title: 'Writing rules', paragraphs: ['AI may assist with structure or a first draft. Publication still requires human review for feasibility, internal consistency, unsupported claims, repetition, tone, links, and disclosures.'] },
-      { title: 'Reporting a mismatch', paragraphs: [`If a visualization appears inconsistent with its steps or anatomically implausible, email ${SITE.email}. Include the recipe URL and the area that needs review.`] }
+      {
+        title: 'Visual Generation Standards',
+        bullets: [
+          'Every generated hero is clearly labeled near the visual presentation',
+          'Prompts exclude celebrity likenesses, copied artworks, copyrighted logos, and misleading before-and-after claims',
+          'Authentic skin texture, pores, and natural facial proportions are strictly preserved',
+          'The depicted makeup must strictly match the written color specifications and placement recipe',
+          'Generated images are never presented as commercial product reviews or wear-time evidence'
+        ]
+      },
+      {
+        title: 'Editorial & Writing Standards',
+        paragraphs: [
+          'AI may assist with drafting initial structures or outlines. Final publication strictly requires human review for feasibility, anatomical accuracy, internal consistency, unsupported claims, repetition, tone, links, and disclosures.'
+        ]
+      },
+      {
+        title: 'Reporting an Inconsistency',
+        paragraphs: [
+          `If a visualization appears inconsistent with its steps, anatomically implausible, or drifted from its color specification, email ${SITE.email}. Include the recipe URL and the specific area that needs review.`
+        ]
+      }
     ]
   },
   'affiliate-disclosure': {
     title: 'Affiliate Disclosure',
-    description: 'How HueSteps will disclose and separate future commercial links from editorial makeup guidance.',
-    intro: 'HueSteps does not currently activate affiliate shopping links in its launch recipes. The tutorial remains complete without them.',
+    kicker: 'Commercial Independence',
+    description: 'How HueSteps discloses and separates future commercial links from editorial makeup guidance.',
+    intro: 'HueSteps does not currently activate affiliate shopping links in its launch recipes. Every tutorial remains complete, actionable, and free without them.',
+    effectiveDate: 'July 10, 2026',
     sections: [
-      { title: 'If affiliate links are enabled', bullets: ['A plain-language disclosure appears before the first paid relationship link', 'Eligible links use sponsored and nofollow relationship attributes', 'Product choices are grouped by role and suitability, not commission rate', 'No manual price, stock, discount, or rating claim is shown without a maintainable source', 'Merchants, link checks, and editorial review dates are recorded'] },
-      { title: 'Amazon Associates', paragraphs: ['HueSteps will display the Amazon Associates statement required by the program only after the site is accepted and Special Links are active. Until then, the site does not imply participation.'] },
-      { title: 'Editorial independence', paragraphs: ['Compensation does not convert a recommendation into first-hand testing. Commercial availability can change, while the non-commercial product role and tutorial remain useful.'] }
+      {
+        title: 'If Affiliate Links Are Enabled',
+        bullets: [
+          'A plain-language disclosure appears prominently before the first commercial relationship link',
+          'Eligible links use sponsored and nofollow relationship attributes',
+          'Product choices are grouped by formula role and anatomical suitability, not commission rate',
+          'No manual price, stock, discount, or rating claim is shown without a maintainable source',
+          'Merchant links, routine status checks, and editorial review dates are continuously recorded'
+        ]
+      },
+      {
+        title: 'Amazon Associates Program',
+        paragraphs: [
+          'HueSteps will display the official Amazon Associates statement required by the program only after the site is accepted and Special Links are active. Until then, the site does not imply participation.'
+        ]
+      },
+      {
+        title: 'Editorial Independence Guarantee',
+        paragraphs: [
+          'Compensation does not convert a recommendation into first-hand clinical testing. Commercial availability can change over time, while the non-commercial product role and tutorial technique remain permanently useful.'
+        ]
+      }
     ]
   },
   'privacy-policy': {
     title: 'Privacy Policy',
+    kicker: 'Data Protection & Privacy',
     description: 'What data HueSteps processes for site delivery and privacy-respecting Pinterest referral analytics.',
-    intro: 'HueSteps is designed as a low-data website. It has no accounts, photo upload, comments, checkout, or personalized advertising at launch.',
+    intro: 'HueSteps is designed as a low-data website. It has no user accounts, photo uploads, public comments, checkout processes, or personalized tracking profiles.',
+    effectiveDate: 'July 12, 2026',
     sections: [
-      { title: 'Data processed to deliver the site', paragraphs: ['Cloudflare provides DNS, security, content delivery, and hosting. As with ordinary web delivery, Cloudflare may process request information such as IP address, device or browser details, requested URL, timing, and security signals under its own terms and privacy commitments.'] },
-      { title: 'Pinterest referral analytics', paragraphs: ['When a visit includes a Pinterest campaign source or comes from a verified Pinterest referrer, HueSteps records limited referral data: landing path, campaign and Pin identifiers supplied in the URL, visit time, country, and broad device category. The referrer is used to validate the source but is not stored. This measures Pinterest traffic and does not create an advertising profile.', 'Cloudflare receives the network request as the hosting provider. Before HueSteps stores an address-derived identifier, the server reduces IPv6 addresses to a /64 network and applies HMAC-SHA-256 with a private secret. HueSteps never stores or exposes the raw IP address. The resulting pseudonymous network identifier estimates a unique network IP, not a unique person.', 'Pseudonymous Pinterest event data is retained for no more than 400 days and then deleted. If your browser sends Global Privacy Control or Do Not Track, HueSteps does not write a Pinterest analytics event.'] },
-      { title: 'Other analytics and advertising', paragraphs: ['Cloudflare Web Analytics can be enabled for an independent HueSteps property only when the production environment includes its analytics token. HueSteps does not include GA4, AdSense, a consent platform, or third-party marketing pixels at launch. This policy will be updated before advertising or materially different analytics are enabled.'] },
-      { title: 'External links and email', paragraphs: ['Opening an external merchant or social link sends you to that service and its privacy practices. Emailing HueSteps shares the information you include with the mailbox provider used by the brand. Do not send sensitive health, payment, or identification information.'] },
-      { title: 'Your choices', paragraphs: [`You can browse without an account and can enable Global Privacy Control or Do Not Track to prevent Pinterest analytics writes. For a privacy question or deletion request concerning an email you sent us, contact ${SITE.email}.`], note: 'This policy must be reviewed before adding advertising, personalized analytics, forms, accounts, or photo features.' }
+      {
+        title: 'Data Processed to Deliver the Site',
+        paragraphs: [
+          'Cloudflare provides DNS, security, content delivery network (CDN), and hosting. As with standard web delivery, Cloudflare may process network request metadata such as IP address, device/browser details, requested URL, timestamps, and security signals under its own privacy commitments.'
+        ]
+      },
+      {
+        title: 'Privacy-Preserving Pinterest Analytics',
+        paragraphs: [
+          'When a visit originates from a Pinterest campaign or verified Pinterest referrer, HueSteps records limited referral metrics: landing path, campaign/Pin identifiers in the URL, timestamp, country, and broad device category. The referrer is used only to validate the traffic source and is not stored.',
+          'Before storing network identifiers, the server truncates IPv6 addresses to a /64 subnet and applies HMAC-SHA-256 with a private secret. HueSteps never stores or exposes raw IP addresses. The resulting pseudonymous network identifier estimates unique network origins, not individual persons.',
+          'Pseudonymous Pinterest event data is automatically purged after 400 days. If your browser broadcasts Global Privacy Control (GPC) or Do Not Track (DNT) signals, HueSteps completely suppresses Pinterest analytics logging.'
+        ]
+      },
+      {
+        title: 'Advertising & Analytics Scope',
+        paragraphs: [
+          'Cloudflare Web Analytics may be enabled without cookies or personal tracking. HueSteps does not include Google Analytics 4 (GA4), AdSense, third-party marketing pixels, or advertising trackers at launch.'
+        ]
+      },
+      {
+        title: 'External Links & Communication',
+        paragraphs: [
+          'Opening external merchant or social links directs you to third-party platforms governed by their own privacy practices. Emailing HueSteps shares only the information you voluntarily provide. Please do not transmit sensitive health or financial information.'
+        ]
+      },
+      {
+        title: 'Your Privacy Rights & Choices',
+        paragraphs: [
+          `You can browse completely anonymously without creating an account. To exercise privacy rights, request data deletion, or inquire about email communications, contact ${SITE.email}.`
+        ],
+        note: 'This policy is reviewed prior to introducing any new analytics, community features, or accounts.'
+      }
     ]
   },
   'terms-of-use': {
     title: 'Terms of Use',
+    kicker: 'Usage Guidelines & Disclaimers',
     description: 'The conditions and limitations for using HueSteps makeup education.',
-    intro: 'By using HueSteps, you agree to use the site for general educational purposes and to apply your own judgment about products and techniques.',
+    intro: 'By accessing HueSteps, you agree to use the site for personal educational purposes and to exercise your own judgment regarding formulas, allergies, and techniques.',
+    effectiveDate: 'July 10, 2026',
     sections: [
-      { title: 'Educational content', paragraphs: ['HueSteps provides general makeup technique information. It is not medical, dermatology, allergy, safety-testing, or professional services advice. Stop using a product that causes discomfort and follow the product maker instructions.'] },
-      { title: 'No guarantee', paragraphs: ['Results vary with tools, formulas, skin, eye shape, application, light, and environment. Generated visualizations illustrate a direction and do not guarantee an identical result. The site is provided without a guarantee of uninterrupted availability or fitness for a particular purpose.'] },
-      { title: 'Content use', paragraphs: ['You may use recipes for personal, non-commercial makeup practice. HueSteps text, branding, generated images, Pin designs, and site presentation may not be republished, sold, or used to train a competing content collection without permission.'] },
-      { title: 'External services', paragraphs: ['HueSteps is not responsible for the availability, price, stock, claims, or privacy practices of an external service. Any future affiliate relationship will be disclosed before its link.'], note: `Questions about these terms can be sent to ${SITE.email}.` }
+      {
+        title: 'Educational Technique & Health Notice',
+        paragraphs: [
+          'HueSteps provides general beauty technique education. It does not constitute medical, dermatology, allergy, safety-testing, or licensed professional advice.',
+          'Always patch test new formulas, discontinue use immediately if irritation occurs, and adhere to manufacturer safety guidelines.'
+        ]
+      },
+      {
+        title: 'Visual Demonstrations & No Guarantees',
+        paragraphs: [
+          'Real-world results naturally vary based on individual facial anatomy, eye shape, lighting conditions, tool quality, and skin texture. Concept visualizations demonstrate aesthetic directions and do not guarantee an identical outcome.'
+        ]
+      },
+      {
+        title: 'Intellectual Property & Content Usage',
+        paragraphs: [
+          'You may freely use our step recipes for personal, non-commercial practice. HueSteps text, editorial branding, original generated imagery, Pin artwork, and interface presentation may not be scraped, republished, redistributed, or used to train competing collections without explicit authorization.'
+        ]
+      },
+      {
+        title: 'External Third-Party Services',
+        paragraphs: [
+          'HueSteps is not responsible for the availability, pricing, inventory, safety claims, or policies of external merchant platforms. Commercial relationships, if active in the future, will always be transparently disclosed.'
+        ],
+        note: `Inquiries regarding these terms may be addressed to ${SITE.email}.`
+      }
     ]
   },
   'contact-corrections': {
     title: 'Contact & Corrections',
+    kicker: 'Editorial Desk & Community',
     description: 'Contact the HueSteps Editorial Team or report a recipe, image, link, or disclosure issue.',
-    intro: 'Specific correction reports help us fix a page quickly. Include the URL and the exact sentence, image area, or link involved.',
+    intro: 'We welcome community feedback and detailed correction reports. Every inquiry is reviewed directly by our editorial desk.',
+    effectiveDate: 'July 10, 2026',
     sections: [
-      { title: 'Email the editorial team', paragraphs: ['Use a subject such as "Recipe correction," "Image mismatch," "Privacy request," or "Link issue."'], email: true, note: 'The repository cannot verify mailbox routing. Confirm the Cloudflare Email Routing or mailbox setup before production launch.' },
-      { title: 'What to include', bullets: ['The page URL', 'What appears inaccurate, unclear, broken, or inaccessible', 'A source or screenshot when relevant', 'Whether the concern involves a disclosure, image, product link, or safety-sensitive claim'] },
-      { title: 'How corrections are handled', paragraphs: ['The team reviews the reported passage and its surrounding recipe, records a material change in the page update date, and avoids silent changes that would alter the page meaning.'] }
+      {
+        title: 'Direct Editorial Desk Channel',
+        paragraphs: [
+          'For general inquiries, recipe feedback, image alignment questions, or privacy requests, please contact our editorial desk directly via email.'
+        ],
+        email: true,
+        note: 'We aim to review and respond to all actionable editorial inquiries within 48 business hours.'
+      },
+      {
+        title: 'How to Submit a Correction Report',
+        bullets: [
+          'Include the exact page URL and recipe title in question',
+          'Describe clearly what appears inaccurate, misleading, broken, or inaccessible',
+          'Provide a screenshot, reference link, or formula discrepancy detail where helpful',
+          'Specify if the report pertains to color accuracy, step sequence, disclosure, or safety'
+        ]
+      },
+      {
+        title: 'Editorial Correction Protocol',
+        paragraphs: [
+          'When an inaccuracy is validated, our team corrects the passage and underlying recipe, records the modification date, and transparently maintains tutorial consistency without silent alterations.'
+        ]
+      }
     ]
   }
 };
 
 const slug = Astro.params.trust ?? '';
 const page = pages[slug]!;
+
+const navItems = [
+  { slug: 'about', title: 'About HueSteps' },
+  { slug: 'editorial-policy', title: 'Editorial Policy' },
+  { slug: 'ai-image-content-policy', title: 'AI & Visuals Policy' },
+  { slug: 'affiliate-disclosure', title: 'Affiliate Disclosure' },
+  { slug: 'privacy-policy', title: 'Privacy Policy' },
+  { slug: 'terms-of-use', title: 'Terms of Use' },
+  { slug: 'contact-corrections', title: 'Contact & Corrections' }
+];
 ---
 
-<BaseLayout title={page.title} description={page.description}>
-  <article class="shell">
-    <header class="policy-hero">
+<BaseLayout title={`${page.title} · ${SITE.name}`} description={page.description}>
+  <div class="trust-page-wrapper shell">
+    {/* Page Header */}
+    <header class="trust-page-header">
+      <div class="header-badge-row">
+        <span class="trust-kicker">{page.kicker}</span>
+        <span class="trust-date-pill">Effective: {page.effectiveDate}</span>
+      </div>
       <h1>{page.title}</h1>
-      <p class="lede">{page.intro}</p>
-      <p class="fine-print">{slug === 'privacy-policy' ? 'Effective July 12, 2026' : 'Effective July 10, 2026'}</p>
+      <p class="trust-lede">{page.intro}</p>
     </header>
-    <div class="policy-body">
-      {page.sections.map((section) => (
-        <section>
-          <h2>{section.title}</h2>
-          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
-          {section.email && <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>}
-          {section.bullets && <ul>{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
-          {section.note && <p class="policy-note">{section.note}</p>}
-        </section>
-      ))}
+
+    {/* Dual-Column Layout */}
+    <div class="trust-content-grid">
+      {/* Sidebar Nav */}
+      <aside class="trust-sidebar">
+        <div class="trust-nav-card">
+          <span class="sidebar-title">Standards & Policies</span>
+          <nav class="trust-nav-list" aria-label="Policy pages navigation">
+            {navItems.map((item) => {
+              const isActive = item.slug === slug;
+              const href = item.slug === 'about' ? '/about/' : `/${item.slug}/`;
+              return (
+                <a class:list={['trust-nav-link', { 'is-active': isActive }]} href={href}>
+                  <span class="nav-indicator" aria-hidden="true"></span>
+                  <span class="nav-label">{item.title}</span>
+                  {isActive && <span class="active-arrow" aria-hidden="true">→</span>}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Sidebar Help Card */}
+        <div class="trust-help-card">
+          <span class="help-tag">Direct Desk</span>
+          <strong>Have a question?</strong>
+          <p>Our editorial team reviews all inquiries and corrections.</p>
+          <a class="help-email-link" href={`mailto:${SITE.email}`}>
+            {SITE.email} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </aside>
+
+      {/* Main Body */}
+      <main class="trust-main-body">
+        {page.sections.map((section, idx) => (
+          <article class="trust-section-card">
+            <header class="section-card-header">
+              <span class="section-index">{String(idx + 1).padStart(2, '0')}</span>
+              <h2>{section.title}</h2>
+            </header>
+
+            {section.paragraphs && (
+              <div class="section-paragraphs">
+                {section.paragraphs.map((p) => <p>{p}</p>)}
+              </div>
+            )}
+
+            {section.email && (
+              <div class="contact-action-banner">
+                <div class="banner-meta">
+                  <span class="banner-kicker">Official Inquiries & Support</span>
+                  <strong>{SITE.email}</strong>
+                  <p>Send recipe feedback, verification requests, or general inquiries.</p>
+                </div>
+                <a class="button editorial-button banner-btn" href={`mailto:${SITE.email}`}>
+                  Compose Email <span aria-hidden="true">✉</span>
+                </a>
+              </div>
+            )}
+
+            {section.bullets && (
+              <ul class="trust-bullet-list">
+                {section.bullets.map((bullet) => (
+                  <li>
+                    <span class="bullet-icon" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3.5 8.5 6.5 11.5 12.5 4.5" />
+                      </svg>
+                    </span>
+                    <span class="bullet-text">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {section.note && (
+              <div class="trust-note-box">
+                <span class="note-icon" aria-hidden="true">ℹ️</span>
+                <p>{section.note}</p>
+              </div>
+            )}
+          </article>
+        ))}
+      </main>
     </div>
-  </article>
+  </div>
+
+  <TrustStrip />
 </BaseLayout>
+
+<style>
+  .trust-page-wrapper {
+    padding-block: clamp(36px, 5vw, 64px) clamp(60px, 8vw, 100px);
+  }
+
+  /* Header */
+  .trust-page-header {
+    max-width: 860px;
+    margin-bottom: clamp(36px, 5vw, 60px);
+  }
+
+  .header-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .trust-kicker {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .trust-date-pill {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .trust-page-header h1 {
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    font-weight: 420;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    margin: 0 0 1.1rem;
+    color: var(--text);
+  }
+
+  .trust-lede {
+    font-size: clamp(1.12rem, 1.6vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 42ch;
+  }
+
+  /* Grid Layout */
+  .trust-content-grid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: clamp(32px, 4vw, 56px);
+    align-items: start;
+  }
+
+  /* Sidebar */
+  .trust-sidebar {
+    position: sticky;
+    top: calc(var(--header-height, 60px) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .trust-nav-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 14px;
+    box-shadow: 0 4px 16px rgb(18 19 20 / 0.03);
+  }
+
+  .sidebar-title {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 10px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  .trust-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .trust-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    font-weight: 500;
+    transition: background 150ms ease, color 150ms ease;
+  }
+
+  .trust-nav-link:hover {
+    background: var(--surface-soft);
+    color: var(--text);
+  }
+
+  .trust-nav-link.is-active {
+    background: var(--surface-soft);
+    color: var(--accent);
+    font-weight: 650;
+  }
+
+  .nav-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background 150ms ease;
+  }
+
+  .trust-nav-link.is-active .nav-indicator {
+    background: var(--accent);
+  }
+
+  .active-arrow {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+
+  /* Help Card */
+  .trust-help-card {
+    background: #FAF8F5;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .help-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .trust-help-card strong {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .trust-help-card p {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+  }
+
+  .help-email-link {
+    font-size: 0.82rem;
+    font-weight: 650;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .help-email-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Main Body Content */
+  .trust-main-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .trust-section-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(24px, 3.5vw, 40px);
+    box-shadow: 0 6px 20px rgb(18 19 20 / 0.03);
+  }
+
+  .section-card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-index {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 350;
+    color: var(--accent);
+  }
+
+  .section-card-header h2 {
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .section-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .section-paragraphs p {
+    font-size: 0.96rem;
+    line-height: 1.68;
+    color: var(--text);
+    margin: 0;
+  }
+
+  /* Contact Action Banner */
+  .contact-action-banner {
+    margin-block: 20px;
+    background: #FAF8F5;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .banner-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .banner-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .banner-meta strong {
+    font-size: 1.15rem;
+    color: var(--text);
+    font-family: var(--font-body);
+  }
+
+  .banner-meta p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .banner-btn {
+    white-space: nowrap;
+  }
+
+  /* Bullet List */
+  .trust-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .trust-bullet-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .bullet-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Note Box */
+  .trust-note-box {
+    margin-top: 20px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .note-icon {
+    font-size: 1rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .trust-note-box p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 900px) {
+    .trust-content-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .trust-sidebar {
+      position: static;
+    }
+
+    .trust-nav-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .contact-action-banner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .trust-nav-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
