@@ -95,7 +95,7 @@ const compactTool = step.tool
           alt={step.imageAlt}
           class="tutorial-step-picture"
           widths={[360, 640, 960, 1280]}
-          sizes="(max-width: 47.99rem) 36vw, (max-width: 80rem) 34vw, 31rem"
+          sizes="(max-width: 47.99rem) calc(100vw - 1.2rem), (max-width: 80rem) 34vw, 31rem"
         />
       </div>
       <figcaption class="sr-only">{step.imageCaption}</figcaption>
@@ -588,7 +588,7 @@ const compactTool = step.tool
     }
   }
 
-  @media (max-width: 23rem) {
+  @media (max-width: 47.99rem) {
     .step-article {
       grid-template-columns: 1fr;
       grid-template-areas:
@@ -601,7 +601,48 @@ const compactTool = step.tool
     }
 
     .step-image-frame {
-      aspect-ratio: 16 / 10;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+    }
+
+    .step-media[data-visual-focus='brows'] :global(.tutorial-step-picture) {
+      object-position: center 34%;
+      transform: scale(1.34);
+    }
+
+    .step-media[data-visual-focus='both-eyes'] :global(.tutorial-step-picture),
+    .step-media[data-visual-focus='lid'] :global(.tutorial-step-picture),
+    .step-media[data-visual-focus='upper-lash'] :global(.tutorial-step-picture),
+    .step-media[data-visual-focus='lower-lash'] :global(.tutorial-step-picture) {
+      object-position: center 42%;
+      transform: scale(1.62);
+    }
+
+    .step-media[data-visual-focus='cheeks'] :global(.tutorial-step-picture) {
+      object-position: center 61%;
+      transform: scale(1.36);
+    }
+
+    .step-media[data-visual-focus='lips'] :global(.tutorial-step-picture) {
+      object-position: center 71%;
+      transform: scale(1.72);
+    }
+
+    .step-media[data-visual-focus='final'] :global(.tutorial-step-picture) {
+      object-position: center 48%;
+      transform: scale(1.22);
+    }
+
+    .step-media[data-visual-focus='full-face'] :global(.tutorial-step-picture),
+    .step-media[data-visual-focus='complexion'] :global(.tutorial-step-picture) {
+      object-position: center 46%;
+      transform: scale(1.08);
+    }
+  }
+
+  @media (max-width: 23rem) {
+    .step-quick-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

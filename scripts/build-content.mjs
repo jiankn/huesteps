@@ -10,7 +10,7 @@ const stepReviewManifest = await readFile(path.resolve('src/data/tutorial-step-i
 
 const seeds = [
   {
-    id: 'soft-glam-wedding-guest-makeup', hub: 'occasion-makeup', title: 'Soft Glam Wedding Guest Makeup', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'soft-glam-wedding-guest-makeup', hub: 'occasion-makeup', title: 'Soft Glam Wedding Guest Makeup', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Create polished wedding guest makeup that photographs well without competing with the wedding party.',
     description: 'A soft rose and taupe wedding guest look with controlled shimmer, balanced skin, and placement notes for different eye shapes.',
     answer: 'Choose softly reflective rose on the lid, a diffused taupe crease, and a satin complexion so the look stays polished in daylight and evening photos.',
@@ -23,7 +23,7 @@ const seeds = [
     shoppingRole: 'rose-taupe eye palette'
   },
   {
-    id: 'easy-date-night-makeup', hub: 'occasion-makeup', title: 'Easy Date Night Makeup', time: 20, difficulty: 'Easy', finish: 'luminous', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'easy-date-night-makeup', hub: 'occasion-makeup', title: 'Easy Date Night Makeup', time: 20, difficulty: 'Easy', finish: 'luminous', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Create warm, softly defined date night makeup that still looks like skin at close distance.',
     description: 'A twenty-minute cocoa and rose date night look with smudged definition, luminous skin, and an easy blurred lip.',
     answer: 'Use cocoa shadow close to the lashes, a rose cream on cheeks and lips, and pinpoint glow rather than a full layer of shimmer.',
@@ -49,7 +49,7 @@ const seeds = [
     shoppingRole: 'one-and-done matte taupe shadow'
   },
   {
-    id: 'fresh-brunch-makeup', hub: 'occasion-makeup', title: 'Fresh Brunch Makeup', time: 15, difficulty: 'Easy', finish: 'fresh dewy', featured: false, contentUpdatedAt: '2026-07-12',
+    id: 'fresh-brunch-makeup', hub: 'occasion-makeup', title: 'Fresh Brunch Makeup', time: 15, difficulty: 'Easy', finish: 'fresh dewy', featured: false, contentUpdatedAt: '2026-08-16',
     intent: 'Create fresh daytime makeup that stays lively in natural light without heavy coverage.',
     description: 'A sheer apricot and champagne brunch look with bright inner corners, translucent skin, and softly groomed brows.',
     answer: 'Use sheer apricot on cheeks and lips, champagne only at the inner lid, and spot coverage so natural daylight still shows skin texture.',
@@ -62,7 +62,7 @@ const seeds = [
     shoppingRole: 'sheer apricot multi-use cream'
   },
   {
-    id: 'holiday-party-shimmer-makeup', hub: 'occasion-makeup', title: 'Holiday Party Shimmer Makeup', time: 35, difficulty: 'Intermediate', finish: 'dimensional shimmer', seasonal: true, featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'holiday-party-shimmer-makeup', hub: 'occasion-makeup', title: 'Holiday Party Shimmer Makeup', time: 35, difficulty: 'Intermediate', finish: 'dimensional shimmer', seasonal: true, featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Create controlled holiday shimmer that catches evening light without fallout or a heavy smoky eye.',
     description: 'A cranberry and antique-gold holiday look with contained shimmer, clean outer corners, and balanced berry lips.',
     answer: 'Anchor antique-gold shimmer with a cream base, frame it with matte cranberry, and keep the lower edge clean for an evening look that remains wearable.',
@@ -88,7 +88,7 @@ const seeds = [
     shoppingRole: 'travel-friendly cream bronze stick'
   },
   {
-    id: 'elegant-dinner-party-makeup', hub: 'occasion-makeup', title: 'Elegant Dinner Party Makeup', time: 30, difficulty: 'Intermediate', finish: 'velvet satin', featured: false, contentUpdatedAt: '2026-07-12',
+    id: 'elegant-dinner-party-makeup', hub: 'occasion-makeup', title: 'Elegant Dinner Party Makeup', time: 30, difficulty: 'Intermediate', finish: 'velvet satin', featured: false, contentUpdatedAt: '2026-08-16',
     intent: 'Create refined evening makeup with sculpted plum definition and a restrained satin finish.',
     description: 'A plum, pewter, and muted-wine dinner look with softly sculpted eyes and a polished complexion that avoids heavy contour.',
     answer: 'Build plum depth at the outer lash line, use pewter satin sparingly on the lid, and repeat muted wine on cheeks and lips for a unified result.',
@@ -101,7 +101,7 @@ const seeds = [
     shoppingRole: 'plum and pewter eye duo'
   },
   {
-    id: 'natural-job-interview-makeup', hub: 'occasion-makeup', title: 'Natural Job Interview Makeup', time: 15, difficulty: 'Beginner', finish: 'natural matte', featured: false, contentUpdatedAt: '2026-07-12',
+    id: 'natural-job-interview-makeup', hub: 'occasion-makeup', title: 'Natural Job Interview Makeup', time: 15, difficulty: 'Beginner', finish: 'natural matte', featured: false, contentUpdatedAt: '2026-08-16',
     intent: 'Create composed interview makeup that reads clearly in person and on camera without distraction.',
     description: 'A neutral interview makeup routine with tidy brows, soft brown definition, balanced skin, and a comfortable rose-beige lip.',
     answer: 'Even only the areas that need it, define lashes with soft brown, groom brows, and use a muted rose-beige lip that can be reapplied easily.',
@@ -114,7 +114,7 @@ const seeds = [
     shoppingRole: 'reliable neutral eye and brow kit'
   },
   {
-    id: 'soft-glam-hooded-eyes', hub: 'eye-shape-makeup', title: 'Soft Glam for Hooded Eyes', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-07-11',
+    id: 'soft-glam-hooded-eyes', hub: 'eye-shape-makeup', title: 'Soft Glam for Hooded Eyes', time: 30, difficulty: 'Intermediate', finish: 'soft satin', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Keep a soft-glam gradient visible on hooded eyes while minimizing transfer.',
     description: 'A hooded-eye soft glam recipe that maps taupe above the fold, controls lid shimmer, and keeps the outer shape lifted.',
     answer: 'Map the transition with eyes open, keep shimmer on the visible center lid, and build depth at the outer lash line instead of inside the fold.',
@@ -140,7 +140,7 @@ const seeds = [
     shoppingRole: 'skin-tone satin lid shade'
   },
   {
-    id: 'elongated-eye-makeup-round-eyes', hub: 'eye-shape-makeup', title: 'Elongated Eye Makeup for Round Eyes', time: 25, difficulty: 'Intermediate', finish: 'soft matte', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'elongated-eye-makeup-round-eyes', hub: 'eye-shape-makeup', title: 'Elongated Eye Makeup for Round Eyes', time: 25, difficulty: 'Intermediate', finish: 'soft matte', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Create horizontal length on round eyes without a sharp graphic wing.',
     description: 'A softly elongated round-eye look using sideward taupe placement, outer lash definition, and controlled lower shadow.',
     answer: 'Pull mid-tone shadow outward from the outer iris, keep the inner lid bright, and place mascara toward the outer lashes to create length.',
@@ -153,7 +153,7 @@ const seeds = [
     shoppingRole: 'smudgeable deep brown pencil'
   },
   {
-    id: 'soft-shimmer-makeup-monolids', hub: 'eye-shape-makeup', title: 'Soft Shimmer Makeup for Monolids', time: 20, difficulty: 'Easy', finish: 'soft shimmer', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'soft-shimmer-makeup-monolids', hub: 'eye-shape-makeup', title: 'Soft Shimmer Makeup for Monolids', time: 20, difficulty: 'Easy', finish: 'soft shimmer', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Build visible shimmer and depth on monolids without relying on a crease.',
     description: 'A monolid shimmer recipe using a vertical gradient, root-level definition, and a centered reflective point that stays visible.',
     answer: 'Blend depth upward from the lash roots, press shimmer at the center of the visible lid, and keep the upper edge softly diffused.',
@@ -166,7 +166,7 @@ const seeds = [
     shoppingRole: 'smooth rose-copper shimmer single'
   },
   {
-    id: 'lifted-makeup-downturned-eyes', hub: 'eye-shape-makeup', title: 'Lifted Makeup for Downturned Eyes', time: 25, difficulty: 'Intermediate', finish: 'satin matte', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'lifted-makeup-downturned-eyes', hub: 'eye-shape-makeup', title: 'Lifted Makeup for Downturned Eyes', time: 25, difficulty: 'Intermediate', finish: 'satin matte', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Create a lifted eye shape without forcing a long or sharp wing.',
     description: 'A downturned-eye placement guide using an early lifted endpoint, upward outer shading, and selective lower-lash definition.',
     answer: 'Stop shadow before the natural corner drops, lift the endpoint toward the brow tail, and keep the outer lower lash line mostly clean.',
@@ -179,7 +179,7 @@ const seeds = [
     shoppingRole: 'precise smudge-resistant cocoa pencil'
   },
   {
-    id: 'balanced-eye-makeup-close-set-eyes', hub: 'eye-shape-makeup', title: 'Balanced Eye Makeup for Close-Set Eyes', time: 20, difficulty: 'Easy', finish: 'bright satin', featured: false, contentUpdatedAt: '2026-07-12',
+    id: 'balanced-eye-makeup-close-set-eyes', hub: 'eye-shape-makeup', title: 'Balanced Eye Makeup for Close-Set Eyes', time: 20, difficulty: 'Easy', finish: 'bright satin', featured: false, contentUpdatedAt: '2026-08-16',
     intent: 'Create visual space between close-set eyes with brightness and outer-focused definition.',
     description: 'A close-set eye recipe that keeps the inner corners clear, places depth beyond the iris, and directs lashes outward.',
     answer: 'Keep the inner third bright and clean, begin deeper shadow after the pupil, and direct liner and mascara toward the outer half.',
@@ -226,7 +226,7 @@ const seeds = [
     }
   },
   {
-    id: 'cool-rosy-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Cool Rosy Makeup for Fair Skin', time: 20, difficulty: 'Easy', finish: 'soft rosy satin', featured: true, contentUpdatedAt: '2026-07-12',
+    id: 'cool-rosy-makeup-fair-skin', hub: 'skin-tone-undertone', title: 'Cool Rosy Makeup for Fair Skin', time: 20, difficulty: 'Easy', finish: 'soft rosy satin', featured: true, contentUpdatedAt: '2026-08-16',
     intent: 'Use cool rosy color on fair skin without creating redness or a frosty finish.',
     description: 'A fair-skin cool rose recipe with mushroom definition, controlled blush placement, and a soft raspberry-beige lip.',
     answer: 'Pair a muted cool rose with mushroom taupe, keep blush away from existing facial redness, and choose satin instead of icy shimmer.',
@@ -340,7 +340,7 @@ const seeds = [
     shoppingRole: 'buildable neutral taupe single'
   },
   {
-    id: 'wearable-clean-makeup-look', hub: 'everyday-makeup', title: 'Wearable Clean Makeup Look', time: 15, difficulty: 'Easy', finish: 'clean satin', featured: false, contentUpdatedAt: '2026-07-12',
+    id: 'wearable-clean-makeup-look', hub: 'everyday-makeup', title: 'Wearable Clean Makeup Look', time: 15, difficulty: 'Easy', finish: 'clean satin', featured: false, contentUpdatedAt: '2026-08-16',
     intent: 'Create a crisp, wearable clean makeup look without laminated brows or overly glossy skin.',
     description: 'A practical clean makeup recipe with airy brows, pinpoint glow, lifted blush, and soft lash definition for daily wear.',
     answer: 'Keep brows flexible, place glow only on high points, define the upper lashes, and use a lifted translucent blush rather than coating the face in shine.',

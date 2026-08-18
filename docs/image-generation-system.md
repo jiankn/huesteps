@@ -15,7 +15,11 @@ Pinterest creative is the visual promise made before a user clicks. The destinat
 These rules are mandatory for every new HueSteps tutorial, hero image, and Pinterest Pin.
 
 - Treat every image as credible makeup evidence, not as a generic attractive AI portrait.
-- Lock one unique original, non-celebrity identity per tutorial and never reuse it in another tutorial. The face, apparent age, skin depth and undertone, eye color, hairline, ears, expression, wardrobe, camera, crop, lighting, exposure, white balance, and background must remain consistent across the hero, all eight steps, and every Pin for that tutorial.
+- Treat premium beauty-advertising appeal as a release gate, not an optional polish pass. Every selected model must be photogenic, refined, confidently styled and capable of carrying a contemporary beauty editorial at thumbnail size. Reject an ordinary stock-portrait, passport-photo, corporate-headshot or weakly styled impression even when the image is technically realistic. This gate applies equally across skin tones, ages and face shapes; it never permits celebrity likeness, identity reuse or plastic beauty-filter skin.
+- Make the face and the named makeup result large enough to sell the look and teach it. A website hero should be a tight beauty close-up with minimal unused shoulder, chest, hair height or background. A local tutorial target should normally occupy at least 60% of the instructional frame and remain readable without pinch-zoom at 360 px, 390 px and 430 px mobile viewport widths.
+- Design the background deliberately for the recipe. It must strengthen model separation and makeup color, preserve accurate skin tone and support the look's editorial story without competing detail, cheap bokeh, clutter, snapshot context or color contamination.
+- Lock one unique original, non-celebrity identity per tutorial and never reuse it in another tutorial. The face, apparent age, skin depth and undertone, eye color, hairline, ears, expression, wardrobe, camera perspective, pose, lighting, exposure, white balance, retouching strength and background world must remain consistent across the hero, all eight steps, and every Pin for that tutorial.
+- Interpret framing consistency as controlled art direction, not a requirement to hide every step inside the same distant full-face crop. Identity, facial geometry, lens perspective, pose, lighting, exposure, white balance, retouching strength and background world remain locked. Crop may change only to serve the current `visualFocus`: brows, eyes, lash lines, cheeks and lips require a close-up or high-resolution responsive detail crop, while Step 1 and a full-look final may use a tight full-face beauty crop. Framing changes must be intentional and must not disguise identity drift.
 - Preserve real human variation: irregular pores, peach fuzz, fine lines, lip grooves, individual brow hairs, small color variation, and ordinary facial asymmetry. Reject plastic skin, poreless blur, HDR texture, etched or repeated AI micro-patterns, doll eyes, duplicated lashes, and anatomy errors.
 - Make the sequence cumulative. Each step changes only the named makeup area; later makeup must never appear early.
 - Follow the current recipe step specification rather than a generic face routine. In an eye-shape tutorial, non-eye makeup stays constant from Step 1 through Step 8; in a full-face tutorial, cheeks, lips, and other regions change only in their explicitly named steps.
@@ -49,7 +53,7 @@ Use this gate for every `progressive-high-detail-v2` tutorial step set, includin
 - Generate independent step-state images, not a Pinterest composite, not crops from one finished look, and not the old focus-guide graphics.
 - Build Step 1 once as the clean, fixed 4:3 base. Generate every later cumulative state independently from that unchanged Step 1 plus the approved hero/final reference; never propagate pixels from a failed or degraded intermediate image.
 - Each recipe needs eight comparable 4:3 assets at 1280 x 960 or larger before review: `step-01` through `step-08`.
-- Every image in a recipe must keep the same face and preserve skin depth, undertone, camera distance, lighting, crop, white balance and retouching strength.
+- Every image in a recipe must keep the same face and preserve skin depth, undertone, facial geometry, lens perspective, pose, lighting, white balance, background world and retouching strength. Framing may vary only according to the named target region and must remain controlled and comparable; accidental camera-distance or crop drift still fails.
 - Makeup must be cumulative and visible: each image should show what changed after that step. Reject sets where the only difference is a tiny brightness, warmth or smoothing shift.
 - Preserve real skin texture: visible pores, eyelid folds, fine lines, small hairs and natural product texture. Reject wax skin, heavy blur, over-sharpening, plastic pore erasure or flat AI complexion.
 - A low-contrast repeated generator micro-pattern may be treated only with the deterministic edge-preserving normalizer in `scripts/normalize-ai-image-texture.mjs`, followed by full-resolution visual review. The correction must preserve real lines, freckles, eye/lip detail and makeup placement; it may not be used to conceal anatomy errors, strong spiral artifacts, identity drift or an incorrect step state.
@@ -58,6 +62,8 @@ Use this gate for every `progressive-high-detail-v2` tutorial step set, includin
 - Reject horizontal artifacts even if the face is otherwise attractive: gray lines across the eyes or cheeks, banding across the face, pressure-mark seams, accidental crop seams and generated guide lines are not acceptable.
 - Eye-shape recipes should usually be eye macro or half-face close-up; full-face crops are allowed only if the eye technique is still clear at article-card size.
 - Full-face everyday, skin-tone and occasion recipes should still be close enough for pores and product placement to read; distant portrait beauty shots are not tutorial step images.
+- Review every approved asset at 360 px, 390 px and 430 px mobile viewport widths. If the user cannot see the current makeup change at normal page size without opening the source image, the asset fails regardless of its nominal pixel dimensions.
+- Reject a technically clean image when the model presentation lacks premium beauty-campaign appeal, the face is visually dominated by hair/shoulders/background, or the makeup does not create a clear click-worthy focal point. Realistic does not mean ordinary, unstyled or visually flat.
 - The generator may create a base portrait first, but every step image must be reviewed as a final instructional state. Do not approve a sequence only because the base portrait looks good.
 
 Production flow:
@@ -93,7 +99,7 @@ Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 25
 | `soft-shimmer-makeup-monolids` | East Asian adult with clear monolids; horizontal champagne-peach gradient; thin elongated cocoa liner; light concentrated near lash line. |
 | `elongated-eye-makeup-round-eyes` | Adult with visibly round eyes and balanced sclera; matte taupe outer elongation; lifted kitten liner; no heavy lower rim. |
 | `lifted-makeup-downturned-eyes` | Adult with naturally downturned outer corners; upward diffused shadow and lifted outer wing that remains educationally visible. |
-| `everyday-makeup-deep-set-eyes` | Deep-skin adult with deep-set eyes and defined brow bone; pearl mobile-lid light, diffused socket color, burgundy-brown mascara. |
+| `everyday-makeup-deep-set-eyes` | Original adult model with clearly deep-set eyes and a defined brow bone; choose pearl mobile-lid light, diffused socket color, and burgundy-brown mascara. The tutorial must remain adaptable across skin depths rather than requiring a specific skin tone or ethnicity. |
 | `balanced-eye-makeup-close-set-eyes` | Mature fair-neutral adult with clearly close-set eyes; bright clean inner corners, color weighted to outer thirds, outward micro-wing. |
 
 ## Skin Tone batch
@@ -106,7 +112,7 @@ Hero masters: crop-safe landscape 16:9 or 3:2 at least 1536px wide before the 25
 | `warm-peach-makeup-fair-skin` | Fair-to-light warm peach complexion, apricot blush, soft bronze tightline, peach-beige satin lip; no orange cast. |
 | `neutral-soft-glam-olive-skin` | Approved anchor. Medium-deep neutral olive complexion, muted rose blush and rose-brown lip. |
 | `warm-bronze-makeup-medium-skin` | Medium warm golden-bronze complexion, terracotta cheek, copper lid, caramel nude gloss; retain real depth. |
-| `rich-berry-gold-makeup-deep-skin` | Deep neutral-to-cool complexion, restrained berry cheek, antique-gold lid, deep berry satin lip; no ashy highlights. |
+| `rich-berry-gold-makeup-deep-skin` | Original adult model with restrained berry cheek, antique-gold lid, and deep berry satin lip; choose a complexion and ethnicity that make the berry-gold contrast clear without requiring a specific deep-skin model. Preserve real undertone and avoid ashy highlights. |
 
 ## Occasion batch
 

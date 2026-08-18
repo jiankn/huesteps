@@ -17,13 +17,18 @@ for (const recipe of recipes) {
     continue;
   }
 
+  const hasMixedVisualFocus = new Set(recipe.steps.map((step) => step.visualFocus)).size > 1;
+
   const result = spawnSync(process.execPath, [
     path.join(root, 'scripts', 'audit-progressive-image-set.mjs'),
     '--source-dir', path.join(root, 'src', 'assets', 'tutorial-steps', recipe.slug),
     '--suffix', '-curated',
     '--output-dir', path.join(root, 'tmp', 'step-image-audits', recipe.slug),
     '--visual-focuses', recipe.steps.map((step) => step.visualFocus).join(','),
-    '--skin-tone-mode', recipe.hub === 'eye-shape-makeup' ? 'strict' : 'manual',
+    // Fixed-coordinate skin samples are meaningful only when every frame uses
+    // the same teaching crop. Mixed brow/lid/lash/final sequences require the
+    // documented full-resolution human white-balance review instead.
+    '--skin-tone-mode', hasMixedVisualFocus ? 'manual' : 'strict',
     '--recipe-slug', recipe.slug,
   ], { cwd: root, stdio: 'inherit' });
 
