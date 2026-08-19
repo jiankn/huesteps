@@ -411,7 +411,7 @@ small { color: var(--text-muted); }
 }
 
 /* Editorial Navigator V3 */
-.circle-arrow { display: inline-grid; width: 28px; height: 28px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-family: var(--font-body); font-size: 0.9rem; }
+.circle-arrow { display: inline-grid; width: 28px; height: 28px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-family: var(--font-body); font-size: 0.9rem; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease; }
 .editorial-button { gap: 18px; min-height: 48px; padding-inline: 22px 8px; border-radius: 999px; }
 .editorial-button > span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); }
 
@@ -457,11 +457,50 @@ small { color: var(--text-muted); }
   .brand-wordmark { color: #fff; }
 }
 .desktop-nav { margin-inline: auto; }
-.desktop-nav a, .header-utility { color: var(--text); font-weight: 700; letter-spacing: 0.045em; text-transform: uppercase; }
-.desktop-nav a { font-size: 0.875rem; }
-.header-utility { font-size: 0.72rem; }
-.desktop-nav a[aria-current='page'] { position: relative; box-shadow: none; }
-.desktop-nav a[aria-current='page']::after { content: ''; position: absolute; left: 50%; bottom: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); }
+.desktop-nav a, .header-utility { font-weight: 700; letter-spacing: 0.045em; text-transform: uppercase; }
+.desktop-nav a {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding-block: 4px;
+  color: var(--text);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+.desktop-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 200ms ease;
+}
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
+  color: var(--accent);
+}
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+.desktop-nav a[aria-current='page'] {
+  color: var(--accent);
+  box-shadow: none;
+}
+.desktop-nav a[aria-current='page']::after {
+  transform: scaleX(1);
+  opacity: 1;
+  background: var(--accent);
+}
 .header-utility { gap: 8px; min-width: auto; justify-content: flex-start; margin-left: 8px; padding-inline: 0; border: 0; border-radius: 0; color: var(--text-muted); font-weight: 650; letter-spacing: 0.01em; text-transform: none; transition: color 160ms ease; }
 .header-utility:hover { color: var(--accent); }
 .header-utility i { position: relative; display: block; width: 24px; height: 1px; background: currentColor; }
@@ -521,13 +560,15 @@ small { color: var(--text-muted); }
 .task-tile img { object-fit: cover; object-position: var(--focal-x, 50%) var(--focal-y, 40%); transition: transform 500ms cubic-bezier(.22,.61,.36,1); }
 .task-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgb(0 0 0 / 0.64)); }
 .task-tile:hover img { transform: scale(1.035); }
+.task-tile:hover .circle-arrow, .task-tile:focus-visible .circle-arrow { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); transform: translateX(2px); }
 .task-number, .task-tile h3, .task-tile .circle-arrow { position: absolute; z-index: 2; }
 .task-number { left: 24px; top: 20px; font-family: var(--font-display); font-size: 1.2rem; }
 .task-tile h3 { left: 24px; bottom: 52px; max-width: 9ch; margin: 0; color: white; font-size: clamp(1.8rem, 2.5vw, 2.8rem); font-weight: 430; }
 .task-tile .circle-arrow { left: 24px; bottom: 16px; }
 
 .editorial-recipe-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
-.editorial-recipe-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.editorial-recipe-card { min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); transition: border-color 200ms ease, box-shadow 200ms ease; }
+.editorial-recipe-card:hover { border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
 .editorial-recipe-card > a { display: grid; height: 100%; grid-template-rows: auto 1fr; text-decoration: none; }
 .editorial-card-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-soft); }
 .editorial-card-media picture, .editorial-card-media img { width: 100%; height: 100%; }
@@ -535,6 +576,7 @@ small { color: var(--text-muted); }
 .editorial-recipe-card:hover .editorial-card-media img { transform: scale(1.035); }
 .editorial-recipe-card.crop-eye .editorial-card-media img { object-position: center 48%; transform: scale(1); }
 .editorial-recipe-card.crop-eye:hover .editorial-card-media img { transform: scale(1.025); }
+.editorial-recipe-card:hover .circle-arrow, .editorial-recipe-card:focus-within .circle-arrow { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); transform: translateX(2px); }
 .time-stamp { position: absolute; left: 8px; top: 8px; display: flex; gap: 4px; align-items: baseline; padding: 4px 7px; border-radius: 5px; background: rgb(17 18 19 / 0.74); color: white; font-size: 0.8rem; line-height: 1; }
 .time-stamp small { color: inherit; font-size: 0.55rem; text-transform: uppercase; }
 .editorial-card-copy { position: relative; display: flex; min-height: 150px; flex-direction: column; padding: 14px 14px 48px; }
@@ -742,6 +784,7 @@ small { color: var(--text-muted); }
 .occasion-choice dt { color: var(--text-muted); font-size: 0.76rem; }
 .occasion-choice dd { margin: 0; font-size: 0.76rem; font-weight: 650; text-align: right; }
 .occasion-choice .circle-arrow { position: absolute; right: 15px; bottom: 14px; width: 22px; height: 22px; font-size: 0.7rem; }
+.occasion-choice:hover .circle-arrow, .occasion-choice:focus-visible .circle-arrow { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); transform: translateX(2px); }
 .confidence { display: flex; align-items: center; justify-content: space-between; padding-right: 36px; color: var(--text-muted); font-size: 0.75rem; }
 .confidence i { display: block; width: 62px; height: 9px; background: linear-gradient(90deg, var(--accent) calc(var(--dots) * 20%), var(--border) 0); mask: radial-gradient(circle at 4px 50%, #000 3px, transparent 3.6px) 0 0 / 12px 9px repeat-x; }
 .occasion-recipes { grid-template-columns: repeat(8, minmax(0, 1fr)); }
@@ -762,6 +805,7 @@ small { color: var(--text-muted); }
 .eye-shape-card h3 { margin-top: 12px; margin-bottom: 7px; font-size: 1.25rem; font-weight: 450; }
 .eye-shape-card p { margin-bottom: 0; font-size: 0.74rem; line-height: 1.4; }
 .eye-shape-card .circle-arrow { position: absolute; right: 10px; bottom: 10px; width: 22px; height: 22px; font-size: 0.68rem; }
+.eye-shape-card:hover .circle-arrow, .eye-shape-card:focus-visible .circle-arrow { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); transform: translateX(2px); }
 .technique-row { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--border); border-radius: 10px; background: var(--surface); margin-bottom: clamp(48px, 6vw, 72px); }
 .technique-row article { display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 22px; border-right: 1px dashed var(--border); }
 .technique-row article:last-child { border-right: 0; }
@@ -784,6 +828,7 @@ small { color: var(--text-muted); }
 .tone-grid h3, .undertone-grid h3 { margin: 55px 0 5px; font-size: 1.55rem; font-weight: 440; }
 .tone-grid p, .undertone-grid p { position: relative; z-index: 2; margin: 0; font-size: 0.78rem; }
 .tone-grid .circle-arrow { position: absolute; left: 28px; bottom: 20px; width: 22px; height: 22px; font-size: 0.7rem; }
+.tone-grid article:hover .circle-arrow { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); transform: translateX(2px); }
 .paint-swipe { position: absolute; display: block; width: 76%; height: 42px; border-radius: 80% 20% 66% 34%; background: var(--swatch); box-shadow: inset 0 -8px 12px rgb(0 0 0 / 0.13); transform: rotate(-8deg); }
 .undertone-grid article { display: grid; grid-template-columns: 1fr 44%; gap: 10px; min-height: 170px; }
 .undertone-grid h3 { margin-top: 0; }
